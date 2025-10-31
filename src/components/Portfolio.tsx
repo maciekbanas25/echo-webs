@@ -83,8 +83,6 @@ const Portfolio = () => {
             </Card>
           ))}
         </div>
-
-        <div className="mt-12 border-t border-primary/10" />
       </div>
     </section>
   );
