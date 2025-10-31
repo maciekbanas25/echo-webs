@@ -12,6 +12,7 @@ const ReviewForm = ({ onReviewSubmitted }: { onReviewSubmitted: () => void }) =>
   const [hoveredRating, setHoveredRating] = useState(0);
   const [text, setText] = useState("");
   const [name, setName] = useState("");
+  const [company, setCompany] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const getSessionId = () => {
@@ -43,6 +44,7 @@ const ReviewForm = ({ onReviewSubmitted }: { onReviewSubmitted: () => void }) =>
         rating,
         text: text.trim() || null,
         reviewer_name: name.trim() || null,
+        company: company.trim() || null,
         session_id: sessionId,
       });
 
@@ -67,6 +69,7 @@ const ReviewForm = ({ onReviewSubmitted }: { onReviewSubmitted: () => void }) =>
       setRating(0);
       setText("");
       setName("");
+      setCompany("");
       onReviewSubmitted();
     } catch (error) {
       console.error("Error submitting review:", error);
@@ -111,6 +114,15 @@ const ReviewForm = ({ onReviewSubmitted }: { onReviewSubmitted: () => void }) =>
           placeholder="Your Name (optional)"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          maxLength={100}
+        />
+      </div>
+
+      <div>
+        <Input
+          placeholder="Your Company (optional)"
+          value={company}
+          onChange={(e) => setCompany(e.target.value)}
           maxLength={100}
         />
       </div>

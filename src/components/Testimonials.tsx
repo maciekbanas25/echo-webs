@@ -11,6 +11,7 @@ interface Review {
   rating: number;
   text: string | null;
   reviewer_name: string | null;
+  company: string | null;
   created_at: string;
   session_id: string;
 }
@@ -163,6 +164,7 @@ const Testimonials = () => {
                   <div>
                     <p className="font-semibold text-foreground">
                       {review.reviewer_name || "Anonymous User"}
+                      {review.company && ` - ${review.company}`}
                     </p>
                     <p className="text-sm text-muted-foreground">
                       {new Date(review.created_at).toLocaleDateString()}
