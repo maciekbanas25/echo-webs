@@ -16,7 +16,7 @@ const About = () => {
               <img
                 src={logo}
                 alt="EchoWebs Logo"
-                className="w-48 h-48 md:w-56 md:h-56 rounded-full shadow-glow object-contain bg-background/50 backdrop-blur-sm"
+                className="w-48 h-48 md:w-56 md:h-56 shadow-glow object-contain"
               />
             </div>
 
