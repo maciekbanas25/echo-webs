@@ -3,7 +3,7 @@ import { Mail } from "lucide-react";
 
 const Contact = () => {
   return (
-    <section id="contact" className="py-24 bg-gradient-glow relative overflow-visible">
+    <section id="contact" className="py-24 pb-40 bg-gradient-glow relative overflow-visible">
       <div className="absolute inset-0 bg-gradient-radial opacity-20" />
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-3xl mx-auto text-center animate-fade-in">
