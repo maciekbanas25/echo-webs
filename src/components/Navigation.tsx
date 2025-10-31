@@ -8,7 +8,7 @@ const Navigation = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center gap-3">
-            <img src={logo} alt="EchoWebs Logo" className="h-8 w-8" />
+            <img src={logo} alt="EchoWebs Logo" className="h-12 w-12 object-contain" />
             <div className="text-2xl font-bold bg-gradient-hero bg-clip-text text-transparent">
               EchoWebs
             </div>
