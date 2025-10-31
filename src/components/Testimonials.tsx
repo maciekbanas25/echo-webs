@@ -92,6 +92,10 @@ const Testimonials = () => {
     return sessionId && review.session_id === sessionId;
   };
 
+  const averageRating = reviews.length > 0
+    ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
+    : 0;
+
   return (
     <section className="py-24 bg-background relative">
       <div className="absolute inset-0 bg-gradient-subtle opacity-30" />
@@ -100,9 +104,32 @@ const Testimonials = () => {
           <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-hero bg-clip-text text-transparent">
             Client Feedback
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-4">
             See what my clients have to say
           </p>
+          
+          {reviews.length > 0 && (
+            <div className="flex items-center justify-center gap-3 mb-8">
+              <div className="flex gap-1">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <Star
+                    key={star}
+                    className={`w-6 h-6 ${
+                      star <= Math.round(averageRating)
+                        ? "fill-primary text-primary"
+                        : "text-muted-foreground"
+                    }`}
+                  />
+                ))}
+              </div>
+              <span className="text-2xl font-semibold text-foreground">
+                {averageRating.toFixed(1)}
+              </span>
+              <span className="text-muted-foreground">
+                ({reviews.length} {reviews.length === 1 ? "review" : "reviews"})
+              </span>
+            </div>
+          )}
           <Button
             onClick={() => setShowForm(!showForm)}
             variant="outline"
