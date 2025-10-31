@@ -50,11 +50,23 @@ const Index = () => {
           {/* About Section */}
           <About />
 
+          <div className="max-w-5xl mx-auto">
+            <div className="h-px bg-primary/20" />
+          </div>
+
           {/* Portfolio Section */}
           <Portfolio />
 
+          <div className="max-w-5xl mx-auto">
+            <div className="h-px bg-primary/20" />
+          </div>
+
           {/* Testimonials */}
           <Testimonials />
+
+          <div className="max-w-5xl mx-auto">
+            <div className="h-px bg-primary/20" />
+          </div>
 
           {/* Contact Section */}
           <Contact />
