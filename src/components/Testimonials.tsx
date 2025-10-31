@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import ReviewForm from "./ReviewForm";
-import DotGridBackground from "./DotGridBackground";
 
 interface Review {
   id: string;
@@ -98,9 +97,8 @@ const Testimonials = () => {
     : 0;
 
   return (
-    <section className="py-24 bg-background relative overflow-hidden">
+    <section className="py-24 bg-background relative">
       <div className="absolute inset-0 bg-gradient-subtle opacity-30" />
-      <DotGridBackground />
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-hero bg-clip-text text-transparent">

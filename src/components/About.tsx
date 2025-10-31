@@ -1,11 +1,9 @@
 import logo from "@/assets/ew-logo.png";
-import DotGridBackground from "./DotGridBackground";
 
 const About = () => {
   return (
-    <section className="py-24 bg-gradient-subtle relative overflow-hidden">
-      <DotGridBackground />
-      <div className="container mx-auto px-4 relative z-10">
+    <section className="py-24 bg-gradient-subtle">
+      <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12 animate-fade-in">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-hero bg-clip-text text-transparent">
