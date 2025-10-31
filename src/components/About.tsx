@@ -1,6 +1,5 @@
 import logo from "@/assets/ew-logo.png";
 import DotGridBackground from "./DotGridBackground";
-import BlurText from "./BlurText";
 
 const About = () => {
   return (
@@ -9,10 +8,9 @@ const About = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12 animate-fade-in">
-            <BlurText 
-              text="Why Choose EchoWebs?"
-              className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-hero bg-clip-text text-transparent"
-            />
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-hero bg-clip-text text-transparent">
+              Why Choose EchoWebs?
+            </h2>
           </div>
 
           <div className="flex flex-col md:flex-row items-center gap-12 animate-fade-in-up">

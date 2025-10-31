@@ -5,7 +5,6 @@ import Portfolio from "@/components/Portfolio";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import AnimatedBackground from "@/components/AnimatedBackground";
-import BlurText from "@/components/BlurText";
 import { Button } from "@/components/ui/button";
 
 const Index = () => {
@@ -26,10 +25,9 @@ const Index = () => {
                 Next-Gen Web Design
               </div>
             </div>
-            <BlurText 
-              text="Modern, Fast, Affordable Websites"
-              className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-hero bg-clip-text text-transparent leading-tight"
-            />
+            <h1 className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-hero bg-clip-text text-transparent leading-tight">
+              Modern, Fast, Affordable Websites
+            </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-12 leading-relaxed">
               Built by <span className="font-semibold text-primary">EchoWebs</span> — Modern efficiency meets cutting-edge design
             </p>

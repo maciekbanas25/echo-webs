@@ -6,7 +6,6 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import ReviewForm from "./ReviewForm";
 import DotGridBackground from "./DotGridBackground";
-import BlurText from "./BlurText";
 
 interface Review {
   id: string;
@@ -104,10 +103,9 @@ const Testimonials = () => {
       <DotGridBackground />
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16 animate-fade-in">
-          <BlurText 
-            text="Client Feedback"
-            className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-hero bg-clip-text text-transparent"
-          />
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-hero bg-clip-text text-transparent">
+            Client Feedback
+          </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-4">
             See what my clients have to say
           </p>
