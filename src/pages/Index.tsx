@@ -4,41 +4,10 @@ import About from "@/components/About";
 import Portfolio from "@/components/Portfolio";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
-import DemoCard from "@/components/DemoCard";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import { Button } from "@/components/ui/button";
-import cafeHero from "@/assets/cafe-hero.jpg";
-import barberHero from "@/assets/barber-hero.jpg";
-import gymHero from "@/assets/gym-hero.jpg";
-import photographerHero from "@/assets/photographer-hero.jpg";
 
 const Index = () => {
-  const demos = [
-    {
-      title: "Cozy Café",
-      description: "Warm, inviting design for coffee shops and restaurants",
-      image: cafeHero,
-      link: "/cafe",
-    },
-    {
-      title: "Modern Barber",
-      description: "Bold, sophisticated style for grooming professionals",
-      image: barberHero,
-      link: "/barber",
-    },
-    {
-      title: "Energetic Gym",
-      description: "Dynamic, motivational design for fitness centers",
-      image: gymHero,
-      link: "/gym",
-    },
-    {
-      title: "Elegant Photography",
-      description: "Clean, artistic showcase for creative professionals",
-      image: photographerHero,
-      link: "/photographer",
-    },
-  ];
 
   return (
     <div className="min-h-screen">
@@ -79,29 +48,6 @@ const Index = () => {
 
       {/* Portfolio Section */}
       <Portfolio />
-
-      {/* Demo Gallery */}
-      <section id="demos" className="py-32 bg-background relative">
-        <div className="absolute inset-0 bg-gradient-subtle opacity-50" />
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-hero bg-clip-text text-transparent">
-              Portfolio Showcase
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              Explore versatile designs across industries. Each demo showcases unique, tailored experiences.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            {demos.map((demo, index) => (
-              <div key={demo.link} style={{ animationDelay: `${index * 0.1}s` }} className="animate-scale-in">
-                <DemoCard {...demo} />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Testimonials */}
       <Testimonials />
