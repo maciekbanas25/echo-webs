@@ -2,8 +2,9 @@ import logo from "@/assets/ew-logo.png";
 
 const About = () => {
   return (
-    <section className="py-24 bg-gradient-subtle">
-      <div className="container mx-auto px-4">
+    <section className="py-24 bg-black relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent" />
+      <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12 animate-fade-in">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-hero bg-clip-text text-transparent">
