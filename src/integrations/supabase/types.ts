@@ -14,13 +14,43 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      reviews: {
+        Row: {
+          created_at: string
+          id: string
+          rating: number
+          reviewer_name: string | null
+          session_id: string
+          text: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          rating: number
+          reviewer_name?: string | null
+          session_id: string
+          text?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          rating?: number
+          reviewer_name?: string | null
+          session_id?: string
+          text?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      can_submit_review: { Args: { user_session_id: string }; Returns: boolean }
+      delete_review_by_session: {
+        Args: { review_id: string; user_session_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never
