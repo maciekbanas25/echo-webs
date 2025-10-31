@@ -1,6 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import About from "@/components/About";
+import Portfolio from "@/components/Portfolio";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import DemoCard from "@/components/DemoCard";
@@ -75,6 +76,9 @@ const Index = () => {
 
       {/* About Section */}
       <About />
+
+      {/* Portfolio Section */}
+      <Portfolio />
 
       {/* Demo Gallery */}
       <section id="demos" className="py-32 bg-background relative">
