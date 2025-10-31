@@ -8,35 +8,79 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 240 7% 6%;
+    --foreground: 240 11% 97%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 240 5% 11%;
+    --card-foreground: 240 11% 97%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 240 5% 11%;
+    --popover-foreground: 240 11% 97%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 240 11% 97%;
+    --primary-hover: 213 94% 68%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 240 5% 11%;
+    --secondary-foreground: 240 11% 97%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 240 5% 11%;
+    --muted-foreground: 220 13% 65%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 189 94% 43%;
+    --accent-foreground: 240 11% 97%;
+    --accent-hover: 189 94% 38%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 240 5% 20%;
+    --input: 240 5% 20%;
+    --ring: 217 91% 60%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(217 91% 60%) 0%, hsl(189 94% 43%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(240 7% 6%) 0%, hsl(240 5% 11%) 100%);
+    --gradient-glow: radial-gradient(circle at 50% 50%, hsl(217 91% 60% / 0.2) 0%, transparent 70%);
+    --gradient-radial: radial-gradient(circle at center, var(--tw-gradient-stops));
+
+    /* Shadows */
+    --shadow-card: 0 4px 6px -1px hsl(0 0% 0% / 0.3), 0 2px 4px -2px hsl(0 0% 0% / 0.2);
+    --shadow-hover: 0 10px 15px -3px hsl(217 91% 60% / 0.3), 0 4px 6px -4px hsl(189 94% 43% / 0.3);
+    --shadow-glow: 0 0 40px hsl(213 94% 68% / 0.4), 0 0 80px hsl(189 94% 43% / 0.3);
+    --shadow-intense: 0 25px 60px -15px hsl(217 91% 60% / 0.6), 0 10px 30px -10px hsl(189 94% 43% / 0.5);
+
+    /* RGB values for use in rgba */
+    --primary-rgb: 59, 130, 246;
+
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Industry Colors - Cafe: Warm Orange/Brown */
+    --cafe-primary: 28 85% 55%;
+    --cafe-secondary: 35 65% 45%;
+    --cafe-bg: 30 40% 96%;
+    --cafe-dark: 25 45% 15%;
+
+    /* Industry Colors - Barber: Dark Gold/Black */
+    --barber-primary: 45 85% 60%;
+    --barber-secondary: 40 75% 50%;
+    --barber-bg: 0 0% 8%;
+    --barber-dark: 0 0% 5%;
+
+    /* Industry Colors - Gym: Electric Red/Black */
+    --gym-primary: 0 85% 55%;
+    --gym-secondary: 15 80% 50%;
+    --gym-bg: 0 0% 10%;
+    --gym-accent: 0 85% 65%;
+
+    /* Industry Colors - Photographer: Soft Purple/White */
+    --photographer-primary: 270 60% 60%;
+    --photographer-secondary: 280 50% 70%;
+    --photographer-bg: 0 0% 98%;
+    --photographer-dark: 270 30% 20%;
 
     --sidebar-background: 0 0% 98%;
 
@@ -56,33 +100,12 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 240 7% 6%;
+    --foreground: 240 11% 97%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    /* Dark mode shadows */
+    --shadow-card: 0 4px 6px -1px hsl(0 0% 0% / 0.3), 0 2px 4px -2px hsl(0 0% 0% / 0.2);
+    --shadow-hover: 0 10px 15px -3px hsl(217 91% 60% / 0.3), 0 4px 6px -4px hsl(189 94% 43% / 0.3);
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -91,6 +114,20 @@ All colors MUST be HSL.
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer utilities {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .text-shadow-glow {
+    text-shadow: 0 0 20px hsl(var(--primary) / 0.5);
+  }
+
+  .bg-gradient-radial {
+    background: var(--gradient-radial);
   }
 }
 
