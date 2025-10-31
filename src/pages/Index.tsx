@@ -43,17 +43,23 @@ const Index = () => {
         </div>
       </section>
 
-      {/* About Section */}
-      <About />
+      {/* Main Content - Continuous Background */}
+      <div className="bg-black relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent" />
+        <div className="relative">
+          {/* About Section */}
+          <About />
 
-      {/* Portfolio Section */}
-      <Portfolio />
+          {/* Portfolio Section */}
+          <Portfolio />
 
-      {/* Testimonials */}
-      <Testimonials />
+          {/* Testimonials */}
+          <Testimonials />
 
-      {/* Contact Section */}
-      <Contact />
+          {/* Contact Section */}
+          <Contact />
+        </div>
+      </div>
 
       {/* Footer */}
       <Footer />

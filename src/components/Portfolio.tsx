@@ -35,10 +35,8 @@ const Portfolio = () => {
   ];
 
   return (
-    <section className="py-24 bg-black relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent" />
-      
-      <div className="container mx-auto px-4 relative z-10">
+    <section className="py-24">
+      <div className="container mx-auto px-4">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
             Our Work

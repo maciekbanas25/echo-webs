@@ -3,9 +3,8 @@ import { Mail } from "lucide-react";
 
 const Contact = () => {
   return (
-    <section id="contact" className="py-24 pb-56 bg-black relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent" />
-      <div className="container mx-auto px-4 relative z-10">
+    <section id="contact" className="py-24 pb-56">
+      <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-hero bg-clip-text text-transparent">
             Get a Quote
