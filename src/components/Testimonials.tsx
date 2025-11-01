@@ -21,6 +21,7 @@ const Testimonials = () => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
+  const [showAllReviews, setShowAllReviews] = useState(false);
 
   const getSessionId = () => {
     return localStorage.getItem("reviewSessionId");
@@ -96,6 +97,9 @@ const Testimonials = () => {
     ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
     : 0;
 
+  const displayedReviews = showAllReviews ? reviews : reviews.slice(0, 3);
+  const hasMoreReviews = reviews.length > 3;
+
   return (
     <section className="py-24">
       <div className="container mx-auto px-4">
@@ -156,8 +160,9 @@ const Testimonials = () => {
             No reviews yet. Be the first to leave one!
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {reviews.map((review, index) => (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {displayedReviews.map((review, index) => (
               <Card
                 key={review.id}
                 className="animate-scale-in border-primary/20 bg-card/50 backdrop-blur-sm hover:shadow-glow transition-all duration-300 relative"
@@ -200,6 +205,19 @@ const Testimonials = () => {
               </Card>
             ))}
           </div>
+          
+          {hasMoreReviews && (
+            <div className="text-center mt-12">
+              <Button
+                onClick={() => setShowAllReviews(!showAllReviews)}
+                variant="outline"
+                size="lg"
+              >
+                {showAllReviews ? "Show Less" : "View All Reviews"}
+              </Button>
+            </div>
+          )}
+          </>
         )}
       </div>
     </section>
