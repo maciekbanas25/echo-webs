@@ -14,7 +14,7 @@ const Index = () => {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-24 overflow-hidden min-h-[90vh] flex items-center">
+      <section className="relative pt-32 pb-24 overflow-hidden min-h-screen flex items-center">
         <AnimatedBackground />
         <div className="absolute inset-0 bg-gradient-glow" />
 
