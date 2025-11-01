@@ -46,7 +46,9 @@ const ReviewForm = ({ onReviewSubmitted }: { onReviewSubmitted: () => void }) =>
       if (data?.error) {
         toast({
           title: data.error === 'Rate limit exceeded' ? "Review limit reached" : "Error",
-          description: data.message || "Please try again later.",
+          description: data.error === 'Rate limit exceeded' 
+            ? "You have already left a review in the last 24 hours" 
+            : data.message || "Please try again later.",
           variant: "destructive",
         });
         return;
