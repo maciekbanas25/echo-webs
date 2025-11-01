@@ -19,27 +19,39 @@ export type Database = {
           company: string | null
           created_at: string
           id: string
+          moderated_at: string | null
+          moderated_by: string | null
           rating: number
+          reviewer_ip: unknown
           reviewer_name: string | null
           session_id: string
+          status: Database["public"]["Enums"]["review_status"]
           text: string | null
         }
         Insert: {
           company?: string | null
           created_at?: string
           id?: string
+          moderated_at?: string | null
+          moderated_by?: string | null
           rating: number
+          reviewer_ip?: unknown
           reviewer_name?: string | null
           session_id: string
+          status?: Database["public"]["Enums"]["review_status"]
           text?: string | null
         }
         Update: {
           company?: string | null
           created_at?: string
           id?: string
+          moderated_at?: string | null
+          moderated_by?: string | null
           rating?: number
+          reviewer_ip?: unknown
           reviewer_name?: string | null
           session_id?: string
+          status?: Database["public"]["Enums"]["review_status"]
           text?: string | null
         }
         Relationships: []
@@ -50,13 +62,13 @@ export type Database = {
     }
     Functions: {
       can_submit_review: { Args: { user_session_id: string }; Returns: boolean }
-      delete_review_by_session: {
-        Args: { review_id: string; user_session_id: string }
+      can_submit_review_by_ip: {
+        Args: { reviewer_ip: unknown }
         Returns: boolean
       }
     }
     Enums: {
-      [_ in never]: never
+      review_status: "pending" | "approved" | "rejected"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -183,6 +195,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      review_status: ["pending", "approved", "rejected"],
+    },
   },
 } as const

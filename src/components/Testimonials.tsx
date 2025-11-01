@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Star, Trash2 } from "lucide-react";
+import { Star } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
@@ -13,7 +13,6 @@ interface Review {
   reviewer_name: string | null;
   company: string | null;
   created_at: string;
-  session_id: string;
 }
 
 const Testimonials = () => {
@@ -22,10 +21,6 @@ const Testimonials = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [showAllReviews, setShowAllReviews] = useState(false);
-
-  const getSessionId = () => {
-    return localStorage.getItem("reviewSessionId");
-  };
 
   const fetchReviews = async () => {
     try {
@@ -46,52 +41,6 @@ const Testimonials = () => {
   useEffect(() => {
     fetchReviews();
   }, []);
-
-  const handleDelete = async (reviewId: string) => {
-    try {
-      const sessionId = getSessionId();
-      if (!sessionId) {
-        toast({
-          title: "Cannot delete review",
-          description: "Session not found",
-          variant: "destructive",
-        });
-        return;
-      }
-
-      const { data, error } = await supabase
-        .rpc("delete_review_by_session", {
-          review_id: reviewId,
-          user_session_id: sessionId,
-        });
-
-      if (error) throw error;
-
-      if (data) {
-        toast({
-          title: "Review deleted",
-        });
-        fetchReviews();
-      } else {
-        toast({
-          title: "Cannot delete review",
-          description: "You can only delete your own reviews",
-          variant: "destructive",
-        });
-      }
-    } catch (error) {
-      console.error("Error deleting review:", error);
-      toast({
-        title: "Error deleting review",
-        variant: "destructive",
-      });
-    }
-  };
-
-  const canDeleteReview = (review: Review) => {
-    const sessionId = getSessionId();
-    return sessionId && review.session_id === sessionId;
-  };
 
   const averageRating = reviews.length > 0
     ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
@@ -169,17 +118,6 @@ const Testimonials = () => {
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <CardContent className="p-6">
-                  {canDeleteReview(review) && (
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="absolute top-2 right-2 h-8 w-8 text-muted-foreground hover:text-destructive"
-                      onClick={() => handleDelete(review.id)}
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </Button>
-                  )}
-
                   <div className="flex gap-1 mb-4">
                     {[...Array(review.rating)].map((_, i) => (
                       <Star key={i} className="w-5 h-5 fill-primary text-primary" />

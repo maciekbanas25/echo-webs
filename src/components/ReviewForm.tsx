@@ -15,14 +15,6 @@ const ReviewForm = ({ onReviewSubmitted }: { onReviewSubmitted: () => void }) =>
   const [company, setCompany] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const getSessionId = () => {
-    let sessionId = localStorage.getItem("reviewSessionId");
-    if (!sessionId) {
-      sessionId = crypto.randomUUID();
-      localStorage.setItem("reviewSessionId", sessionId);
-    }
-    return sessionId;
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,32 +30,31 @@ const ReviewForm = ({ onReviewSubmitted }: { onReviewSubmitted: () => void }) =>
     setIsSubmitting(true);
 
     try {
-      const sessionId = getSessionId();
-
-      const { error } = await supabase.from("reviews").insert({
-        rating,
-        text: text.trim() || null,
-        reviewer_name: name.trim() || null,
-        company: company.trim() || null,
-        session_id: sessionId,
+      const { data, error } = await supabase.functions.invoke('submit-review', {
+        body: {
+          rating,
+          text: text.trim() || null,
+          reviewer_name: name.trim() || null,
+          company: company.trim() || null,
+        },
       });
 
       if (error) {
-        // Check if it's a rate limiting error
-        if (error.message?.includes("can_submit_review")) {
-          toast({
-            title: "Review limit reached",
-            description: "You can only submit one review per 24 hours. Please try again later.",
-            variant: "destructive",
-          });
-          return;
-        }
         throw error;
+      }
+
+      if (data?.error) {
+        toast({
+          title: data.error === 'Rate limit exceeded' ? "Review limit reached" : "Error",
+          description: data.message || "Please try again later.",
+          variant: "destructive",
+        });
+        return;
       }
 
       toast({
         title: "Review submitted!",
-        description: "Thank you for your feedback.",
+        description: "Thank you for your feedback. Your review will be visible once approved.",
       });
 
       setRating(0);
