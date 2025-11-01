@@ -114,7 +114,6 @@ serve(async (req) => {
       });
 
     if (insertError) {
-      console.error('Error inserting review:', insertError);
       return new Response(
         JSON.stringify({ error: 'Failed to submit review' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -130,7 +129,6 @@ serve(async (req) => {
     );
 
   } catch (error) {
-    console.error('Error in submit-review function:', error);
     return new Response(
       JSON.stringify({ error: 'Internal server error' }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }

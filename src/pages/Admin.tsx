@@ -35,6 +35,7 @@ const Admin = () => {
       const { data: { session } } = await supabase.auth.getSession();
       
       if (!session) {
+        setIsLoading(false);
         navigate("/auth");
         return;
       }
@@ -50,6 +51,7 @@ const Admin = () => {
         .single();
 
       if (roleError || !roleData) {
+        setIsLoading(false);
         toast({
           title: "Access Denied",
           description: "You don't have admin privileges. Please contact the administrator.",
@@ -59,13 +61,18 @@ const Admin = () => {
         return;
       }
 
+      // Only set admin and fetch reviews after successful verification
       setIsAdmin(true);
+      setIsLoading(false);
       fetchReviews();
     } catch (error) {
-      console.error("Error checking admin access:", error);
-      navigate("/auth");
-    } finally {
       setIsLoading(false);
+      toast({
+        title: "Error",
+        description: "An error occurred during authentication.",
+        variant: "destructive",
+      });
+      navigate("/auth");
     }
   };
 
@@ -79,7 +86,6 @@ const Admin = () => {
       if (error) throw error;
       setReviews(data || []);
     } catch (error) {
-      console.error("Error fetching reviews:", error);
       toast({
         title: "Error loading reviews",
         description: "Please try again later.",
@@ -108,7 +114,6 @@ const Admin = () => {
 
       fetchReviews();
     } catch (error) {
-      console.error("Error updating review:", error);
       toast({
         title: "Error updating review",
         description: "Please try again later.",
@@ -122,16 +127,15 @@ const Admin = () => {
     navigate("/auth");
   };
 
-  if (isLoading) {
+  // Prevent any rendering until auth check is complete
+  if (isLoading || !isAdmin) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="text-muted-foreground">Loading...</p>
+        <p className="text-muted-foreground">
+          {isLoading ? "Loading..." : ""}
+        </p>
       </div>
     );
-  }
-
-  if (!isAdmin) {
-    return null;
   }
 
   const pendingReviews = reviews.filter(r => r.status === "pending");
