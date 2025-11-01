@@ -63,9 +63,10 @@ const ReviewForm = ({ onReviewSubmitted }: { onReviewSubmitted: () => void }) =>
       setCompany("");
       onReviewSubmitted();
     } catch (error) {
+      console.log("Review submission error:", error);
       toast({
         title: "Error submitting review",
-        description: "Please try again later.",
+        description: error instanceof Error ? error.message : "Please try again later.",
         variant: "destructive",
       });
     } finally {

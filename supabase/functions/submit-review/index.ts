@@ -14,6 +14,8 @@ interface ReviewSubmission {
 }
 
 serve(async (req) => {
+  console.log('Submit review function called');
+  
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
@@ -129,8 +131,10 @@ serve(async (req) => {
     );
 
   } catch (error) {
+    console.error('Submit review error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     return new Response(
-      JSON.stringify({ error: 'Internal server error' }),
+      JSON.stringify({ error: 'Internal server error', details: errorMessage }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }
