@@ -63,10 +63,27 @@ serve(async (req) => {
       );
     }
 
-    // Sanitize inputs
-    const sanitizedText = body.text?.trim().replace(/[<>]/g, '') || null;
-    const sanitizedName = body.reviewer_name?.trim().replace(/[<>]/g, '') || null;
-    const sanitizedCompany = body.company?.trim().replace(/[<>]/g, '') || null;
+    // Comprehensive HTML sanitization function
+    const sanitize = (input: string | undefined): string | null => {
+      if (!input) return null;
+      return input
+        .trim()
+        .replace(/[<>\"'&]/g, (char) => {
+          const entities: Record<string, string> = {
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;',
+            '&': '&amp;'
+          };
+          return entities[char];
+        });
+    };
+
+    // Sanitize inputs with proper HTML entity encoding
+    const sanitizedText = sanitize(body.text);
+    const sanitizedName = sanitize(body.reviewer_name);
+    const sanitizedCompany = sanitize(body.company);
 
     // Check IP-based rate limiting
     const { data: canSubmit } = await supabaseClient.rpc('can_submit_review_by_ip', {
