@@ -25,12 +25,10 @@ serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     );
 
-    // Get client IP address
+    // Get client IP address for rate limiting
     const clientIp = req.headers.get('x-forwarded-for')?.split(',')[0] || 
                      req.headers.get('x-real-ip') || 
                      'unknown';
-
-    console.log('Review submission from IP:', clientIp);
 
     // Parse and validate request body
     const body: ReviewSubmission = await req.json();
@@ -95,7 +93,7 @@ serve(async (req) => {
         company: sanitizedCompany,
         reviewer_ip: clientIp,
         status: 'pending',
-        session_id: 'deprecated' // Keep for backward compatibility but not used
+        session_id: null
       });
 
     if (insertError) {
@@ -105,8 +103,6 @@ serve(async (req) => {
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
-
-    console.log('Review submitted successfully from IP:', clientIp);
 
     return new Response(
       JSON.stringify({ 

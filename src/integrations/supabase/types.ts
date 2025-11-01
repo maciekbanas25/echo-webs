@@ -24,7 +24,7 @@ export type Database = {
           rating: number
           reviewer_ip: unknown
           reviewer_name: string | null
-          session_id: string
+          session_id: string | null
           status: Database["public"]["Enums"]["review_status"]
           text: string | null
         }
@@ -37,7 +37,7 @@ export type Database = {
           rating: number
           reviewer_ip?: unknown
           reviewer_name?: string | null
-          session_id: string
+          session_id?: string | null
           status?: Database["public"]["Enums"]["review_status"]
           text?: string | null
         }
@@ -50,9 +50,30 @@ export type Database = {
           rating?: number
           reviewer_ip?: unknown
           reviewer_name?: string | null
-          session_id?: string
+          session_id?: string | null
           status?: Database["public"]["Enums"]["review_status"]
           text?: string | null
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
         }
         Relationships: []
       }
@@ -66,8 +87,16 @@ export type Database = {
         Args: { reviewer_ip: unknown }
         Returns: boolean
       }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
+      app_role: "admin" | "moderator" | "user"
       review_status: "pending" | "approved" | "rejected"
     }
     CompositeTypes: {
@@ -196,6 +225,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      app_role: ["admin", "moderator", "user"],
       review_status: ["pending", "approved", "rejected"],
     },
   },
