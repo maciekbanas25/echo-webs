@@ -90,7 +90,7 @@ serve(async (req) => {
     // Check IP-based rate limiting
     console.log('Checking rate limit for IP:', clientIp);
     const { data: canSubmit, error: rpcError } = await supabaseClient.rpc('can_submit_review_by_ip', {
-      reviewer_ip: clientIp
+      p_reviewer_ip: clientIp
     });
 
     console.log('Rate limit check result:', { canSubmit, rpcError });

@@ -84,7 +84,7 @@ export type Database = {
     Functions: {
       can_submit_review: { Args: { user_session_id: string }; Returns: boolean }
       can_submit_review_by_ip: {
-        Args: { reviewer_ip: unknown }
+        Args: { p_reviewer_ip: unknown }
         Returns: boolean
       }
       has_role: {
