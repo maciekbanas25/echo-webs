@@ -30,6 +30,7 @@ const ReviewForm = ({ onReviewSubmitted }: { onReviewSubmitted: () => void }) =>
     setIsSubmitting(true);
 
     try {
+      console.log('Submitting review...');
       const { data, error } = await supabase.functions.invoke('submit-review', {
         body: {
           rating,
@@ -39,7 +40,10 @@ const ReviewForm = ({ onReviewSubmitted }: { onReviewSubmitted: () => void }) =>
         },
       });
 
+      console.log('Review submission response:', { data, error });
+
       if (error) {
+        console.error('Supabase function error:', error);
         throw error;
       }
 
