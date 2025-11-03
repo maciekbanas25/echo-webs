@@ -88,11 +88,15 @@ serve(async (req) => {
     const sanitizedCompany = sanitize(body.company);
 
     // Check IP-based rate limiting
-    const { data: canSubmit } = await supabaseClient.rpc('can_submit_review_by_ip', {
+    console.log('Checking rate limit for IP:', clientIp);
+    const { data: canSubmit, error: rpcError } = await supabaseClient.rpc('can_submit_review_by_ip', {
       reviewer_ip: clientIp
     });
 
+    console.log('Rate limit check result:', { canSubmit, rpcError });
+
     if (!canSubmit) {
+      console.log('Rate limit exceeded for IP:', clientIp);
       return new Response(
         JSON.stringify({ 
           error: 'Rate limit exceeded',
@@ -101,6 +105,8 @@ serve(async (req) => {
         { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
+
+    console.log('Rate limit check passed, inserting review');
 
     // Insert review with pending status
     const { error: insertError } = await supabaseClient
