@@ -79,7 +79,36 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      reviews_public: {
+        Row: {
+          company: string | null
+          created_at: string | null
+          id: string | null
+          rating: number | null
+          reviewer_name: string | null
+          status: Database["public"]["Enums"]["review_status"] | null
+          text: string | null
+        }
+        Insert: {
+          company?: string | null
+          created_at?: string | null
+          id?: string | null
+          rating?: number | null
+          reviewer_name?: string | null
+          status?: Database["public"]["Enums"]["review_status"] | null
+          text?: string | null
+        }
+        Update: {
+          company?: string | null
+          created_at?: string | null
+          id?: string | null
+          rating?: number | null
+          reviewer_name?: string | null
+          status?: Database["public"]["Enums"]["review_status"] | null
+          text?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       can_submit_review: { Args: { user_session_id: string }; Returns: boolean }

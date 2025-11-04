@@ -25,9 +25,8 @@ const Testimonials = () => {
   const fetchReviews = async () => {
     try {
       const { data, error } = await supabase
-        .from("reviews")
+        .from("reviews_public")
         .select("*")
-        .eq("status", "approved")
         .order("created_at", { ascending: false });
 
       if (error) throw error;
