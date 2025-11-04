@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Star } from "lucide-react";
+import { Star, Trash2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
@@ -36,6 +36,29 @@ const Testimonials = () => {
       console.error("Error fetching reviews:", error);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleDeleteReview = async (reviewId: string) => {
+    try {
+      const { data, error } = await supabase.functions.invoke('delete-review', {
+        body: { reviewId }
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Review deleted successfully",
+      });
+      fetchReviews();
+    } catch (error: any) {
+      console.error("Error deleting review:", error);
+      toast({
+        title: "Error",
+        description: error.message || "Failed to delete review",
+        variant: "destructive",
+      });
     }
   };
 
@@ -119,10 +142,21 @@ const Testimonials = () => {
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <CardContent className="p-6">
-                  <div className="flex gap-1 mb-4">
-                    {[...Array(review.rating)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 fill-primary text-primary" />
-                    ))}
+                  <div className="flex justify-between items-start mb-4">
+                    <div className="flex gap-1">
+                      {[...Array(review.rating)].map((_, i) => (
+                        <Star key={i} className="w-5 h-5 fill-primary text-primary" />
+                      ))}
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-8 w-8 text-muted-foreground hover:text-destructive"
+                      onClick={() => handleDeleteReview(review.id)}
+                      title="Delete your review (only works if you submitted it)"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
                   </div>
 
                   {review.text && (

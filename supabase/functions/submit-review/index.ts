@@ -100,7 +100,7 @@ serve(async (req) => {
       return new Response(
         JSON.stringify({ 
           error: 'Rate limit exceeded',
-          message: 'You can only submit one review per 24 hours. Please try again later.'
+          message: 'You already have an active review or submitted one recently. You can only submit one review, and must wait 12 hours after deletion to submit another.'
         }),
         { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
@@ -108,7 +108,7 @@ serve(async (req) => {
 
     console.log('Rate limit check passed, inserting review');
 
-    // Insert review with pending status
+    // Insert review with approved status (direct posting)
     const { error: insertError } = await supabaseClient
       .from('reviews')
       .insert({
@@ -117,7 +117,7 @@ serve(async (req) => {
         reviewer_name: sanitizedName,
         company: sanitizedCompany,
         reviewer_ip: clientIp,
-        status: 'pending',
+        status: 'approved',
         session_id: null
       });
 
@@ -131,7 +131,7 @@ serve(async (req) => {
     return new Response(
       JSON.stringify({ 
         success: true,
-        message: 'Review submitted successfully and pending approval'
+        message: 'Review submitted successfully!'
       }),
       { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
