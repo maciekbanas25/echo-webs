@@ -100,7 +100,7 @@ serve(async (req) => {
       return new Response(
         JSON.stringify({ 
           error: 'Rate limit exceeded',
-          message: 'You already have an active review or submitted one recently. You can only submit one review, and must wait 12 hours after deletion to submit another.'
+          message: 'You already have an active review. Please delete your existing review before submitting a new one.'
         }),
         { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );

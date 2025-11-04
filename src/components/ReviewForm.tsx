@@ -50,7 +50,7 @@ const ReviewForm = ({ onReviewSubmitted }: { onReviewSubmitted: () => void }) =>
       if (data?.error) {
         toast({
           title: "Review limit reached",
-          description: data.message || "You already have an active review or submitted one recently. You must wait 12 hours after deletion to submit another.",
+          description: data.message || "You already have an active review. Please delete your existing review before submitting a new one.",
           variant: "destructive",
         });
         return;
