@@ -49,18 +49,21 @@ const ReviewForm = ({ onReviewSubmitted }: { onReviewSubmitted: () => void }) =>
 
       if (data?.error) {
         toast({
-          title: data.error === 'Rate limit exceeded' ? "Review limit reached" : "Error",
-          description: data.error === 'Rate limit exceeded' 
-            ? "You have already left a review in the last 24 hours" 
-            : data.message || "Please try again later.",
+          title: "Review limit reached",
+          description: data.message || "You already have an active review or submitted one recently. You must wait 12 hours after deletion to submit another.",
           variant: "destructive",
         });
         return;
       }
 
+      // Store review ID in localStorage to track user's own review
+      if (data?.reviewId) {
+        localStorage.setItem('userReviewId', data.reviewId);
+      }
+
       toast({
         title: "Review submitted!",
-        description: "Thank you for your feedback. Your review will be visible once approved.",
+        description: "Thank you for your feedback!",
       });
 
       setRating(0);

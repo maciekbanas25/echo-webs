@@ -109,7 +109,7 @@ serve(async (req) => {
     console.log('Rate limit check passed, inserting review');
 
     // Insert review with approved status (direct posting)
-    const { error: insertError } = await supabaseClient
+    const { data: insertData, error: insertError } = await supabaseClient
       .from('reviews')
       .insert({
         rating: body.rating,
@@ -119,7 +119,9 @@ serve(async (req) => {
         reviewer_ip: clientIp,
         status: 'approved',
         session_id: null
-      });
+      })
+      .select()
+      .single();
 
     if (insertError) {
       return new Response(
@@ -131,7 +133,8 @@ serve(async (req) => {
     return new Response(
       JSON.stringify({ 
         success: true,
-        message: 'Review submitted successfully!'
+        message: 'Review submitted successfully!',
+        reviewId: insertData?.id
       }),
       { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );

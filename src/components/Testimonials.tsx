@@ -42,21 +42,38 @@ const Testimonials = () => {
   const handleDeleteReview = async (reviewId: string) => {
     try {
       const { data, error } = await supabase.functions.invoke('delete-review', {
-        body: { reviewId }
+        body: { reviewId },
       });
 
       if (error) throw error;
+
+      if (data?.error) {
+        toast({
+          title: "Cannot delete review",
+          description: data.error === 'Unauthorized to delete this review' 
+            ? "You can only delete your own reviews"
+            : data.error,
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Remove from localStorage if it was user's review
+      if (localStorage.getItem('userReviewId') === reviewId) {
+        localStorage.removeItem('userReviewId');
+      }
 
       toast({
         title: "Success",
         description: "Review deleted successfully",
       });
+
       fetchReviews();
-    } catch (error: any) {
-      console.error("Error deleting review:", error);
+    } catch (error) {
+      console.error('Error deleting review:', error);
       toast({
         title: "Error",
-        description: error.message || "Failed to delete review",
+        description: "Failed to delete review",
         variant: "destructive",
       });
     }
@@ -148,15 +165,17 @@ const Testimonials = () => {
                         <Star key={i} className="w-5 h-5 fill-primary text-primary" />
                       ))}
                     </div>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-8 w-8 text-muted-foreground hover:text-destructive"
-                      onClick={() => handleDeleteReview(review.id)}
-                      title="Delete your review (only works if you submitted it)"
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
+                    {localStorage.getItem('userReviewId') === review.id && (
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 text-muted-foreground hover:text-destructive"
+                        onClick={() => handleDeleteReview(review.id)}
+                        title="Delete your review"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    )}
                   </div>
 
                   {review.text && (
