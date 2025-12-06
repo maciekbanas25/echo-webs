@@ -2,7 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Benefits from "@/components/Benefits";
 import WorkPreview from "@/components/WorkPreview";
-import TestimonialsCarousel from "@/components/TestimonialsCarousel";
+
 import Testimonials from "@/components/Testimonials";
 import CallToAction from "@/components/CallToAction";
 import AnimatedBackground from "@/components/AnimatedBackground";
@@ -66,11 +66,6 @@ const Index = () => {
             <div className="h-px bg-primary/20" />
           </div>
 
-          <TestimonialsCarousel />
-
-          <div className="max-w-5xl mx-auto">
-            <div className="h-px bg-primary/20" />
-          </div>
 
           <Testimonials />
 
