@@ -32,14 +32,52 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
+    // Get client IP for rate limiting
+    const clientIP = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || 
+                     req.headers.get("x-real-ip") || 
+                     "unknown";
+
     const { name, email, business, serviceType, projectDetails }: QuoteRequest = await req.json();
+
+    // Basic input validation
+    if (!name || !email || !serviceType || !projectDetails) {
+      return new Response(
+        JSON.stringify({ error: "Missing required fields" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
 
     // Create Supabase client
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    // Insert quote request into database
+    // Rate limiting: Check if this IP can submit (1 per 5 minutes)
+    if (clientIP !== "unknown") {
+      const { data: canSubmit, error: rateLimitError } = await supabase
+        .rpc("can_submit_quote_by_ip", { p_submitter_ip: clientIP });
+
+      if (rateLimitError) {
+        console.error("Rate limit check error:", rateLimitError);
+        // Continue if rate limit check fails - don't block legitimate requests
+      } else if (!canSubmit) {
+        console.log(`Rate limit exceeded for IP: ${clientIP}`);
+        return new Response(
+          JSON.stringify({ 
+            error: "Please wait a few minutes before submitting another request" 
+          }),
+          {
+            status: 429,
+            headers: { "Content-Type": "application/json", ...corsHeaders },
+          }
+        );
+      }
+    }
+
+    // Insert quote request into database with IP for rate limiting
     const { data: quoteData, error: dbError } = await supabase
       .from("quote_requests")
       .insert({
@@ -48,13 +86,20 @@ const handler = async (req: Request): Promise<Response> => {
         business: business || null,
         service_type: serviceType,
         project_details: projectDetails,
+        submitter_ip: clientIP !== "unknown" ? clientIP : null,
       })
       .select("ticket_number")
       .single();
 
     if (dbError) {
       console.error("Database error:", dbError);
-      throw new Error("Failed to save quote request");
+      return new Response(
+        JSON.stringify({ error: "Failed to submit your request. Please try again." }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
     }
 
     // Format ticket number as TKT-00XXX
@@ -115,7 +160,7 @@ const handler = async (req: Request): Promise<Response> => {
       `,
     });
 
-    console.log("Email sent successfully:", emailResponse);
+    console.log("Quote submitted successfully:", ticketRef);
 
     return new Response(
       JSON.stringify({ 
