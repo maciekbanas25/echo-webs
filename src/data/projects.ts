@@ -2,6 +2,10 @@ import cafeHero from "@/assets/cafe-hero.jpg";
 import barberHero from "@/assets/barber-hero.jpg";
 import gymHero from "@/assets/gym-hero.jpg";
 import photographerHero from "@/assets/photographer-hero.jpg";
+import carDetailerHero from "@/assets/car-detailer-hero.jpg";
+import tradesmanHero from "@/assets/tradesman-hero.jpg";
+import restaurantHero from "@/assets/restaurant-hero.jpg";
+import beautySalonHero from "@/assets/beauty-salon-hero.jpg";
 
 export interface Project {
   id: string;
@@ -54,7 +58,7 @@ export const projects: Project[] = [
     id: "car-detailer",
     title: "Elite Auto Spa",
     description: "Dark, glossy automotive aesthetic with service packages and before/after galleries",
-    image: gymHero, // Placeholder - replace with actual image
+    image: carDetailerHero,
     link: "/car-detailer",
     category: "automotive",
     features: ["Service Packages", "Before/After Gallery", "Online Booking", "Contact CTA"],
@@ -63,7 +67,7 @@ export const projects: Project[] = [
     id: "tradesman",
     title: "Pro Trade Services",
     description: "Clean, trustworthy design for plumbers, electricians, and handymen",
-    image: cafeHero, // Placeholder - replace with actual image
+    image: tradesmanHero,
     link: "/tradesman",
     category: "trades",
     features: ["Service List", "Quote Form", "Trust Badges", "24/7 Contact"],
@@ -72,7 +76,7 @@ export const projects: Project[] = [
     id: "restaurant",
     title: "Ember & Flame",
     description: "Warm, appetite-stimulating design for restaurants and food trucks",
-    image: barberHero, // Placeholder - replace with actual image
+    image: restaurantHero,
     link: "/restaurant",
     category: "food",
     features: ["Menu Display", "Reservations", "Delivery Links", "Gallery"],
@@ -81,7 +85,7 @@ export const projects: Project[] = [
     id: "beauty-salon",
     title: "Blush & Bloom",
     description: "Elegant, feminine design for nail salons, lash artists, and beauty professionals",
-    image: photographerHero, // Placeholder - replace with actual image
+    image: beautySalonHero,
     link: "/beauty-salon",
     category: "beauty",
     features: ["Service Pricing", "Before/After Gallery", "Instagram Feed", "Online Booking"],
