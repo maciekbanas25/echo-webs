@@ -43,6 +43,10 @@ const Footer = () => {
               <Link to="/barber" className="text-muted-foreground hover:text-primary transition-colors">Barber</Link>
               <Link to="/gym" className="text-muted-foreground hover:text-primary transition-colors">Gym</Link>
               <Link to="/photographer" className="text-muted-foreground hover:text-primary transition-colors">Photographer</Link>
+              <Link to="/car-detailer" className="text-muted-foreground hover:text-primary transition-colors">Car Detailer</Link>
+              <Link to="/tradesman" className="text-muted-foreground hover:text-primary transition-colors">Tradesman</Link>
+              <Link to="/restaurant" className="text-muted-foreground hover:text-primary transition-colors">Restaurant</Link>
+              <Link to="/beauty-salon" className="text-muted-foreground hover:text-primary transition-colors">Beauty Salon</Link>
             </div>
           </div>
         </div>
