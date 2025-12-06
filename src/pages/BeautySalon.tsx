@@ -340,7 +340,7 @@ const BeautySalon = () => {
       </section>
 
       {/* Demo CTA */}
-      <DemoPageCTA />
+      <DemoPageCTA primaryColor="hsl(var(--beauty-primary))" />
 
       {/* Back to Portfolio */}
       <section className="py-16" style={{ backgroundColor: "hsl(var(--beauty-bg))" }}>
