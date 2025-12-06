@@ -52,7 +52,7 @@ export const servicePlans: ServicePlan[] = [
     id: "ecommerce",
     name: "E-Commerce Add-on",
     price: "from £399",
-    originalPrice: "from £599",
+    originalPrice: "£599",
     description: "Add online selling capabilities to any website package",
     icon: ShoppingCart,
     features: [
