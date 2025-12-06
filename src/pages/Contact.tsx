@@ -8,28 +8,30 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Phone, MessageSquare, Send, ExternalLink } from "lucide-react";
+import { Mail, Send, ExternalLink, CheckCircle2 } from "lucide-react";
 import { z } from "zod";
+import { supabase } from "@/integrations/supabase/client";
 
+// Validation schema for form fields
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters").max(100),
   business: z.string().max(100).optional(),
   email: z.string().email("Please enter a valid email address").max(255),
-  phone: z.string().max(20).optional(),
-  websiteType: z.string().min(1, "Please select a website type"),
-  message: z.string().min(10, "Message must be at least 10 characters").max(1000),
+  serviceType: z.string().min(1, "Please select a service type"),
+  projectDetails: z.string().min(10, "Project details must be at least 10 characters").max(2000),
 });
 
 const ContactPage = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [ticketRef, setTicketRef] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     business: "",
     email: "",
-    phone: "",
-    websiteType: "",
-    message: "",
+    serviceType: "",
+    projectDetails: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -47,34 +49,33 @@ const ContactPage = () => {
     setErrors({});
 
     try {
+      // Validate form data
       const validated = contactSchema.parse(formData);
       
-      // For MVP, create mailto link with form data
-      const subject = encodeURIComponent(`New Website Inquiry from ${validated.name}`);
-      const body = encodeURIComponent(
-        `Name: ${validated.name}\n` +
-        `Business: ${validated.business || "Not provided"}\n` +
-        `Email: ${validated.email}\n` +
-        `Phone: ${validated.phone || "Not provided"}\n` +
-        `Website Type: ${validated.websiteType}\n\n` +
-        `Message:\n${validated.message}`
-      );
-      
-      window.location.href = `mailto:echowebs25@gmail.com?subject=${subject}&body=${body}`;
-      
-      toast({
-        title: "Opening your email client",
-        description: "Your message is ready to send!",
+      // Submit to edge function
+      const { data, error } = await supabase.functions.invoke("submit-quote", {
+        body: {
+          name: validated.name,
+          email: validated.email,
+          business: validated.business || undefined,
+          serviceType: validated.serviceType,
+          projectDetails: validated.projectDetails,
+        },
       });
 
-      setFormData({
-        name: "",
-        business: "",
-        email: "",
-        phone: "",
-        websiteType: "",
-        message: "",
+      if (error) {
+        throw new Error(error.message || "Failed to submit quote request");
+      }
+
+      // Success - show confirmation
+      setTicketRef(data.ticketRef);
+      setIsSubmitted(true);
+      
+      toast({
+        title: "Quote request sent!",
+        description: "I'll get back to you within 24 hours.",
       });
+
     } catch (error) {
       if (error instanceof z.ZodError) {
         const newErrors: Record<string, string> = {};
@@ -84,10 +85,30 @@ const ContactPage = () => {
           }
         });
         setErrors(newErrors);
+      } else {
+        console.error("Submission error:", error);
+        toast({
+          title: "Something went wrong",
+          description: "Please try again or email me directly.",
+          variant: "destructive",
+        });
       }
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  // Reset form to submit another request
+  const handleNewRequest = () => {
+    setIsSubmitted(false);
+    setTicketRef(null);
+    setFormData({
+      name: "",
+      business: "",
+      email: "",
+      serviceType: "",
+      projectDetails: "",
+    });
   };
 
   return (
@@ -114,117 +135,146 @@ const ContactPage = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 max-w-6xl mx-auto">
             
-            {/* Contact Form */}
+            {/* Contact Form or Success State */}
             <Card className="lg:col-span-2 border-primary/20 animate-fade-in">
-              <CardHeader>
-                <h2 className="text-2xl font-bold text-foreground">Send a Message</h2>
-                <p className="text-muted-foreground">Tell me about your project and I'll provide a free quote.</p>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="name">Your Name *</Label>
-                      <Input
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        placeholder="John Smith"
-                        className={errors.name ? "border-destructive" : ""}
-                      />
-                      {errors.name && <p className="text-sm text-destructive">{errors.name}</p>}
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="business">Business Name</Label>
-                      <Input
-                        id="business"
-                        name="business"
-                        value={formData.business}
-                        onChange={handleChange}
-                        placeholder="Your Business Ltd"
-                      />
-                    </div>
+              {isSubmitted ? (
+                // Success state after form submission
+                <CardContent className="p-8 md:p-12 text-center">
+                  <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                    <CheckCircle2 className="w-10 h-10 text-primary" />
                   </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Email Address *</Label>
-                      <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        placeholder="john@example.com"
-                        className={errors.email ? "border-destructive" : ""}
-                      />
-                      {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
+                  <h2 className="text-3xl font-bold text-foreground mb-4">
+                    Thank You!
+                  </h2>
+                  <p className="text-xl text-muted-foreground mb-6">
+                    Your request has been submitted successfully.
+                  </p>
+                  
+                  {ticketRef && (
+                    <div className="inline-block bg-primary/10 border border-primary/20 rounded-lg px-6 py-4 mb-8">
+                      <p className="text-sm text-muted-foreground mb-1">Reference Number</p>
+                      <p className="text-2xl font-mono font-bold text-primary">{ticketRef}</p>
                     </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="phone">Phone Number</Label>
-                      <Input
-                        id="phone"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        placeholder="+44 7123 456789"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="websiteType">What type of website do you need? *</Label>
-                    <Select
-                      value={formData.websiteType}
-                      onValueChange={(value) => {
-                        setFormData(prev => ({ ...prev, websiteType: value }));
-                        if (errors.websiteType) {
-                          setErrors(prev => ({ ...prev, websiteType: "" }));
-                        }
-                      }}
-                    >
-                      <SelectTrigger className={errors.websiteType ? "border-destructive" : ""}>
-                        <SelectValue placeholder="Select a website type" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="starter">Starter Site (Single Page)</SelectItem>
-                        <SelectItem value="premium">Premium Website (Multi-page)</SelectItem>
-                        <SelectItem value="ecommerce">E-Commerce Website</SelectItem>
-                        <SelectItem value="redesign">Website Redesign</SelectItem>
-                        <SelectItem value="other">Other / Not Sure</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    {errors.websiteType && <p className="text-sm text-destructive">{errors.websiteType}</p>}
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="message">Tell me about your project *</Label>
-                    <Textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      placeholder="Describe your business, what you're looking for, and any specific features you need..."
-                      rows={5}
-                      className={errors.message ? "border-destructive" : ""}
-                    />
-                    {errors.message && <p className="text-sm text-destructive">{errors.message}</p>}
-                  </div>
-
+                  )}
+                  
+                  <p className="text-muted-foreground mb-8">
+                    I'll get back to you within 24 hours.
+                  </p>
+                  
                   <Button 
-                    type="submit" 
-                    size="lg" 
-                    className="w-full shadow-glow hover:shadow-intense transition-all duration-300"
-                    disabled={isSubmitting}
+                    onClick={handleNewRequest}
+                    variant="outline"
+                    className="border-primary/30 hover:border-primary"
                   >
-                    <Send className="w-5 h-5 mr-2" />
-                    {isSubmitting ? "Sending..." : "Send Message"}
+                    Submit Another Request
                   </Button>
-                </form>
-              </CardContent>
+                </CardContent>
+              ) : (
+                // Form state
+                <>
+                  <CardHeader>
+                    <h2 className="text-2xl font-bold text-foreground">Send a Message</h2>
+                    <p className="text-muted-foreground">Tell me about your project and I'll provide a free quote.</p>
+                  </CardHeader>
+                  <CardContent>
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {/* Name field - required */}
+                        <div className="space-y-2">
+                          <Label htmlFor="name">Your Name *</Label>
+                          <Input
+                            id="name"
+                            name="name"
+                            value={formData.name}
+                            onChange={handleChange}
+                            placeholder="John Smith"
+                            className={errors.name ? "border-destructive" : ""}
+                          />
+                          {errors.name && <p className="text-sm text-destructive">{errors.name}</p>}
+                        </div>
+
+                        {/* Business name - optional */}
+                        <div className="space-y-2">
+                          <Label htmlFor="business">Business Name <span className="text-muted-foreground">(optional)</span></Label>
+                          <Input
+                            id="business"
+                            name="business"
+                            value={formData.business}
+                            onChange={handleChange}
+                            placeholder="Your Business Ltd"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Email field - required */}
+                      <div className="space-y-2">
+                        <Label htmlFor="email">Email Address *</Label>
+                        <Input
+                          id="email"
+                          name="email"
+                          type="email"
+                          value={formData.email}
+                          onChange={handleChange}
+                          placeholder="john@example.com"
+                          className={errors.email ? "border-destructive" : ""}
+                        />
+                        {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
+                      </div>
+
+                      {/* Service type dropdown - required */}
+                      <div className="space-y-2">
+                        <Label htmlFor="serviceType">Service Type *</Label>
+                        <Select
+                          value={formData.serviceType}
+                          onValueChange={(value) => {
+                            setFormData(prev => ({ ...prev, serviceType: value }));
+                            if (errors.serviceType) {
+                              setErrors(prev => ({ ...prev, serviceType: "" }));
+                            }
+                          }}
+                        >
+                          <SelectTrigger className={errors.serviceType ? "border-destructive" : ""}>
+                            <SelectValue placeholder="Select a service type" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="starter">Starter Site (Single Page)</SelectItem>
+                            <SelectItem value="premium">Premium Website (Multi-page)</SelectItem>
+                            <SelectItem value="ecommerce">E-Commerce Website</SelectItem>
+                            <SelectItem value="redesign">Website Redesign</SelectItem>
+                            <SelectItem value="other">Not Sure Yet</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        {errors.serviceType && <p className="text-sm text-destructive">{errors.serviceType}</p>}
+                      </div>
+
+                      {/* Project details textarea - required */}
+                      <div className="space-y-2">
+                        <Label htmlFor="projectDetails">Project Details *</Label>
+                        <Textarea
+                          id="projectDetails"
+                          name="projectDetails"
+                          value={formData.projectDetails}
+                          onChange={handleChange}
+                          placeholder="Describe your business, what you're looking for, and any specific features you need..."
+                          rows={5}
+                          className={errors.projectDetails ? "border-destructive" : ""}
+                        />
+                        {errors.projectDetails && <p className="text-sm text-destructive">{errors.projectDetails}</p>}
+                      </div>
+
+                      <Button 
+                        type="submit" 
+                        size="lg" 
+                        className="w-full shadow-glow hover:shadow-intense transition-all duration-300"
+                        disabled={isSubmitting}
+                      >
+                        <Send className="w-5 h-5 mr-2" />
+                        {isSubmitting ? "Sending..." : "Send Message"}
+                      </Button>
+                    </form>
+                  </CardContent>
+                </>
+              )}
             </Card>
 
             {/* Contact Info Sidebar */}

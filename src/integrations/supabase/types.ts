@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      quote_requests: {
+        Row: {
+          business: string | null
+          created_at: string
+          email: string
+          id: string
+          name: string
+          project_details: string
+          service_type: string
+          ticket_number: number
+        }
+        Insert: {
+          business?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          name: string
+          project_details: string
+          service_type: string
+          ticket_number?: number
+        }
+        Update: {
+          business?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string
+          project_details?: string
+          service_type?: string
+          ticket_number?: number
+        }
+        Relationships: []
+      }
       reviews: {
         Row: {
           company: string | null
