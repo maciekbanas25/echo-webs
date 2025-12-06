@@ -53,8 +53,20 @@ const Services = () => {
                     <plan.icon className="w-8 h-8 text-primary" />
                   </div>
                   <h3 className="text-2xl font-bold text-foreground mb-2">{plan.name}</h3>
-                  <div className="text-4xl font-bold bg-gradient-hero bg-clip-text text-transparent">
-                    {plan.price}
+                  <div className="flex flex-col items-center gap-1">
+                    {plan.originalPrice && (
+                      <span className="text-lg text-muted-foreground line-through">
+                        {plan.originalPrice}
+                      </span>
+                    )}
+                    <div className="text-4xl font-bold bg-gradient-hero bg-clip-text text-transparent">
+                      {plan.price}
+                    </div>
+                    {plan.originalPrice && (
+                      <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">
+                        Limited Launch Offer
+                      </span>
+                    )}
                   </div>
                   <p className="text-sm text-muted-foreground mt-2">{plan.description}</p>
                 </CardHeader>
