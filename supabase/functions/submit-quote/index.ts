@@ -129,9 +129,9 @@ const handler = async (req: Request): Promise<Response> => {
       }
     );
   } catch (error: any) {
-    console.error("Error in submit-quote function:", error);
+    console.error("Error in submit-quote function:", error?.message || error);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: "An error occurred while processing your request" }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },

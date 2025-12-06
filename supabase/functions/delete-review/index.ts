@@ -20,40 +20,45 @@ serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     );
 
-    // Get client IP address
-    const clientIp = req.headers.get('x-forwarded-for')?.split(',')[0] || 
-                     req.headers.get('x-real-ip') || 
-                     'unknown';
-
-    const { reviewId } = await req.json();
+    const { reviewId, sessionId } = await req.json();
 
     if (!reviewId) {
+      console.log('Missing review ID');
       return new Response(
         JSON.stringify({ error: 'Review ID is required' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    console.log('Attempting to delete review:', reviewId, 'for IP:', clientIp);
+    if (!sessionId) {
+      console.log('Missing session ID');
+      return new Response(
+        JSON.stringify({ error: 'Session ID is required' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
 
-    // Verify the review belongs to this IP before deleting
+    console.log('Attempting to delete review:', reviewId, 'with session:', sessionId);
+
+    // Verify the review belongs to this session before deleting
+    // Session ID is stored server-side and cannot be spoofed like IP headers
     const { data: review, error: fetchError } = await supabaseClient
       .from('reviews')
-      .select('reviewer_ip')
+      .select('session_id')
       .eq('id', reviewId)
       .single();
 
     if (fetchError || !review) {
-      console.log('Review not found:', fetchError);
+      console.log('Review not found:', fetchError?.message);
       return new Response(
         JSON.stringify({ error: 'Review not found' }),
         { status: 404, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    // Check if IP matches
-    if (review.reviewer_ip !== clientIp) {
-      console.log('IP mismatch - review IP:', review.reviewer_ip, 'client IP:', clientIp);
+    // Check if session ID matches - this is more secure than IP-based auth
+    if (review.session_id !== sessionId) {
+      console.log('Session mismatch - unauthorized deletion attempt');
       return new Response(
         JSON.stringify({ error: 'Unauthorized to delete this review' }),
         { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -67,7 +72,7 @@ serve(async (req) => {
       .eq('id', reviewId);
 
     if (updateError) {
-      console.error('Error updating review:', updateError);
+      console.error('Error updating review:', updateError.message);
       return new Response(
         JSON.stringify({ error: 'Failed to delete review' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -85,12 +90,10 @@ serve(async (req) => {
     );
 
   } catch (error) {
-    console.error('Delete review error:', error);
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.error('Delete review error:', error instanceof Error ? error.message : 'Unknown error');
     return new Response(
-      JSON.stringify({ error: 'Internal server error', details: errorMessage }),
+      JSON.stringify({ error: 'An error occurred while processing your request' }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }
 });
-

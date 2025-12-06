@@ -56,9 +56,12 @@ const ReviewForm = ({ onReviewSubmitted }: { onReviewSubmitted: () => void }) =>
         return;
       }
 
-      // Store review ID in localStorage to track user's own review
+      // Store review ID and session ID in localStorage for deletion capability
       if (data?.reviewId) {
         localStorage.setItem('userReviewId', data.reviewId);
+      }
+      if (data?.sessionId) {
+        localStorage.setItem('userReviewSessionId', data.sessionId);
       }
 
       toast({
