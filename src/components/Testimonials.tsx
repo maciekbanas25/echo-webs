@@ -40,8 +40,20 @@ const Testimonials = () => {
 
   const handleDeleteReview = async (reviewId: string) => {
     try {
+      // Get the session ID from localStorage for secure deletion
+      const sessionId = localStorage.getItem('userReviewSessionId');
+      
+      if (!sessionId) {
+        toast({
+          title: "Cannot delete review",
+          description: "Session information not found. You can only delete reviews from your current session.",
+          variant: "destructive",
+        });
+        return;
+      }
+
       const { data, error } = await supabase.functions.invoke('delete-review', {
-        body: { reviewId },
+        body: { reviewId, sessionId },
       });
 
       if (error) throw error;
@@ -57,9 +69,10 @@ const Testimonials = () => {
         return;
       }
 
-      // Remove from localStorage if it was user's review
+      // Clear localStorage on successful deletion
       if (localStorage.getItem('userReviewId') === reviewId) {
         localStorage.removeItem('userReviewId');
+        localStorage.removeItem('userReviewSessionId');
       }
 
       toast({

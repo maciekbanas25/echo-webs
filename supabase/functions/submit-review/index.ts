@@ -13,6 +13,13 @@ interface ReviewSubmission {
   company?: string;
 }
 
+// Generate a secure session ID for review ownership verification
+const generateSessionId = (): string => {
+  const array = new Uint8Array(32);
+  crypto.getRandomValues(array);
+  return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+};
+
 serve(async (req) => {
   console.log('Submit review function called');
   
@@ -93,7 +100,11 @@ serve(async (req) => {
       p_reviewer_ip: clientIp
     });
 
-    console.log('Rate limit check result:', { canSubmit, rpcError });
+    if (rpcError) {
+      console.error('Rate limit check error:', rpcError.message);
+    }
+
+    console.log('Rate limit check result:', { canSubmit });
 
     if (!canSubmit) {
       console.log('Rate limit exceeded for IP:', clientIp);
@@ -105,6 +116,9 @@ serve(async (req) => {
         { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
+
+    // Generate a secure session ID for review ownership
+    const sessionId = generateSessionId();
 
     console.log('Rate limit check passed, inserting review');
 
@@ -118,12 +132,13 @@ serve(async (req) => {
         company: sanitizedCompany,
         reviewer_ip: clientIp,
         status: 'approved',
-        session_id: null
+        session_id: sessionId
       })
       .select()
       .single();
 
     if (insertError) {
+      console.error('Insert error:', insertError.message);
       return new Response(
         JSON.stringify({ error: 'Failed to submit review' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -134,16 +149,16 @@ serve(async (req) => {
       JSON.stringify({ 
         success: true,
         message: 'Review submitted successfully!',
-        reviewId: insertData?.id
+        reviewId: insertData?.id,
+        sessionId: sessionId // Return session ID to client for deletion capability
       }),
       { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
 
   } catch (error) {
-    console.error('Submit review error:', error);
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.error('Submit review error:', error instanceof Error ? error.message : 'Unknown error');
     return new Response(
-      JSON.stringify({ error: 'Internal server error', details: errorMessage }),
+      JSON.stringify({ error: 'An error occurred while processing your request' }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }
