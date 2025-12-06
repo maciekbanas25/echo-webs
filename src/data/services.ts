@@ -4,6 +4,7 @@ export interface ServicePlan {
   id: string;
   name: string;
   price: string;
+  originalPrice?: string;
   description: string;
   features: string[];
   popular?: boolean;
@@ -14,7 +15,8 @@ export const servicePlans: ServicePlan[] = [
   {
     id: "starter",
     name: "Starter Site",
-    price: "£499",
+    price: "£299",
+    originalPrice: "£499",
     description: "Perfect for new businesses needing a professional online presence",
     icon: Zap,
     features: [
@@ -30,7 +32,8 @@ export const servicePlans: ServicePlan[] = [
   {
     id: "premium",
     name: "Premium Website",
-    price: "£999",
+    price: "£599",
+    originalPrice: "£999",
     description: "Full-featured website for established businesses ready to grow",
     icon: Rocket,
     popular: true,
@@ -48,7 +51,8 @@ export const servicePlans: ServicePlan[] = [
   {
     id: "ecommerce",
     name: "E-Commerce Add-on",
-    price: "£599+",
+    price: "from £399",
+    originalPrice: "from £599",
     description: "Add online selling capabilities to any website package",
     icon: ShoppingCart,
     features: [
