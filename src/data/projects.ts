@@ -50,6 +50,42 @@ export const projects: Project[] = [
     category: "creative",
     features: ["Portfolio Gallery", "Package Pricing", "Booking System", "Client Testimonials"],
   },
+  {
+    id: "car-detailer",
+    title: "Elite Auto Spa",
+    description: "Dark, glossy automotive aesthetic with service packages and before/after galleries",
+    image: gymHero, // Placeholder - replace with actual image
+    link: "/car-detailer",
+    category: "automotive",
+    features: ["Service Packages", "Before/After Gallery", "Online Booking", "Contact CTA"],
+  },
+  {
+    id: "tradesman",
+    title: "Pro Trade Services",
+    description: "Clean, trustworthy design for plumbers, electricians, and handymen",
+    image: cafeHero, // Placeholder - replace with actual image
+    link: "/tradesman",
+    category: "trades",
+    features: ["Service List", "Quote Form", "Trust Badges", "24/7 Contact"],
+  },
+  {
+    id: "restaurant",
+    title: "Ember & Flame",
+    description: "Warm, appetite-stimulating design for restaurants and food trucks",
+    image: barberHero, // Placeholder - replace with actual image
+    link: "/restaurant",
+    category: "food",
+    features: ["Menu Display", "Reservations", "Delivery Links", "Gallery"],
+  },
+  {
+    id: "beauty-salon",
+    title: "Blush & Bloom",
+    description: "Elegant, feminine design for nail salons, lash artists, and beauty professionals",
+    image: photographerHero, // Placeholder - replace with actual image
+    link: "/beauty-salon",
+    category: "beauty",
+    features: ["Service Pricing", "Before/After Gallery", "Instagram Feed", "Online Booking"],
+  },
 ];
 
 export const categories = [
