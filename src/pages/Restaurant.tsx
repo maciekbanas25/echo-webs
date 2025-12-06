@@ -333,7 +333,7 @@ const Restaurant = () => {
       </section>
 
       {/* Demo CTA */}
-      <DemoPageCTA />
+      <DemoPageCTA primaryColor="hsl(var(--restaurant-primary))" />
 
       {/* Back to Portfolio */}
       <section className="py-16" style={{ backgroundColor: "hsl(var(--restaurant-bg))" }}>

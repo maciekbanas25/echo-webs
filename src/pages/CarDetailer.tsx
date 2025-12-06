@@ -298,7 +298,7 @@ const CarDetailer = () => {
       </section>
 
       {/* Demo CTA */}
-      <DemoPageCTA />
+      <DemoPageCTA primaryColor="hsl(var(--detailer-accent))" />
 
       {/* Back to Portfolio */}
       <section className="py-16" style={{ backgroundColor: "hsl(var(--detailer-bg))" }}>

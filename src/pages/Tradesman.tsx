@@ -314,7 +314,7 @@ const Tradesman = () => {
       </section>
 
       {/* Demo CTA */}
-      <DemoPageCTA />
+      <DemoPageCTA primaryColor="hsl(var(--tradesman-primary))" />
 
       {/* Back to Portfolio */}
       <section className="py-16" style={{ backgroundColor: "hsl(var(--tradesman-bg))" }}>
