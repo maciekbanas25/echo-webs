@@ -266,22 +266,6 @@ const ContactPage = () => {
                         <ExternalLink className="w-4 h-4 ml-auto" />
                       </a>
                     </Button>
-                    <Button 
-                      asChild
-                      variant="outline" 
-                      className="w-full justify-start border-primary/30 hover:border-primary"
-                    >
-                      <a 
-                        href={`https://wa.me/447000000000?text=${encodeURIComponent("Hi! I'm interested in getting a website built by EchoWebs.")}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-3"
-                      >
-                        <MessageSquare className="w-5 h-5" />
-                        WhatsApp
-                        <ExternalLink className="w-4 h-4 ml-auto" />
-                      </a>
-                    </Button>
                   </div>
                 </CardContent>
               </Card>
