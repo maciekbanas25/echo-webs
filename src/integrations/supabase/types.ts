@@ -23,6 +23,7 @@ export type Database = {
           name: string
           project_details: string
           service_type: string
+          submitter_ip: unknown
           ticket_number: number
         }
         Insert: {
@@ -33,6 +34,7 @@ export type Database = {
           name: string
           project_details: string
           service_type: string
+          submitter_ip?: unknown
           ticket_number?: number
         }
         Update: {
@@ -43,6 +45,7 @@ export type Database = {
           name?: string
           project_details?: string
           service_type?: string
+          submitter_ip?: unknown
           ticket_number?: number
         }
         Relationships: []
@@ -144,6 +147,10 @@ export type Database = {
       }
     }
     Functions: {
+      can_submit_quote_by_ip: {
+        Args: { p_submitter_ip: unknown }
+        Returns: boolean
+      }
       can_submit_review: { Args: { user_session_id: string }; Returns: boolean }
       can_submit_review_by_ip: {
         Args: { p_reviewer_ip: unknown }
