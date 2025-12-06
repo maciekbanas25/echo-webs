@@ -83,6 +83,33 @@ export default {
           bg: "hsl(var(--photographer-bg))",
           dark: "hsl(var(--photographer-dark))",
         },
+        detailer: {
+          primary: "hsl(var(--detailer-primary))",
+          accent: "hsl(var(--detailer-accent))",
+          bg: "hsl(var(--detailer-bg))",
+          dark: "hsl(var(--detailer-dark))",
+        },
+        tradesman: {
+          primary: "hsl(var(--tradesman-primary))",
+          secondary: "hsl(var(--tradesman-secondary))",
+          bg: "hsl(var(--tradesman-bg))",
+          light: "hsl(var(--tradesman-light))",
+          dark: "hsl(var(--tradesman-dark))",
+        },
+        restaurant: {
+          primary: "hsl(var(--restaurant-primary))",
+          accent: "hsl(var(--restaurant-accent))",
+          bg: "hsl(var(--restaurant-bg))",
+          light: "hsl(var(--restaurant-light))",
+          dark: "hsl(var(--restaurant-dark))",
+        },
+        beauty: {
+          primary: "hsl(var(--beauty-primary))",
+          accent: "hsl(var(--beauty-accent))",
+          bg: "hsl(var(--beauty-bg))",
+          light: "hsl(var(--beauty-light))",
+          dark: "hsl(var(--beauty-dark))",
+        },
       },
       backgroundImage: {
         'gradient-hero': 'var(--gradient-hero)',

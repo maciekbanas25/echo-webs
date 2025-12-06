@@ -13,6 +13,10 @@ import Cafe from "./pages/Cafe";
 import Barber from "./pages/Barber";
 import Gym from "./pages/Gym";
 import Photographer from "./pages/Photographer";
+import CarDetailer from "./pages/CarDetailer";
+import Tradesman from "./pages/Tradesman";
+import Restaurant from "./pages/Restaurant";
+import BeautySalon from "./pages/BeautySalon";
 import Auth from "./pages/Auth";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
@@ -36,6 +40,10 @@ const App = () => (
           <Route path="/barber" element={<Barber />} />
           <Route path="/gym" element={<Gym />} />
           <Route path="/photographer" element={<Photographer />} />
+          <Route path="/car-detailer" element={<CarDetailer />} />
+          <Route path="/tradesman" element={<Tradesman />} />
+          <Route path="/restaurant" element={<Restaurant />} />
+          <Route path="/beauty-salon" element={<BeautySalon />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<NotFound />} />

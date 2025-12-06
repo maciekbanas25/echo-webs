@@ -82,6 +82,33 @@ All colors MUST be HSL.
     --photographer-bg: 0 0% 98%;
     --photographer-dark: 270 30% 20%;
 
+    /* Industry Colors - Car Detailer: Dark/Neon Blue-Green */
+    --detailer-primary: 180 100% 40%;
+    --detailer-accent: 160 100% 50%;
+    --detailer-bg: 220 20% 8%;
+    --detailer-dark: 220 25% 5%;
+
+    /* Industry Colors - Tradesman: Clean Blue/White */
+    --tradesman-primary: 210 80% 50%;
+    --tradesman-secondary: 210 60% 60%;
+    --tradesman-bg: 0 0% 98%;
+    --tradesman-light: 210 40% 96%;
+    --tradesman-dark: 210 30% 20%;
+
+    /* Industry Colors - Restaurant: Warm Red/Orange */
+    --restaurant-primary: 15 90% 55%;
+    --restaurant-accent: 35 95% 55%;
+    --restaurant-bg: 30 30% 97%;
+    --restaurant-light: 30 40% 94%;
+    --restaurant-dark: 15 40% 15%;
+
+    /* Industry Colors - Beauty Salon: Pink/Rose Gold */
+    --beauty-primary: 340 60% 65%;
+    --beauty-accent: 25 80% 70%;
+    --beauty-bg: 0 0% 99%;
+    --beauty-light: 340 30% 96%;
+    --beauty-dark: 340 30% 20%;
+
     --sidebar-background: 0 0% 98%;
 
     --sidebar-foreground: 240 5.3% 26.1%;
