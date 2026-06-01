@@ -111,7 +111,7 @@ const Gym = () => {
       <section className="py-32" style={{ backgroundColor: "hsl(var(--gym-bg))" }}>
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="text-center animate-fade-in-up">
-            <h2 className="text-6xl font-bold mb-8 text-white uppercase tracking-normal" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>
+            <h2 className="text-6xl font-bold mb-8 text-white uppercase tracking-wider" style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: "0.08em" }}>
               Your Fitness Journey Starts Here
             </h2>
             <p className="text-2xl text-white/80 leading-relaxed">
@@ -127,7 +127,7 @@ const Gym = () => {
       <section className="py-32" style={{ backgroundColor: "hsl(var(--gym-bg) / 0.5)" }}>
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-6xl font-bold mb-4 text-white uppercase tracking-normal" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>Class Schedule</h2>
+            <h2 className="text-6xl font-bold mb-4 text-white uppercase tracking-wider" style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: "0.08em" }}>Class Schedule</h2>
             <p className="text-2xl text-white/70 uppercase tracking-wider">Find your perfect workout</p>
           </div>
 
@@ -143,7 +143,7 @@ const Gym = () => {
                 }}
               >
                 <div className="flex justify-between items-start mb-3">
-                  <h3 className="text-2xl font-black text-white uppercase tracking-tight" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>{cls.name}</h3>
+                  <h3 className="text-2xl font-black text-white uppercase tracking-wide" style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: "0.06em" }}>{cls.name}</h3>
                   <span
                     className="text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider"
                     style={{
@@ -165,7 +165,7 @@ const Gym = () => {
       <section className="py-32" style={{ backgroundColor: "hsl(var(--gym-bg))" }}>
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-6xl font-bold mb-4 text-white uppercase tracking-normal" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>Membership Plans</h2>
+            <h2 className="text-6xl font-bold mb-4 text-white uppercase tracking-wider" style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: "0.08em" }}>Membership Plans</h2>
             <p className="text-2xl text-white/70 uppercase tracking-wider">Choose your path to greatness</p>
           </div>
 
@@ -193,7 +193,7 @@ const Gym = () => {
                     Most Popular
                   </div>
                 )}
-                <h3 className="text-3xl font-black mb-4 text-white uppercase tracking-tight" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>{plan.name}</h3>
+                <h3 className="text-3xl font-black mb-4 text-white uppercase tracking-wide" style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: "0.06em" }}>{plan.name}</h3>
                 <div className="mb-8">
                   <span className="text-6xl font-black text-gym-accent">{plan.price}</span>
                   <span className="text-2xl text-white/80">{plan.period}</span>
@@ -228,7 +228,7 @@ const Gym = () => {
         }} />
         <div className="container mx-auto px-4 text-center text-black relative z-10">
           <div className="max-w-3xl mx-auto animate-fade-in">
-            <h2 className="text-7xl font-bold mb-8 uppercase tracking-normal" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>Ready to Transform?</h2>
+            <h2 className="text-7xl font-bold mb-8 uppercase tracking-wider" style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: "0.08em" }}>Ready to Transform?</h2>
             <p className="text-3xl mb-12 font-bold">
               Join FitCore today and get your first week free. No commitment required.
             </p>
