@@ -2,7 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import gymHero from "@/assets/gym-hero.jpg";
+const gymHero = "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=80&auto=format&fit=crop";
 import { Dumbbell, Zap, TrendingUp, Users } from "lucide-react";
 
 const Gym = () => {

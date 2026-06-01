@@ -2,7 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import photographerHero from "@/assets/photographer-hero.jpg";
+const photographerHero = "https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=1920&q=80&auto=format&fit=crop";
 import { Camera, Heart, Sparkles } from "lucide-react";
 
 const Photographer = () => {

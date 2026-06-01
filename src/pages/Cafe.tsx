@@ -2,7 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import cafeHero from "@/assets/cafe-hero.jpg";
+const cafeHero = "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1920&q=80&auto=format&fit=crop";
 import { Coffee, Clock, MapPin } from "lucide-react";
 
 const Cafe = () => {
