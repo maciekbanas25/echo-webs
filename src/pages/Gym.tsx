@@ -86,8 +86,8 @@ const Gym = () => {
       </section>
 
       {/* Stats Bar */}
-      <div className="relative overflow-hidden" style={{ transform: "skewY(-2deg)", backgroundColor: "hsl(var(--gym-primary))", marginTop: "-55px" }}>
-        <section className="py-20" style={{ transform: "skewY(2deg)", paddingTop: "5.5rem" }}>
+      <div className="relative" style={{ transform: "skewY(-2deg)", backgroundColor: "hsl(var(--gym-primary))", marginTop: "-80px", position: "relative", zIndex: 10 }}>
+        <section style={{ transform: "skewY(2deg)", paddingTop: "8rem", paddingBottom: "5rem" }}>
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
               {[
@@ -111,7 +111,7 @@ const Gym = () => {
       <section className="py-32" style={{ backgroundColor: "hsl(var(--gym-bg))" }}>
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="text-center animate-fade-in-up">
-            <h2 className="text-6xl font-black mb-8 text-white uppercase tracking-tighter" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>
+            <h2 className="text-6xl font-bold mb-8 text-white uppercase tracking-normal" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>
               Your Fitness Journey Starts Here
             </h2>
             <p className="text-2xl text-white/80 leading-relaxed">
@@ -127,7 +127,7 @@ const Gym = () => {
       <section className="py-32" style={{ backgroundColor: "hsl(var(--gym-bg) / 0.5)" }}>
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-6xl font-black mb-4 text-white uppercase tracking-tighter" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>Class Schedule</h2>
+            <h2 className="text-6xl font-bold mb-4 text-white uppercase tracking-normal" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>Class Schedule</h2>
             <p className="text-2xl text-white/70 uppercase tracking-wider">Find your perfect workout</p>
           </div>
 
@@ -165,7 +165,7 @@ const Gym = () => {
       <section className="py-32" style={{ backgroundColor: "hsl(var(--gym-bg))" }}>
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-6xl font-black mb-4 text-white uppercase tracking-tighter" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>Membership Plans</h2>
+            <h2 className="text-6xl font-bold mb-4 text-white uppercase tracking-normal" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>Membership Plans</h2>
             <p className="text-2xl text-white/70 uppercase tracking-wider">Choose your path to greatness</p>
           </div>
 
@@ -228,7 +228,7 @@ const Gym = () => {
         }} />
         <div className="container mx-auto px-4 text-center text-black relative z-10">
           <div className="max-w-3xl mx-auto animate-fade-in">
-            <h2 className="text-7xl font-black mb-8 uppercase tracking-tighter" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>Ready to Transform?</h2>
+            <h2 className="text-7xl font-bold mb-8 uppercase tracking-normal" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>Ready to Transform?</h2>
             <p className="text-3xl mb-12 font-bold">
               Join FitCore today and get your first week free. No commitment required.
             </p>
