@@ -86,8 +86,8 @@ const Gym = () => {
       </section>
 
       {/* Stats Bar */}
-      <div className="relative overflow-hidden" style={{ transform: "skewY(-2deg)", backgroundColor: "hsl(var(--gym-primary))", marginTop: "-1px" }}>
-        <section className="py-20" style={{ transform: "skewY(2deg)" }}>
+      <div className="relative overflow-hidden" style={{ transform: "skewY(-2deg)", backgroundColor: "hsl(var(--gym-primary))", marginTop: "-55px" }}>
+        <section className="py-20" style={{ transform: "skewY(2deg)", paddingTop: "5.5rem" }}>
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
               {[
