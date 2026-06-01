@@ -1,12 +1,3 @@
-import cafeHero from "@/assets/cafe-hero.jpg";
-import barberHero from "@/assets/barber-hero.jpg";
-import gymHero from "@/assets/gym-hero.jpg";
-import photographerHero from "@/assets/photographer-hero.jpg";
-import carDetailerHero from "@/assets/car-detailer-hero.jpg";
-import tradesmanHero from "@/assets/tradesman-hero.jpg";
-import restaurantHero from "@/assets/restaurant-hero.jpg";
-import beautySalonHero from "@/assets/beauty-salon-hero.jpg";
-
 export interface Project {
   id: string;
   title: string;
@@ -20,72 +11,72 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: "cafe",
-    title: "The Daily Grind",
+    title: "Cafe Prototype",
     description: "Warm, inviting design for coffee shops with modern aesthetics and menu integration",
-    image: cafeHero,
+    image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1200&q=80&auto=format&fit=crop",
     link: "/cafe",
     category: "food",
     features: ["Menu Display", "Hours & Location", "Online Ordering Ready", "Responsive Design"],
   },
   {
     id: "barber",
-    title: "Elite Cuts",
+    title: "Barber Shop Prototype",
     description: "Bold, sophisticated style for grooming professionals with booking integration",
-    image: barberHero,
+    image: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=1200&q=80&auto=format&fit=crop",
     link: "/barber",
     category: "beauty",
     features: ["Service Pricing", "Team Showcase", "Booking Ready", "Gallery"],
   },
   {
     id: "gym",
-    title: "Iron Forge Fitness",
+    title: "Gym Prototype",
     description: "Dynamic, motivational design for fitness centers with membership options",
-    image: gymHero,
+    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&q=80&auto=format&fit=crop",
     link: "/gym",
     category: "fitness",
     features: ["Class Schedule", "Membership Tiers", "Trainer Profiles", "Contact Forms"],
   },
   {
     id: "photographer",
-    title: "Lens & Light Studio",
+    title: "Photography Prototype",
     description: "Clean, artistic showcase for creative professionals with portfolio galleries",
-    image: photographerHero,
+    image: "https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=1200&q=80&auto=format&fit=crop",
     link: "/photographer",
     category: "creative",
     features: ["Portfolio Gallery", "Package Pricing", "Booking System", "Client Testimonials"],
   },
   {
     id: "car-detailer",
-    title: "Elite Auto Spa",
+    title: "Car Detailing Prototype",
     description: "Dark, glossy automotive aesthetic with service packages and before/after galleries",
-    image: carDetailerHero,
+    image: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1200&q=80&auto=format&fit=crop",
     link: "/car-detailer",
     category: "automotive",
     features: ["Service Packages", "Before/After Gallery", "Online Booking", "Contact CTA"],
   },
   {
     id: "tradesman",
-    title: "Pro Trade Services",
+    title: "Tradesman Prototype",
     description: "Clean, trustworthy design for plumbers, electricians, and handymen",
-    image: tradesmanHero,
+    image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1200&q=80&auto=format&fit=crop",
     link: "/tradesman",
     category: "trades",
     features: ["Service List", "Quote Form", "Trust Badges", "24/7 Contact"],
   },
   {
     id: "restaurant",
-    title: "Ember & Flame",
+    title: "Restaurant Prototype",
     description: "Warm, appetite-stimulating design for restaurants and food trucks",
-    image: restaurantHero,
+    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&q=80&auto=format&fit=crop",
     link: "/restaurant",
     category: "food",
     features: ["Menu Display", "Reservations", "Delivery Links", "Gallery"],
   },
   {
     id: "beauty-salon",
-    title: "Blush & Bloom",
+    title: "Beauty Salon Prototype",
     description: "Elegant, feminine design for nail salons, lash artists, and beauty professionals",
-    image: beautySalonHero,
+    image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&q=80&auto=format&fit=crop",
     link: "/beauty-salon",
     category: "beauty",
     features: ["Service Pricing", "Before/After Gallery", "Instagram Feed", "Online Booking"],
