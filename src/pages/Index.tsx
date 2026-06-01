@@ -7,6 +7,7 @@ import CallToAction from "@/components/CallToAction";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import Reveal from "@/components/Reveal";
 import HeroShowcase from "@/components/HeroShowcase";
+import RotatingWord from "@/components/RotatingWord";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, MessageSquare, Palette, Rocket, Zap } from "lucide-react";
@@ -32,8 +33,21 @@ const Index = () => {
                 Next-Gen Web Design
               </div>
             </div>
-            <h1 className="font-playfair text-5xl md:text-7xl lg:text-8xl font-bold mb-6 bg-gradient-hero bg-clip-text text-transparent leading-tight">
-              Modern, Fast, Affordable Websites
+            <h1 className="font-playfair text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight text-foreground">
+              Stunning websites for{" "}
+              <RotatingWord
+                words={[
+                  "Cafés",
+                  "Barbers",
+                  "Gyms",
+                  "Salons",
+                  "Restaurants",
+                  "Photographers",
+                  "Tradesmen",
+                  "Detailers",
+                ]}
+                className="bg-gradient-hero bg-clip-text text-transparent"
+              />
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-12 leading-relaxed max-w-3xl mx-auto">
               Built by <span className="font-semibold text-primary">EchoWebs</span> — Professional web design for small businesses that want to stand out.
