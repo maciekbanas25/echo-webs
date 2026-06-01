@@ -1,9 +1,8 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
 import { Car, Sparkles, Shield, Clock, Phone, Star, ChevronRight } from "lucide-react";
-import { DemoPageCTA } from "@/components/DemoPageHeader";
+import { DemoPageCTA, DemoPageBackButton } from "@/components/DemoPageHeader";
 
 const CarDetailer = () => {
   const packages = [
@@ -300,22 +299,48 @@ const CarDetailer = () => {
         </div>
       </section>
 
+      {/* Location */}
+      <section className="py-24" style={{ backgroundColor: "hsl(var(--detailer-bg))" }}>
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="text-center mb-12 animate-fade-in">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">Find Us</h2>
+            <p className="text-xl text-white/60">Elite Auto Spa · Battersea, London</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div className="text-white space-y-4">
+              <div>
+                <p className="font-semibold text-lg mb-1" style={{ color: "hsl(var(--detailer-accent))" }}>Address</p>
+                <p className="text-white/80">42 Queenstown Road<br />Battersea, London<br />SW8 3RY</p>
+              </div>
+              <div>
+                <p className="font-semibold text-lg mb-1" style={{ color: "hsl(var(--detailer-accent))" }}>Hours</p>
+                <p className="text-white/80">Mon – Fri: 8am – 6pm<br />Saturday: 9am – 5pm<br />Sunday: Closed</p>
+              </div>
+              <div>
+                <p className="font-semibold text-lg mb-1" style={{ color: "hsl(var(--detailer-accent))" }}>Phone</p>
+                <p className="text-white/80">020 7555 1234</p>
+              </div>
+            </div>
+
+            <div className="rounded-2xl overflow-hidden" style={{ height: "320px", border: `2px solid hsl(var(--detailer-accent) / 0.3)` }}>
+              <iframe
+                title="Elite Auto Spa – Battersea"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=-0.160%2C51.477%2C-0.140%2C51.487&layer=mapnik&marker=51.4816%2C-0.1497"
+                width="100%"
+                height="100%"
+                style={{ border: 0, filter: "invert(0.9) hue-rotate(180deg) saturate(0.7)" }}
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Demo CTA */}
       <DemoPageCTA primaryColor="hsl(var(--detailer-accent))" />
 
-      {/* Back to Portfolio */}
-      <section className="py-16" style={{ backgroundColor: "hsl(var(--detailer-bg))" }}>
-        <div className="container mx-auto px-4 text-center">
-          <Button 
-            asChild 
-            variant="outline" 
-            size="lg" 
-            style={{ borderColor: "hsl(var(--detailer-accent))", color: "hsl(var(--detailer-accent))" }}
-          >
-            <Link to="/portfolio">← Back to Portfolio</Link>
-          </Button>
-        </div>
-      </section>
+      <DemoPageBackButton />
 
       <Footer />
     </div>

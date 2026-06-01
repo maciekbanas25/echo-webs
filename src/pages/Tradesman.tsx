@@ -1,9 +1,8 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
-import { Leaf, Shield, Clock, Phone, Star, Sprout, TreePine, Scissors, Flower2, Users } from "lucide-react";
-import { DemoPageCTA } from "@/components/DemoPageHeader";
+import { MapPin, Leaf, Shield, Clock, Phone, Star, Sprout, TreePine, Scissors, Flower2, Users } from "lucide-react";
+import { DemoPageCTA, DemoPageBackButton } from "@/components/DemoPageHeader";
 
 const Tradesman = () => {
   const services = [
@@ -271,22 +270,62 @@ const Tradesman = () => {
         </div>
       </section>
 
+      {/* Service Area Map */}
+      <section className="py-24" style={{ backgroundColor: "hsl(var(--tradesman-light))" }}>
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="text-center mb-12 animate-fade-in">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <MapPin className="w-8 h-8" style={{ color: "hsl(var(--tradesman-primary))" }} />
+              <h2 className="text-4xl md:text-5xl font-bold" style={{ color: "hsl(var(--tradesman-dark))", fontFamily: "'Oswald', sans-serif", fontWeight: 600 }}>
+                Our Service Area
+              </h2>
+            </div>
+            <p className="text-xl" style={{ color: "hsl(var(--tradesman-dark) / 0.6)" }}>
+              Serving Richmond, Twickenham, Kingston & surrounding areas
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 items-start">
+            <div className="space-y-4">
+              <div className="bg-white p-6 rounded-2xl shadow-md">
+                <p className="font-bold text-lg mb-1" style={{ color: "hsl(var(--tradesman-primary))" }}>Head Office</p>
+                <p style={{ color: "hsl(var(--tradesman-dark) / 0.7)" }}>
+                  18 Kew Road<br />
+                  Richmond, Surrey<br />
+                  TW9 2NA
+                </p>
+              </div>
+              <div className="bg-white p-6 rounded-2xl shadow-md">
+                <p className="font-bold text-lg mb-1" style={{ color: "hsl(var(--tradesman-primary))" }}>Coverage</p>
+                <p className="text-sm" style={{ color: "hsl(var(--tradesman-dark) / 0.7)" }}>
+                  Up to 15 miles radius<br />
+                  Free site visits included
+                </p>
+              </div>
+              <div className="bg-white p-6 rounded-2xl shadow-md">
+                <p className="font-bold text-lg mb-1" style={{ color: "hsl(var(--tradesman-primary))" }}>Contact</p>
+                <p style={{ color: "hsl(var(--tradesman-dark) / 0.7)" }}>020 8555 9876<br />Mon–Sat: 8am–6pm</p>
+              </div>
+            </div>
+
+            <div className="md:col-span-2 rounded-2xl overflow-hidden shadow-xl" style={{ height: "380px" }}>
+              <iframe
+                title="Green Thumb Landscaping – Richmond"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=-0.320%2C51.455%2C-0.290%2C51.470&layer=mapnik&marker=51.4613%2C-0.3037"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Demo CTA */}
       <DemoPageCTA primaryColor="hsl(var(--tradesman-primary))" />
 
-      {/* Back to Portfolio */}
-      <section className="py-16" style={{ backgroundColor: "hsl(var(--tradesman-bg))" }}>
-        <div className="container mx-auto px-4 text-center">
-          <Button
-            asChild
-            variant="outline"
-            size="lg"
-            style={{ borderColor: "hsl(var(--tradesman-primary))", color: "hsl(var(--tradesman-primary))" }}
-          >
-            <Link to="/portfolio">← Back to Portfolio</Link>
-          </Button>
-        </div>
-      </section>
+      <DemoPageBackButton />
 
       <Footer />
     </div>

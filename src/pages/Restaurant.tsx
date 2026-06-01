@@ -3,9 +3,18 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { UtensilsCrossed, Clock, MapPin, Phone, Star, ChevronRight, Flame } from "lucide-react";
-import { DemoPageCTA } from "@/components/DemoPageHeader";
+import { DemoPageCTA, DemoPageBackButton } from "@/components/DemoPageHeader";
+
+const isOpenNow = () => {
+  const now = new Date();
+  const hour = now.getHours();
+  const day = now.getDay();
+  // Open every day 11am – 11pm
+  return hour >= 11 && hour < 23;
+};
 
 const Restaurant = () => {
+  const open = isOpenNow();
   const menuCategories = [
     {
       name: "Starters",
@@ -113,25 +122,33 @@ const Restaurant = () => {
       </section>
 
       {/* Info Bar */}
-      <section 
+      <section
         className="py-6"
         style={{ background: `linear-gradient(90deg, hsl(var(--restaurant-primary)), hsl(var(--restaurant-accent)))` }}
       >
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-center gap-8 text-white text-center">
             <div className="flex items-center gap-2">
+              <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${
+                open ? "bg-green-400/25 text-green-200" : "bg-white/15 text-white/70"
+              }`}>
+                <span className={`w-1.5 h-1.5 rounded-full ${open ? "bg-green-400 animate-pulse" : "bg-white/50"}`} />
+                {open ? "Open Now" : "Closed"}
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
               <Clock className="w-5 h-5" />
-              <span>Mon-Sun: 11am - 11pm</span>
+              <span>Every Day: 11am – 11pm</span>
             </div>
             <div className="hidden md:block w-px h-6 bg-white/30" />
             <div className="flex items-center gap-2">
               <MapPin className="w-5 h-5" />
-              <span>123 Food Street, Downtown</span>
+              <span>7 Wellington St, Covent Garden, London</span>
             </div>
             <div className="hidden md:block w-px h-6 bg-white/30" />
             <div className="flex items-center gap-2">
               <Phone className="w-5 h-5" />
-              <span>(555) 321-9876</span>
+              <span>020 7321 9876</span>
             </div>
           </div>
         </div>
@@ -334,22 +351,41 @@ const Restaurant = () => {
         </div>
       </section>
 
+      {/* Location Map */}
+      <section className="py-24" style={{ backgroundColor: "hsl(var(--restaurant-light))" }}>
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="text-center mb-12 animate-fade-in">
+            <h2
+              className="text-4xl md:text-5xl font-bold mb-4"
+              style={{ color: "hsl(var(--restaurant-dark))", fontFamily: "'Playfair Display', Georgia, serif" }}
+            >
+              Find Us
+            </h2>
+            <p className="text-xl" style={{ color: "hsl(var(--restaurant-dark) / 0.6)" }}>
+              7 Wellington Street, Covent Garden, London WC2E 7DN
+            </p>
+          </div>
+
+          <div className="rounded-2xl overflow-hidden shadow-2xl" style={{ height: "380px" }}>
+            <iframe
+              title="Ember & Flame – Covent Garden"
+              src="https://www.openstreetmap.org/export/embed.html?bbox=-0.130%2C51.509%2C-0.114%2C51.517&layer=mapnik&marker=51.5129%2C-0.1213"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              loading="lazy"
+            />
+          </div>
+          <p className="text-center text-sm mt-3" style={{ color: "hsl(var(--restaurant-dark) / 0.5)" }}>
+            📍 2 min walk from Covent Garden Station · Reservations recommended on weekends
+          </p>
+        </div>
+      </section>
+
       {/* Demo CTA */}
       <DemoPageCTA primaryColor="hsl(var(--restaurant-primary))" />
 
-      {/* Back to Portfolio */}
-      <section className="py-16" style={{ backgroundColor: "hsl(var(--restaurant-bg))" }}>
-        <div className="container mx-auto px-4 text-center">
-          <Button 
-            asChild 
-            variant="outline" 
-            size="lg"
-            style={{ borderColor: "hsl(var(--restaurant-primary))", color: "hsl(var(--restaurant-primary))" }}
-          >
-            <Link to="/portfolio">← Back to Portfolio</Link>
-          </Button>
-        </div>
-      </section>
+      <DemoPageBackButton />
 
       <Footer />
     </div>
