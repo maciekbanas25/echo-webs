@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import RouteMeta from "./components/RouteMeta";
+import ScrollProgress from "./components/ScrollProgress";
 import Index from "./pages/Index";
 import Portfolio from "./pages/Portfolio";
 import Services from "./pages/Services";
@@ -29,6 +30,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <ScrollProgress />
       <BrowserRouter>
         <ScrollToTop />
         <RouteMeta />
