@@ -6,7 +6,9 @@ import Testimonials from "@/components/Testimonials";
 import CallToAction from "@/components/CallToAction";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import Reveal from "@/components/Reveal";
+import HeroShowcase from "@/components/HeroShowcase";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import { ArrowRight, MessageSquare, Palette, Rocket, Zap } from "lucide-react";
 
 const Index = () => {
@@ -37,15 +39,30 @@ const Index = () => {
               Built by <span className="font-semibold text-primary">EchoWebs</span> — Professional web design for small businesses that want to stand out.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg" 
+              <Button
+                size="lg"
                 onClick={scrollToWork}
                 className="shadow-glow hover:shadow-intense hover:scale-105 transition-all duration-300 text-lg px-8 py-6 h-auto"
               >
                 View My Work
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="border-primary/50 hover:border-primary hover:bg-primary/10 transition-all duration-300 text-lg px-8 py-6 h-auto"
+              >
+                <Link to="/contact" className="flex items-center gap-2">
+                  <MessageSquare className="w-5 h-5" />
+                  Get a Free Quote
+                </Link>
+              </Button>
             </div>
+          </div>
+
+          <div className="animate-fade-in" style={{ animationDelay: "0.2s", animationFillMode: "both" }}>
+            <HeroShowcase />
           </div>
         </div>
       </section>
