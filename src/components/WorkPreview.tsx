@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { projects } from "@/data/projects";
 import { ArrowRight } from "lucide-react";
 import Reveal from "@/components/Reveal";
+import BrowserChrome from "@/components/BrowserChrome";
 
 const WorkPreview = () => {
   // Show only first 4 projects
@@ -29,6 +30,7 @@ const WorkPreview = () => {
               className="group h-full overflow-hidden bg-secondary/50 border-primary/20 hover:border-primary/40 transition-all duration-500 hover:shadow-[0_20px_60px_-15px_hsl(217_91%_60%/0.35)] hover:-translate-y-2 cursor-pointer"
             >
               <Link to={project.link} className="block">
+                <BrowserChrome url={`echo-webs.com${project.link}`} compact />
                 <div className="relative overflow-hidden aspect-[4/3]">
                   <img
                     src={project.image}

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { projects } from "@/data/projects";
 import { ArrowUpRight } from "lucide-react";
+import BrowserChrome from "@/components/BrowserChrome";
 
 /**
  * A browser-window mockup in the hero that auto-cycles through the live demo
@@ -29,15 +30,7 @@ const HeroShowcase = () => {
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
-        {/* Browser chrome */}
-        <div className="flex items-center gap-2 border-b border-primary/15 bg-secondary/60 px-4 py-3">
-          <span className="h-3 w-3 rounded-full bg-red-400/80" />
-          <span className="h-3 w-3 rounded-full bg-yellow-400/80" />
-          <span className="h-3 w-3 rounded-full bg-green-400/80" />
-          <div className="mx-auto flex max-w-xs flex-1 items-center justify-center gap-2 truncate rounded-md border border-border bg-background/70 px-3 py-1 font-mono text-xs text-muted-foreground">
-            echo-webs.com{current.link}
-          </div>
-        </div>
+        <BrowserChrome url={`echo-webs.com${current.link}`} />
 
         {/* Screenshot viewport — cross-fades between demos */}
         <Link to={current.link} className="relative block aspect-[16/10] overflow-hidden">
