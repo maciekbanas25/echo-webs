@@ -89,11 +89,11 @@ All colors MUST be HSL.
     --detailer-dark: 220 25% 5%;
 
     /* Industry Colors - Tradesman: Clean Blue/White */
-    --tradesman-primary: 210 80% 50%;
-    --tradesman-secondary: 210 60% 60%;
-    --tradesman-bg: 0 0% 98%;
-    --tradesman-light: 210 40% 96%;
-    --tradesman-dark: 210 30% 20%;
+    --tradesman-primary: 142 55% 35%;
+    --tradesman-secondary: 90 45% 55%;
+    --tradesman-bg: 60 20% 98%;
+    --tradesman-light: 100 30% 94%;
+    --tradesman-dark: 150 25% 15%;
 
     /* Industry Colors - Restaurant: Warm Red/Orange */
     --restaurant-primary: 15 90% 55%;

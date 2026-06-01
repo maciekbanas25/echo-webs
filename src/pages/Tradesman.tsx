@@ -2,28 +2,28 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Wrench, Shield, Clock, Phone, Star, CheckCircle, Zap, Droplets, Hammer, Users } from "lucide-react";
+import { Leaf, Shield, Clock, Phone, Star, Sprout, TreePine, Scissors, Flower2, Users } from "lucide-react";
 import { DemoPageCTA } from "@/components/DemoPageHeader";
 
 const Tradesman = () => {
   const services = [
-    { icon: Droplets, name: "Plumbing", description: "Leak repairs, installations, drain cleaning & more", price: "From $75" },
-    { icon: Zap, name: "Electrical", description: "Wiring, outlets, panel upgrades & lighting", price: "From $85" },
-    { icon: Hammer, name: "General Repairs", description: "Drywall, doors, fixtures & handyman services", price: "From $65" },
-    { icon: Wrench, name: "Appliance Install", description: "Dishwashers, disposals, water heaters", price: "From $95" },
+    { icon: Scissors, name: "Lawn Care", description: "Mowing, edging, fertilization & weed control", price: "From $55" },
+    { icon: TreePine, name: "Tree & Shrub Care", description: "Pruning, trimming, removal & health treatments", price: "From $120" },
+    { icon: Flower2, name: "Garden Design", description: "Planting, flower beds, mulching & seasonal color", price: "From $200" },
+    { icon: Sprout, name: "Landscape Install", description: "Sod, irrigation, pathways & hardscaping", price: "Custom Quote" },
   ];
 
   const trustBadges = [
     { icon: Shield, label: "Licensed & Insured" },
-    { icon: Clock, label: "Same Day Service" },
+    { icon: Clock, label: "Weekly Service Plans" },
     { icon: Star, label: "5-Star Rated" },
-    { icon: Users, label: "20+ Years Experience" },
+    { icon: Users, label: "15+ Years Experience" },
   ];
 
   const testimonials = [
-    { name: "Mike R.", text: "Fast, professional, and fair pricing. Fixed my leak in under an hour!", rating: 5 },
-    { name: "Sarah L.", text: "Best electrician in town. Very clean and explained everything clearly.", rating: 5 },
-    { name: "John D.", text: "Called for emergency plumbing at 9pm. They came within 30 minutes!", rating: 5 },
+    { name: "Mike R.", text: "My yard has never looked better. Reliable weekly service and great attention to detail.", rating: 5 },
+    { name: "Sarah L.", text: "They redesigned our front garden and it's stunning. Truly transformed the curb appeal.", rating: 5 },
+    { name: "John D.", text: "Honest pricing, on time every visit, and the crew is always friendly. Highly recommend.", rating: 5 },
   ];
 
   return (
@@ -32,35 +32,37 @@ const Tradesman = () => {
 
       {/* Hero */}
       <section className="relative py-32 overflow-hidden" style={{ backgroundColor: "hsl(var(--tradesman-bg))" }}>
-        <div 
-          className="absolute inset-0 opacity-5"
+        <div
+          className="absolute inset-0 opacity-10"
           style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L30 60M0 30L60 30' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E")`
+            backgroundImage: `url("https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1600&q=80&auto=format&fit=crop")`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
           }}
         />
-        
+
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center animate-fade-in">
-            <div 
+            <div
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8"
               style={{ backgroundColor: "hsl(var(--tradesman-primary) / 0.1)", color: "hsl(var(--tradesman-primary))" }}
             >
-              <Shield className="w-4 h-4" />
-              <span className="text-sm font-semibold">Licensed & Insured Professionals</span>
+              <Leaf className="w-4 h-4" />
+              <span className="text-sm font-semibold">Licensed & Insured Landscapers</span>
             </div>
-            
-            <h1 
+
+            <h1
               className="text-5xl md:text-7xl font-bold mb-6 tracking-tight"
               style={{ color: "hsl(var(--tradesman-dark))" }}
             >
-              Your Local
-              <span style={{ color: "hsl(var(--tradesman-primary))" }}> Trusted </span>
-              Tradesman
+              Your Yard,
+              <span style={{ color: "hsl(var(--tradesman-primary))" }}> Beautifully </span>
+              Transformed
             </h1>
-            <p className="text-xl md:text-2xl mb-12 text-tradesman-dark/70 max-w-2xl mx-auto">
-              Quality plumbing, electrical & handyman services. Available 24/7 for emergencies.
+            <p className="text-xl md:text-2xl mb-12 max-w-2xl mx-auto" style={{ color: "hsl(var(--tradesman-dark) / 0.7)" }}>
+              Professional lawn care, garden design & landscape installation. Free quotes within 24 hours.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 size="lg"
@@ -87,8 +89,8 @@ const Tradesman = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {trustBadges.map((badge, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className="flex items-center justify-center gap-3 text-white animate-fade-in"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
@@ -104,14 +106,11 @@ const Tradesman = () => {
       <section className="py-24" style={{ backgroundColor: "hsl(var(--tradesman-bg))" }}>
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 animate-fade-in">
-            <h2 
-              className="text-4xl md:text-5xl font-bold mb-4"
-              style={{ color: "hsl(var(--tradesman-dark))" }}
-            >
+            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: "hsl(var(--tradesman-dark))" }}>
               Our Services
             </h2>
             <p className="text-xl" style={{ color: "hsl(var(--tradesman-dark) / 0.6)" }}>
-              Professional solutions for all your home repair needs
+              Complete outdoor care for residential and commercial properties
             </p>
           </div>
 
@@ -123,24 +122,15 @@ const Tradesman = () => {
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="flex items-start gap-6">
-                  <div 
-                    className="p-4 rounded-xl"
-                    style={{ backgroundColor: "hsl(var(--tradesman-primary) / 0.1)" }}
-                  >
+                  <div className="p-4 rounded-xl" style={{ backgroundColor: "hsl(var(--tradesman-primary) / 0.1)" }}>
                     <service.icon className="w-8 h-8" style={{ color: "hsl(var(--tradesman-primary))" }} />
                   </div>
                   <div className="flex-1">
                     <div className="flex justify-between items-start mb-2">
-                      <h3 
-                        className="text-2xl font-bold"
-                        style={{ color: "hsl(var(--tradesman-dark))" }}
-                      >
+                      <h3 className="text-2xl font-bold" style={{ color: "hsl(var(--tradesman-dark))" }}>
                         {service.name}
                       </h3>
-                      <span 
-                        className="font-bold text-lg"
-                        style={{ color: "hsl(var(--tradesman-primary))" }}
-                      >
+                      <span className="font-bold text-lg" style={{ color: "hsl(var(--tradesman-primary))" }}>
                         {service.price}
                       </span>
                     </div>
@@ -158,14 +148,11 @@ const Tradesman = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-12 animate-fade-in">
-              <h2 
-                className="text-4xl md:text-5xl font-bold mb-4"
-                style={{ color: "hsl(var(--tradesman-dark))" }}
-              >
+              <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: "hsl(var(--tradesman-dark))" }}>
                 Request a Free Quote
               </h2>
               <p className="text-xl" style={{ color: "hsl(var(--tradesman-dark) / 0.6)" }}>
-                Tell us about your project and we'll get back to you within 2 hours
+                Tell us about your property and we'll respond within 24 hours
               </p>
             </div>
 
@@ -173,10 +160,7 @@ const Tradesman = () => {
               <form className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label 
-                      className="block text-sm font-semibold mb-2"
-                      style={{ color: "hsl(var(--tradesman-dark))" }}
-                    >
+                    <label className="block text-sm font-semibold mb-2" style={{ color: "hsl(var(--tradesman-dark))" }}>
                       Full Name
                     </label>
                     <input
@@ -187,10 +171,7 @@ const Tradesman = () => {
                     />
                   </div>
                   <div>
-                    <label 
-                      className="block text-sm font-semibold mb-2"
-                      style={{ color: "hsl(var(--tradesman-dark))" }}
-                    >
+                    <label className="block text-sm font-semibold mb-2" style={{ color: "hsl(var(--tradesman-dark))" }}>
                       Phone Number
                     </label>
                     <input
@@ -202,10 +183,7 @@ const Tradesman = () => {
                   </div>
                 </div>
                 <div>
-                  <label 
-                    className="block text-sm font-semibold mb-2"
-                    style={{ color: "hsl(var(--tradesman-dark))" }}
-                  >
+                  <label className="block text-sm font-semibold mb-2" style={{ color: "hsl(var(--tradesman-dark))" }}>
                     Service Needed
                   </label>
                   <select
@@ -213,24 +191,21 @@ const Tradesman = () => {
                     style={{ borderColor: "hsl(var(--tradesman-primary) / 0.2)" }}
                   >
                     <option>Select a service...</option>
-                    <option>Plumbing</option>
-                    <option>Electrical</option>
-                    <option>General Repairs</option>
-                    <option>Appliance Installation</option>
+                    <option>Lawn Care</option>
+                    <option>Tree & Shrub Care</option>
+                    <option>Garden Design</option>
+                    <option>Landscape Installation</option>
                     <option>Other</option>
                   </select>
                 </div>
                 <div>
-                  <label 
-                    className="block text-sm font-semibold mb-2"
-                    style={{ color: "hsl(var(--tradesman-dark))" }}
-                  >
-                    Describe Your Problem
+                  <label className="block text-sm font-semibold mb-2" style={{ color: "hsl(var(--tradesman-dark))" }}>
+                    Tell Us About Your Project
                   </label>
                   <textarea
                     className="w-full px-4 py-3 rounded-xl border-2 transition-colors focus:outline-none min-h-[120px]"
                     style={{ borderColor: "hsl(var(--tradesman-primary) / 0.2)" }}
-                    placeholder="Tell us what you need help with..."
+                    placeholder="Describe your yard, goals, and any specific ideas..."
                   />
                 </div>
                 <Button
@@ -251,10 +226,7 @@ const Tradesman = () => {
       <section className="py-24" style={{ backgroundColor: "hsl(var(--tradesman-bg))" }}>
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 animate-fade-in">
-            <h2 
-              className="text-4xl md:text-5xl font-bold mb-4"
-              style={{ color: "hsl(var(--tradesman-dark))" }}
-            >
+            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: "hsl(var(--tradesman-dark))" }}>
               What Our Customers Say
             </h2>
           </div>
@@ -268,23 +240,13 @@ const Tradesman = () => {
               >
                 <div className="flex gap-1 mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star 
-                      key={i} 
-                      className="w-5 h-5 fill-current" 
-                      style={{ color: "hsl(45 93% 47%)" }} 
-                    />
+                    <Star key={i} className="w-5 h-5 fill-current" style={{ color: "hsl(45 93% 47%)" }} />
                   ))}
                 </div>
-                <p 
-                  className="text-lg mb-6 leading-relaxed"
-                  style={{ color: "hsl(var(--tradesman-dark) / 0.7)" }}
-                >
+                <p className="text-lg mb-6 leading-relaxed" style={{ color: "hsl(var(--tradesman-dark) / 0.7)" }}>
                   "{testimonial.text}"
                 </p>
-                <p 
-                  className="font-bold"
-                  style={{ color: "hsl(var(--tradesman-dark))" }}
-                >
+                <p className="font-bold" style={{ color: "hsl(var(--tradesman-dark))" }}>
                   — {testimonial.name}
                 </p>
               </div>
@@ -293,20 +255,16 @@ const Tradesman = () => {
         </div>
       </section>
 
-      {/* Emergency CTA */}
+      {/* Seasonal CTA */}
       <section className="py-16" style={{ backgroundColor: "hsl(var(--tradesman-primary))" }}>
         <div className="container mx-auto px-4 text-center">
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 text-white">
-            <Phone className="w-12 h-12" />
+            <Leaf className="w-12 h-12" />
             <div className="text-center md:text-left">
-              <h3 className="text-2xl font-bold">24/7 Emergency Service Available</h3>
-              <p className="text-white/80">Call now for immediate assistance</p>
+              <h3 className="text-2xl font-bold">Seasonal Cleanup & Maintenance Plans</h3>
+              <p className="text-white/80">Book your spring or fall service today</p>
             </div>
-            <Button
-              size="lg"
-              className="bg-white font-bold text-lg px-8"
-              style={{ color: "hsl(var(--tradesman-primary))" }}
-            >
+            <Button size="lg" className="bg-white font-bold text-lg px-8" style={{ color: "hsl(var(--tradesman-primary))" }}>
               (555) 987-6543
             </Button>
           </div>
@@ -319,9 +277,9 @@ const Tradesman = () => {
       {/* Back to Portfolio */}
       <section className="py-16" style={{ backgroundColor: "hsl(var(--tradesman-bg))" }}>
         <div className="container mx-auto px-4 text-center">
-          <Button 
-            asChild 
-            variant="outline" 
+          <Button
+            asChild
+            variant="outline"
             size="lg"
             style={{ borderColor: "hsl(var(--tradesman-primary))", color: "hsl(var(--tradesman-primary))" }}
           >
