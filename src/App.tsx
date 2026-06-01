@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import RouteMeta from "./components/RouteMeta";
 import ScrollProgress from "./components/ScrollProgress";
+import CustomCursor from "./components/CustomCursor";
 import Index from "./pages/Index";
 import Portfolio from "./pages/Portfolio";
 import Services from "./pages/Services";
@@ -31,6 +32,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <ScrollProgress />
+      <CustomCursor />
       <BrowserRouter>
         <ScrollToTop />
         <RouteMeta />
