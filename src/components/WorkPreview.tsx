@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { projects } from "@/data/projects";
 import { ArrowRight } from "lucide-react";
+import Reveal from "@/components/Reveal";
 
 const WorkPreview = () => {
   // Show only first 4 projects
@@ -11,7 +12,7 @@ const WorkPreview = () => {
   return (
     <section id="demos" className="py-24 scroll-mt-20">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16 animate-fade-in">
+        <Reveal className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
             Our Work
           </h2>
@@ -19,14 +20,13 @@ const WorkPreview = () => {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Explore some of our live demos — every design built for speed, style, and simplicity.
           </p>
-        </div>
+        </Reveal>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {previewProjects.map((project, index) => (
+            <Reveal key={project.id} delay={index * 0.1}>
             <Card
-              key={project.id}
-              className="group overflow-hidden bg-secondary/50 border-primary/20 hover:border-primary/40 transition-all duration-500 hover:shadow-[0_20px_60px_-15px_hsl(217_91%_60%/0.35)] hover:-translate-y-2 animate-fade-in cursor-pointer"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="group h-full overflow-hidden bg-secondary/50 border-primary/20 hover:border-primary/40 transition-all duration-500 hover:shadow-[0_20px_60px_-15px_hsl(217_91%_60%/0.35)] hover:-translate-y-2 cursor-pointer"
             >
               <Link to={project.link} className="block">
                 <div className="relative overflow-hidden aspect-[4/3]">
@@ -60,10 +60,11 @@ const WorkPreview = () => {
                 </div>
               </Link>
             </Card>
+            </Reveal>
           ))}
         </div>
 
-        <div className="text-center mt-12 animate-fade-in">
+        <Reveal className="text-center mt-12">
           <Button
             asChild
             size="lg"
@@ -75,7 +76,7 @@ const WorkPreview = () => {
               <ArrowRight className="w-5 h-5" />
             </Link>
           </Button>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

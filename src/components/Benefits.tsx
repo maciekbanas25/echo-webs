@@ -1,11 +1,12 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { benefits } from "@/data/benefits";
+import Reveal from "@/components/Reveal";
 
 const Benefits = () => {
   return (
     <section className="py-24">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16 animate-fade-in">
+        <Reveal className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
             Why Choose EchoWebs?
           </h2>
@@ -13,14 +14,13 @@ const Benefits = () => {
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Everything you need to succeed online, without the agency price tag.
           </p>
-        </div>
+        </Reveal>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {benefits.map((benefit, index) => (
-            <Card 
-              key={benefit.title}
-              className="group border-primary/20 bg-card/50 hover:border-primary/50 hover:shadow-glow transition-all duration-500 animate-fade-in"
-              style={{ animationDelay: `${index * 0.1}s` }}
+            <Reveal key={benefit.title} delay={index * 0.1}>
+            <Card
+              className="group h-full border-primary/20 bg-card/50 hover:border-primary/50 hover:shadow-glow transition-all duration-500"
             >
               <CardContent className="p-6">
                 <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors duration-300">
@@ -34,6 +34,7 @@ const Benefits = () => {
                 </p>
               </CardContent>
             </Card>
+            </Reveal>
           ))}
         </div>
       </div>

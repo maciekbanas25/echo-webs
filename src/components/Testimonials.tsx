@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import ReviewForm from "./ReviewForm";
+import Reveal from "@/components/Reveal";
 
 interface Review {
   id: string;
@@ -105,7 +106,7 @@ const Testimonials = () => {
   return (
     <section className="py-24">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16 animate-fade-in">
+        <Reveal className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-hero bg-clip-text text-transparent">
             Client Feedback
           </h2>
@@ -142,7 +143,7 @@ const Testimonials = () => {
           >
             {showForm ? "Cancel" : "Leave a Review"}
           </Button>
-        </div>
+        </Reveal>
 
         {showForm && (
           <div className="max-w-2xl mx-auto mb-16 animate-fade-in-up">
@@ -165,10 +166,9 @@ const Testimonials = () => {
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {displayedReviews.map((review, index) => (
+              <Reveal key={review.id} animation="scale-in" delay={index * 0.1}>
               <Card
-                key={review.id}
-                className="animate-scale-in border-primary/20 bg-card/50 backdrop-blur-sm hover:shadow-glow transition-all duration-300 relative"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                className="h-full border-primary/20 bg-card/50 backdrop-blur-sm hover:shadow-glow transition-all duration-300 relative"
               >
                 <CardContent className="p-6">
                   <div className="flex justify-between items-start mb-4">
@@ -207,6 +207,7 @@ const Testimonials = () => {
                   </div>
                 </CardContent>
               </Card>
+              </Reveal>
             ))}
           </div>
           

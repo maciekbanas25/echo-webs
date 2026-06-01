@@ -1,13 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, MessageSquare } from "lucide-react";
+import Reveal from "@/components/Reveal";
 
 const CallToAction = () => {
   return (
     <section className="py-24 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-glow opacity-50" />
       <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-4xl mx-auto text-center animate-fade-in">
+        <Reveal className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-hero bg-clip-text text-transparent">
             Need a Website for Your Business?
           </h2>
@@ -38,7 +39,7 @@ const CallToAction = () => {
               </Link>
             </Button>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

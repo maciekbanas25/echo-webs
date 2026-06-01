@@ -5,6 +5,7 @@ import WorkPreview from "@/components/WorkPreview";
 import Testimonials from "@/components/Testimonials";
 import CallToAction from "@/components/CallToAction";
 import AnimatedBackground from "@/components/AnimatedBackground";
+import Reveal from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, MessageSquare, Palette, Rocket, Zap } from "lucide-react";
 
@@ -89,7 +90,7 @@ const Index = () => {
           {/* How It Works */}
           <section className="py-24 bg-secondary/20">
             <div className="container mx-auto px-4">
-              <div className="text-center mb-16 animate-fade-in">
+              <Reveal className="text-center mb-16">
                 <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
                   How It Works
                 </h2>
@@ -97,7 +98,7 @@ const Index = () => {
                 <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                   From idea to live website — a simple, stress-free process.
                 </p>
-              </div>
+              </Reveal>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
                 {[
@@ -120,10 +121,10 @@ const Index = () => {
                     description: "After your approval and any revisions, I handle deployment and hand you a polished, live website ready to bring in clients.",
                   },
                 ].map((item, index) => (
-                  <div
+                  <Reveal
                     key={item.step}
-                    className="relative text-center p-8 rounded-2xl bg-card border border-primary/20 hover:border-primary/40 transition-all duration-300 animate-fade-in-up"
-                    style={{ animationDelay: `${index * 0.15}s` }}
+                    delay={index * 0.15}
+                    className="relative text-center p-8 rounded-2xl bg-card border border-primary/20 hover:border-primary/40 transition-all duration-300"
                   >
                     <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-xs font-bold shadow-glow">
                       {item.step}
@@ -133,7 +134,7 @@ const Index = () => {
                     </div>
                     <h3 className="text-xl font-bold text-foreground mb-3">{item.title}</h3>
                     <p className="text-muted-foreground leading-relaxed">{item.description}</p>
-                  </div>
+                  </Reveal>
                 ))}
               </div>
 
