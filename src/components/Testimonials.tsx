@@ -160,9 +160,23 @@ const Testimonials = () => {
         {isLoading ? (
           <div className="text-center text-muted-foreground">Loading reviews...</div>
         ) : reviews.length === 0 ? (
-          <div className="text-center text-muted-foreground text-xl">
-            No reviews yet. Be the first to leave one!
-          </div>
+          <Reveal className="mx-auto max-w-md text-center">
+            <div className="rounded-2xl border border-primary/20 bg-card/50 p-10 backdrop-blur-sm">
+              <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10">
+                <Star className="h-7 w-7 text-primary" />
+              </div>
+              <h3 className="mb-2 text-xl font-bold text-foreground">
+                Be the first to leave a review
+              </h3>
+              <p className="mb-6 text-muted-foreground">
+                Worked with EchoWebs? Share your experience and help other
+                businesses decide.
+              </p>
+              <Button onClick={() => setShowForm(true)} size="lg" className="shadow-glow">
+                Write a Review
+              </Button>
+            </div>
+          </Reveal>
         ) : (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
