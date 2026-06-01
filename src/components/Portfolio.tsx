@@ -1,35 +1,29 @@
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import cafeHero from "@/assets/cafe-hero.jpg";
-import barberHero from "@/assets/barber-hero.jpg";
-import gymHero from "@/assets/gym-hero.jpg";
-import photographerHero from "@/assets/photographer-hero.jpg";
 
 const Portfolio = () => {
   const projects = [
     {
-      title: "Café Site",
+      title: "Cafe Prototype",
       description: "Warm, inviting design for coffee shops with modern aesthetics",
-      image: cafeHero,
+      image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1200&q=80&auto=format&fit=crop",
       link: "/cafe",
     },
     {
-      title: "Barber Shop",
+      title: "Barber Shop Prototype",
       description: "Bold, sophisticated style for grooming professionals",
-      image: barberHero,
+      image: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=1200&q=80&auto=format&fit=crop",
       link: "/barber",
     },
     {
-      title: "Gym Studio",
+      title: "Gym Prototype",
       description: "Dynamic, motivational design for fitness centers",
-      image: gymHero,
+      image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&q=80&auto=format&fit=crop",
       link: "/gym",
     },
     {
-      title: "Photography Portfolio",
+      title: "Photography Prototype",
       description: "Clean, artistic showcase for creative professionals",
-      image: photographerHero,
+      image: "https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=1200&q=80&auto=format&fit=crop",
       link: "/photographer",
     },
   ];
