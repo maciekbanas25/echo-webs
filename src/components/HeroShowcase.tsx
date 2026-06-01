@@ -12,17 +12,23 @@ import BrowserChrome from "@/components/BrowserChrome";
 const HeroShowcase = () => {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [frameLoaded, setFrameLoaded] = useState(false);
 
   const goTo = (index: number) =>
     setActive((index + projects.length) % projects.length);
   const next = () => goTo(active + 1);
   const prev = () => goTo(active - 1);
 
+  // Reset the live-frame fade whenever we switch demos so the stock image
+  // covers the gap while the new demo loads.
+  useEffect(() => setFrameLoaded(false), [active]);
+
   // Auto-advance; resets whenever `active` changes so manual nav gets a full
-  // interval before the next automatic step.
+  // interval before the next automatic step. Slower than a plain image
+  // carousel because each step loads a real site.
   useEffect(() => {
     if (paused) return;
-    const id = setInterval(next, 3200);
+    const id = setInterval(next, 5500);
     return () => clearInterval(id);
   }, [paused, active]);
 
@@ -37,44 +43,60 @@ const HeroShowcase = () => {
       >
         <BrowserChrome url={`echo-webs.com${current.link}`} />
 
-        {/* Screenshot viewport — cross-fades between demos */}
-        <div className="relative aspect-[16/10] overflow-hidden">
-          <Link to={current.link} className="absolute inset-0 block">
-            {projects.map((p, i) => (
-              <img
-                key={p.id}
-                src={p.image}
-                alt={p.title}
-                loading={i === 0 ? "eager" : "lazy"}
-                className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
-                  i === active ? "opacity-100" : "opacity-0"
-                }`}
-              />
-            ))}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+        {/* Live demo viewport — stock image fallback, real site on top */}
+        <div className="relative aspect-[16/10] overflow-hidden bg-secondary">
+          {/* Instant image fallback (shows while the live frame loads) */}
+          <img
+            src={current.image}
+            alt={current.title}
+            className="absolute inset-0 z-0 h-full w-full object-cover"
+          />
 
-            {/* Caption */}
-            <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-5">
-              <div>
-                <span className="mb-2 inline-block rounded-full border border-primary/30 bg-primary/20 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary backdrop-blur-sm">
-                  Live Demo
-                </span>
-                <h3 className="text-lg font-bold text-white drop-shadow md:text-xl">
-                  {current.title}
-                </h3>
-              </div>
-              <div className="flex items-center gap-1.5 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-sm font-semibold text-white opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
-                Visit <ArrowUpRight className="h-4 w-4" />
-              </div>
+          {/* The actual live demo, faded in once loaded; click-through */}
+          <iframe
+            key={active}
+            src={current.link}
+            title={`Live preview — ${current.title}`}
+            loading="lazy"
+            tabIndex={-1}
+            aria-hidden="true"
+            onLoad={() => setFrameLoaded(true)}
+            className={`absolute inset-0 z-10 h-full w-full border-0 transition-opacity duration-500 ${
+              frameLoaded ? "opacity-100" : "opacity-0"
+            }`}
+            style={{ pointerEvents: "none" }}
+          />
+
+          {/* Gradient + caption (visual only, never blocks clicks) */}
+          <div className="pointer-events-none absolute inset-0 z-30 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 flex items-end justify-between p-5">
+            <div>
+              <span className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/20 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary backdrop-blur-sm">
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-green-400" />
+                Live Demo
+              </span>
+              <h3 className="text-lg font-bold text-white drop-shadow md:text-xl">
+                {current.title}
+              </h3>
             </div>
-          </Link>
+            <div className="flex items-center gap-1.5 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-sm font-semibold text-white opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
+              Visit <ArrowUpRight className="h-4 w-4" />
+            </div>
+          </div>
 
-          {/* Prev / next arrows (siblings of the link so they don't navigate) */}
+          {/* Transparent click layer → opens the full demo */}
+          <Link
+            to={current.link}
+            aria-label={`Visit ${current.title}`}
+            className="absolute inset-0 z-20 block"
+          />
+
+          {/* Prev / next arrows */}
           <button
             type="button"
             aria-label="Previous demo"
             onClick={prev}
-            className="absolute left-3 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/40 text-white backdrop-blur-sm transition-all hover:bg-primary hover:text-primary-foreground"
+            className="absolute left-3 top-1/2 z-40 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/40 text-white backdrop-blur-sm transition-all hover:bg-primary hover:text-primary-foreground"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
@@ -82,7 +104,7 @@ const HeroShowcase = () => {
             type="button"
             aria-label="Next demo"
             onClick={next}
-            className="absolute right-3 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/40 text-white backdrop-blur-sm transition-all hover:bg-primary hover:text-primary-foreground"
+            className="absolute right-3 top-1/2 z-40 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/40 text-white backdrop-blur-sm transition-all hover:bg-primary hover:text-primary-foreground"
           >
             <ChevronRight className="h-5 w-5" />
           </button>
