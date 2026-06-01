@@ -37,12 +37,12 @@ const BeautySalon = () => {
   ];
 
   const gallery = [
-    { title: "Nail Art Design", category: "Nails" },
-    { title: "Volume Lashes", category: "Lashes" },
-    { title: "Bridal Makeup", category: "Makeup" },
-    { title: "Gel Extensions", category: "Nails" },
-    { title: "Classic Lashes", category: "Lashes" },
-    { title: "Brow Lamination", category: "Brows" },
+    { src: "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&q=80&auto=format&fit=crop", title: "Nail Art Design", category: "Nails" },
+    { src: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&q=80&auto=format&fit=crop", title: "Volume Lashes", category: "Lashes" },
+    { src: "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=600&q=80&auto=format&fit=crop", title: "Bridal Makeup", category: "Makeup" },
+    { src: "https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=600&q=80&auto=format&fit=crop", title: "Gel Extensions", category: "Nails" },
+    { src: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&q=80&auto=format&fit=crop", title: "Classic Lashes", category: "Lashes" },
+    { src: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600&q=80&auto=format&fit=crop", title: "Brow Lamination", category: "Brows" },
   ];
 
   return (
@@ -241,18 +241,15 @@ const BeautySalon = () => {
                 className="group relative aspect-square rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:scale-105 animate-scale-in"
                 style={{ animationDelay: `${index * 0.05}s` }}
               >
-                <div 
-                  className="absolute inset-0"
-                  style={{ 
-                    background: `linear-gradient(135deg, hsl(var(--beauty-primary) / ${0.2 + index * 0.05}) 0%, hsl(var(--beauty-accent) / ${0.3 + index * 0.05}) 100%)`
-                  }}
+                <img
+                  src={item.src}
+                  alt={item.title}
+                  loading="lazy"
+                  className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <Heart className="w-12 h-12 text-white/30" />
-                </div>
-                <div 
+                <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
-                  style={{ backgroundColor: "hsl(var(--beauty-primary) / 0.9)" }}
+                  style={{ backgroundColor: "hsl(var(--beauty-primary) / 0.85)" }}
                 >
                   <div className="text-center text-white">
                     <p className="font-bold text-lg">{item.title}</p>

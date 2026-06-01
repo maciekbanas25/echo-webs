@@ -2,12 +2,11 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Benefits from "@/components/Benefits";
 import WorkPreview from "@/components/WorkPreview";
-
 import Testimonials from "@/components/Testimonials";
 import CallToAction from "@/components/CallToAction";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MessageSquare, Palette, Rocket, Zap } from "lucide-react";
 
 const Index = () => {
   const scrollToWork = () => {
@@ -50,6 +49,27 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Stats / Trust Bar */}
+      <div className="border-y border-primary/10 bg-secondary/50">
+        <div className="container mx-auto px-4 py-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+            {[
+              { value: "8+", label: "Industry Templates" },
+              { value: "£299", label: "Starting Price" },
+              { value: "7 Days", label: "Average Turnaround" },
+              { value: "Free", label: "Mock-Up & Quote" },
+            ].map((stat) => (
+              <div key={stat.label} className="text-center">
+                <div className="text-2xl md:text-3xl font-bold bg-gradient-hero bg-clip-text text-transparent">
+                  {stat.value}
+                </div>
+                <div className="text-sm text-muted-foreground mt-1">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Main Content */}
       <div className="bg-background relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent" />
@@ -66,6 +86,75 @@ const Index = () => {
             <div className="h-px bg-primary/20" />
           </div>
 
+          {/* How It Works */}
+          <section className="py-24 bg-secondary/20">
+            <div className="container mx-auto px-4">
+              <div className="text-center mb-16 animate-fade-in">
+                <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
+                  How It Works
+                </h2>
+                <div className="w-24 h-1 bg-primary mx-auto mb-6 rounded-full shadow-glow" />
+                <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                  From idea to live website — a simple, stress-free process.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                {[
+                  {
+                    icon: MessageSquare,
+                    step: "01",
+                    title: "Tell Me About Your Business",
+                    description: "Fill out a quick form with your goals, industry, and style preferences. I'll reply within 24 hours with a free mock-up concept.",
+                  },
+                  {
+                    icon: Palette,
+                    step: "02",
+                    title: "I Design & Build",
+                    description: "I create a fully custom site tailored to your brand — mobile-first, fast, and built to convert visitors into customers.",
+                  },
+                  {
+                    icon: Rocket,
+                    step: "03",
+                    title: "You Go Live",
+                    description: "After your approval and any revisions, I handle deployment and hand you a polished, live website ready to bring in clients.",
+                  },
+                ].map((item, index) => (
+                  <div
+                    key={item.step}
+                    className="relative text-center p-8 rounded-2xl bg-card border border-primary/20 hover:border-primary/40 transition-all duration-300 animate-fade-in-up"
+                    style={{ animationDelay: `${index * 0.15}s` }}
+                  >
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-xs font-bold shadow-glow">
+                      {item.step}
+                    </div>
+                    <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4 mt-2">
+                      <item.icon className="w-7 h-7 text-primary" />
+                    </div>
+                    <h3 className="text-xl font-bold text-foreground mb-3">{item.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed">{item.description}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="text-center mt-12">
+                <Button
+                  asChild
+                  size="lg"
+                  className="shadow-glow hover:shadow-intense transition-all duration-300"
+                >
+                  <a href="/contact" className="flex items-center gap-2">
+                    Start Your Project
+                    <ArrowRight className="w-5 h-5" />
+                  </a>
+                </Button>
+              </div>
+            </div>
+          </section>
+
+          <div className="max-w-5xl mx-auto">
+            <div className="h-px bg-primary/20" />
+          </div>
 
           <Testimonials />
 

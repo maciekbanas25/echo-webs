@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { DemoPageCTA, DemoPageBackButton } from "@/components/DemoPageHeader";
 const barberHero = "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=1920&q=80&auto=format&fit=crop";
 import { Scissors, Clock, MapPin, Star } from "lucide-react";
 
@@ -164,14 +165,11 @@ const Barber = () => {
         </div>
       </section>
 
+      {/* Demo CTA */}
+      <DemoPageCTA primaryColor="hsl(var(--barber-primary))" />
+
       {/* Back to Portfolio */}
-      <section className="py-16" style={{ backgroundColor: "hsl(var(--barber-dark))" }}>
-        <div className="container mx-auto px-4 text-center">
-          <Button asChild variant="outline" size="lg" className="border-barber-primary text-barber-primary hover:bg-barber-primary hover:text-barber-bg">
-            <Link to="/">← Back to Portfolio</Link>
-          </Button>
-        </div>
-      </section>
+      <DemoPageBackButton primaryColor="hsl(var(--barber-primary))" />
 
       <Footer />
     </div>

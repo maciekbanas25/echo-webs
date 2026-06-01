@@ -11,8 +11,8 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: "cafe",
-    title: "Cafe Prototype",
-    description: "Warm, inviting design for coffee shops with modern aesthetics and menu integration",
+    title: "Café — The Daily Grind",
+    description: "Warm, inviting design that turns browsers into regulars. Full menu showcase, hours, and location — everything a coffee shop needs online.",
     image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1200&q=80&auto=format&fit=crop",
     link: "/cafe",
     category: "food",
@@ -20,8 +20,8 @@ export const projects: Project[] = [
   },
   {
     id: "barber",
-    title: "Barber Shop Prototype",
-    description: "Bold, sophisticated style for grooming professionals with booking integration",
+    title: "Barber Shop — Sharp Cuts",
+    description: "Bold, high-end aesthetic that commands attention. Service pricing, booking CTA, and a design that says 'best in the city' before a word is read.",
     image: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=1200&q=80&auto=format&fit=crop",
     link: "/barber",
     category: "beauty",
@@ -29,8 +29,8 @@ export const projects: Project[] = [
   },
   {
     id: "gym",
-    title: "Gym Prototype",
-    description: "Dynamic, motivational design for fitness centers with membership options",
+    title: "Gym — FitCore",
+    description: "High-energy design built to motivate and convert. Membership tiers, class schedules, and a CTA that makes people want to sign up on the spot.",
     image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&q=80&auto=format&fit=crop",
     link: "/gym",
     category: "fitness",
@@ -38,8 +38,8 @@ export const projects: Project[] = [
   },
   {
     id: "photographer",
-    title: "Photography Prototype",
-    description: "Clean, artistic showcase for creative professionals with portfolio galleries",
+    title: "Photographer — Sarah Chen",
+    description: "Clean, editorial aesthetic that lets the work speak. Real gallery, service packages, and testimonials — a site that books clients on autopilot.",
     image: "https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=1200&q=80&auto=format&fit=crop",
     link: "/photographer",
     category: "creative",
@@ -47,8 +47,8 @@ export const projects: Project[] = [
   },
   {
     id: "car-detailer",
-    title: "Car Detailing Prototype",
-    description: "Dark, glossy automotive aesthetic with service packages and before/after galleries",
+    title: "Car Detailing — Prestige Auto",
+    description: "Dark, premium aesthetic that screams quality. Service packages with clear pricing, before/after sections, and a booking flow that gets calls coming in.",
     image: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1200&q=80&auto=format&fit=crop",
     link: "/car-detailer",
     category: "automotive",
@@ -56,8 +56,8 @@ export const projects: Project[] = [
   },
   {
     id: "tradesman",
-    title: "Landscaping Prototype",
-    description: "Fresh, natural design for landscapers, gardeners, and outdoor maintenance pros",
+    title: "Landscaping — GreenMark",
+    description: "Clean, trustworthy design for trade businesses. Service breakdowns, social proof, and a quote form that turns local searches into paying customers.",
     image: "https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1200&q=80&auto=format&fit=crop",
     link: "/tradesman",
     category: "trades",
@@ -65,8 +65,8 @@ export const projects: Project[] = [
   },
   {
     id: "restaurant",
-    title: "Restaurant Prototype",
-    description: "Warm, appetite-stimulating design for restaurants and food trucks",
+    title: "Restaurant — Ember & Flame",
+    description: "Rich, appetite-driven design with a real food gallery, tabbed menu, reservations, and delivery links. Exactly what a restaurant needs to fill tables.",
     image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&q=80&auto=format&fit=crop",
     link: "/restaurant",
     category: "food",
@@ -74,8 +74,8 @@ export const projects: Project[] = [
   },
   {
     id: "beauty-salon",
-    title: "Beauty Salon Prototype",
-    description: "Elegant, feminine design for nail salons, lash artists, and beauty professionals",
+    title: "Beauty Salon — Blush & Bloom",
+    description: "Soft, elegant design tailored for nail techs, lash artists, and beauty pros. Service pricing, a photo gallery, and a booking CTA that keeps the diary full.",
     image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&q=80&auto=format&fit=crop",
     link: "/beauty-salon",
     category: "beauty",

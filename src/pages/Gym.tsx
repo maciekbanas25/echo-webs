@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { DemoPageCTA, DemoPageBackButton } from "@/components/DemoPageHeader";
 const gymHero = "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=80&auto=format&fit=crop";
 import { Dumbbell, Zap, TrendingUp, Users } from "lucide-react";
 
@@ -243,14 +244,11 @@ const Gym = () => {
         </div>
       </section>
 
+      {/* Demo CTA */}
+      <DemoPageCTA primaryColor="hsl(var(--gym-accent))" />
+
       {/* Back to Portfolio */}
-      <section className="py-16" style={{ backgroundColor: "hsl(var(--gym-bg))" }}>
-        <div className="container mx-auto px-4 text-center">
-          <Button asChild variant="outline" size="lg" className="border-gym-accent text-gym-accent hover:bg-gym-accent hover:text-black font-bold">
-            <Link to="/">← Back to Portfolio</Link>
-          </Button>
-        </div>
-      </section>
+      <DemoPageBackButton primaryColor="hsl(var(--gym-accent))" />
 
       <Footer />
     </div>

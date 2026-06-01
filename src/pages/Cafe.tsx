@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { DemoPageCTA, DemoPageBackButton } from "@/components/DemoPageHeader";
 const cafeHero = "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1920&q=80&auto=format&fit=crop";
 import { Coffee, Clock, MapPin } from "lucide-react";
 
@@ -135,14 +136,11 @@ const Cafe = () => {
         </div>
       </section>
 
+      {/* Demo CTA */}
+      <DemoPageCTA primaryColor="hsl(var(--cafe-primary))" />
+
       {/* Back to Portfolio */}
-      <section className="py-16 bg-cafe-dark">
-        <div className="container mx-auto px-4 text-center">
-          <Button asChild variant="outline" size="lg" className="border-cafe-primary text-cafe-primary hover:bg-cafe-primary hover:text-white">
-            <Link to="/">← Back to Portfolio</Link>
-          </Button>
-        </div>
-      </section>
+      <DemoPageBackButton primaryColor="hsl(var(--cafe-primary))" />
 
       <Footer />
     </div>

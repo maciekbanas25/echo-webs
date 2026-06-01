@@ -2,8 +2,18 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { DemoPageCTA, DemoPageBackButton } from "@/components/DemoPageHeader";
 const photographerHero = "https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=1920&q=80&auto=format&fit=crop";
 import { Camera, Heart, Sparkles } from "lucide-react";
+
+const galleryImages = [
+  { src: "https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80&auto=format&fit=crop", alt: "Wedding ceremony" },
+  { src: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80&auto=format&fit=crop", alt: "Portrait session" },
+  { src: "https://images.unsplash.com/photo-1511285560929-80b456503681?w=600&q=80&auto=format&fit=crop", alt: "Wedding couple" },
+  { src: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80&auto=format&fit=crop", alt: "Event coverage" },
+  { src: "https://images.unsplash.com/photo-1495121553079-4c61bcce1894?w=600&q=80&auto=format&fit=crop", alt: "Lifestyle shoot" },
+  { src: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=600&q=80&auto=format&fit=crop", alt: "Product photography" },
+];
 
 const Photographer = () => {
   const services = [
@@ -129,13 +139,19 @@ const Photographer = () => {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {[1, 2, 3, 4, 5, 6].map((i) => (
+            {galleryImages.map((img, i) => (
               <div
                 key={i}
-                className="aspect-square bg-gradient-to-br from-photographer-primary/20 to-photographer-secondary/20 rounded-2xl animate-scale-in hover:scale-105 transition-transform duration-500 cursor-pointer relative overflow-hidden group"
+                className="aspect-square rounded-2xl animate-scale-in hover:scale-105 transition-transform duration-500 cursor-pointer relative overflow-hidden group"
                 style={{ animationDelay: `${i * 0.05}s` }}
               >
-                <div className="absolute inset-0 bg-photographer-primary/0 group-hover:bg-photographer-primary/20 transition-colors duration-500" />
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  loading="lazy"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-photographer-primary/0 group-hover:bg-photographer-primary/30 transition-colors duration-500" />
               </div>
             ))}
           </div>
@@ -197,14 +213,11 @@ const Photographer = () => {
         </div>
       </section>
 
+      {/* Demo CTA */}
+      <DemoPageCTA primaryColor="hsl(var(--photographer-primary))" />
+
       {/* Back to Portfolio */}
-      <section className="py-16" style={{ backgroundColor: "hsl(var(--photographer-bg))" }}>
-        <div className="container mx-auto px-4 text-center">
-          <Button asChild variant="outline" size="lg" className="border-photographer-primary text-photographer-primary hover:bg-photographer-primary hover:text-white rounded-full font-light">
-            <Link to="/">← Back to Portfolio</Link>
-          </Button>
-        </div>
-      </section>
+      <DemoPageBackButton primaryColor="hsl(var(--photographer-primary))" />
 
       <Footer />
     </div>

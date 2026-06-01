@@ -34,7 +34,12 @@ const Restaurant = () => {
   ];
 
   const gallery = [
-    "Signature Dish", "Interior", "Chef's Special", "Cocktails", "Dessert", "Atmosphere"
+    { src: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80&auto=format&fit=crop", label: "Signature Dish" },
+    { src: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&q=80&auto=format&fit=crop", label: "Interior" },
+    { src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80&auto=format&fit=crop", label: "Chef's Special" },
+    { src: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=600&q=80&auto=format&fit=crop", label: "Desserts" },
+    { src: "https://images.unsplash.com/photo-1428515613728-6b4607e44363?w=600&q=80&auto=format&fit=crop", label: "Atmosphere" },
+    { src: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&q=80&auto=format&fit=crop", label: "Fresh Ingredients" },
   ];
 
   return (
@@ -252,17 +257,14 @@ const Restaurant = () => {
                 className="group relative aspect-square rounded-2xl overflow-hidden cursor-pointer transition-transform duration-300 hover:scale-105 animate-scale-in"
                 style={{ animationDelay: `${index * 0.05}s` }}
               >
-                <div 
-                  className="absolute inset-0"
-                  style={{ 
-                    background: `linear-gradient(135deg, hsl(var(--restaurant-primary) / ${0.3 + index * 0.1}) 0%, hsl(var(--restaurant-accent) / ${0.2 + index * 0.05}) 100%)`
-                  }}
+                <img
+                  src={item.src}
+                  alt={item.label}
+                  loading="lazy"
+                  className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <UtensilsCrossed className="w-12 h-12 text-white/30" />
-                </div>
                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <p className="text-white font-bold text-lg">{item}</p>
+                  <p className="text-white font-bold text-lg">{item.label}</p>
                 </div>
               </div>
             ))}
