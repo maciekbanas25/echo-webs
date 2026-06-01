@@ -5,6 +5,7 @@ import { projects } from "@/data/projects";
 import { ArrowRight } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import BrowserChrome from "@/components/BrowserChrome";
+import Tilt from "@/components/Tilt";
 
 const WorkPreview = () => {
   // Show only first 4 projects
@@ -26,8 +27,9 @@ const WorkPreview = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {previewProjects.map((project, index) => (
             <Reveal key={project.id} delay={index * 0.1}>
+            <Tilt className="h-full">
             <Card
-              className="group h-full overflow-hidden bg-secondary/50 border-primary/20 hover:border-primary/40 transition-all duration-500 hover:shadow-[0_20px_60px_-15px_hsl(217_91%_60%/0.35)] hover:-translate-y-2 cursor-pointer"
+              className="group h-full overflow-hidden bg-secondary/50 border-primary/20 hover:border-primary/40 transition-colors duration-500 hover:shadow-[0_20px_60px_-15px_hsl(var(--primary)/0.35)] cursor-pointer"
             >
               <Link to={project.link} className="block">
                 <BrowserChrome url={`echo-webs.com${project.link}`} compact />
@@ -62,6 +64,7 @@ const WorkPreview = () => {
                 </div>
               </Link>
             </Card>
+            </Tilt>
             </Reveal>
           ))}
         </div>

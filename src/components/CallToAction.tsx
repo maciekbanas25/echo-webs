@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, MessageSquare } from "lucide-react";
 import Reveal from "@/components/Reveal";
+import Magnetic from "@/components/Magnetic";
 
 const CallToAction = () => {
   return (
@@ -18,27 +19,31 @@ const CallToAction = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              asChild 
-              size="lg" 
-              className="shadow-glow hover:shadow-intense hover:scale-105 transition-all duration-300 text-lg px-8 py-6 h-auto"
-            >
-              <Link to="/contact" className="flex items-center gap-3">
-                <MessageSquare className="w-5 h-5" />
-                Get a Free Quote
-              </Link>
-            </Button>
-            <Button 
-              asChild 
-              size="lg" 
-              variant="outline"
-              className="border-primary/50 hover:border-primary hover:bg-primary/10 transition-all duration-300 text-lg px-8 py-6 h-auto"
-            >
-              <Link to="/services" className="flex items-center gap-3">
-                View Pricing
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-            </Button>
+            <Magnetic>
+              <Button
+                asChild
+                size="lg"
+                className="shadow-glow hover:shadow-intense transition-all duration-300 text-lg px-8 py-6 h-auto"
+              >
+                <Link to="/contact" className="flex items-center gap-3">
+                  <MessageSquare className="w-5 h-5" />
+                  Get a Free Quote
+                </Link>
+              </Button>
+            </Magnetic>
+            <Magnetic>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="border-primary/50 hover:border-primary hover:bg-primary/10 transition-all duration-300 text-lg px-8 py-6 h-auto"
+              >
+                <Link to="/services" className="flex items-center gap-3">
+                  View Pricing
+                  <ArrowRight className="w-5 h-5" />
+                </Link>
+              </Button>
+            </Magnetic>
           </div>
         </Reveal>
       </div>

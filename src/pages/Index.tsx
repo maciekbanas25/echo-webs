@@ -8,6 +8,8 @@ import AnimatedBackground from "@/components/AnimatedBackground";
 import Reveal from "@/components/Reveal";
 import HeroShowcase from "@/components/HeroShowcase";
 import RotatingWord from "@/components/RotatingWord";
+import CountUp from "@/components/CountUp";
+import Magnetic from "@/components/Magnetic";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, MessageSquare, Palette, Rocket, Zap } from "lucide-react";
@@ -53,25 +55,29 @@ const Index = () => {
               Built by <span className="font-semibold text-primary">EchoWebs</span> — Professional web design for small businesses that want to stand out.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                onClick={scrollToWork}
-                className="shadow-glow hover:shadow-intense hover:scale-105 transition-all duration-300 text-lg px-8 py-6 h-auto"
-              >
-                View My Work
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="border-primary/50 hover:border-primary hover:bg-primary/10 transition-all duration-300 text-lg px-8 py-6 h-auto"
-              >
-                <Link to="/contact" className="flex items-center gap-2">
-                  <MessageSquare className="w-5 h-5" />
-                  Get a Free Quote
-                </Link>
-              </Button>
+              <Magnetic>
+                <Button
+                  size="lg"
+                  onClick={scrollToWork}
+                  className="shadow-glow hover:shadow-intense transition-all duration-300 text-lg px-8 py-6 h-auto"
+                >
+                  View My Work
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
+              </Magnetic>
+              <Magnetic>
+                <Button
+                  asChild
+                  size="lg"
+                  variant="outline"
+                  className="border-primary/50 hover:border-primary hover:bg-primary/10 transition-all duration-300 text-lg px-8 py-6 h-auto"
+                >
+                  <Link to="/contact" className="flex items-center gap-2">
+                    <MessageSquare className="w-5 h-5" />
+                    Get a Free Quote
+                  </Link>
+                </Button>
+              </Magnetic>
             </div>
           </div>
 
@@ -85,15 +91,19 @@ const Index = () => {
       <div className="border-y border-primary/10 bg-secondary/50">
         <div className="container mx-auto px-4 py-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-            {[
-              { value: "8+", label: "Industry Templates" },
-              { value: "£299", label: "Starting Price" },
-              { value: "7 Days", label: "Average Turnaround" },
-              { value: "Free", label: "Mock-Up & Quote" },
-            ].map((stat) => (
+            {([
+              { end: 8, suffix: "+", label: "Industry Templates" },
+              { prefix: "£", end: 299, label: "Starting Price" },
+              { end: 7, suffix: " Days", label: "Average Turnaround" },
+              { text: "Free", label: "Mock-Up & Quote" },
+            ] as { end?: number; prefix?: string; suffix?: string; text?: string; label: string }[]).map((stat) => (
               <div key={stat.label} className="text-center">
                 <div className="text-2xl md:text-3xl font-bold text-primary">
-                  {stat.value}
+                  {stat.text ? (
+                    stat.text
+                  ) : (
+                    <CountUp end={stat.end!} prefix={stat.prefix} suffix={stat.suffix} />
+                  )}
                 </div>
                 <div className="text-sm text-muted-foreground mt-1">{stat.label}</div>
               </div>
