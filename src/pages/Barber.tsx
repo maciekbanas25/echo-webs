@@ -2,7 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import barberHero from "@/assets/barber-hero.jpg";
+const barberHero = "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=1920&q=80&auto=format&fit=crop";
 import { Scissors, Clock, MapPin, Star } from "lucide-react";
 
 const Barber = () => {
