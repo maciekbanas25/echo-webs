@@ -23,9 +23,9 @@ const AnimatedBackground = () => {
     }> = [];
 
     const colors = [
-      "rgba(59, 130, 246, 0.5)", // electric blue
-      "rgba(96, 165, 250, 0.5)", // soft blue glow
-      "rgba(6, 182, 212, 0.5)", // cyan teal
+      "rgba(139, 92, 246, 0.5)", // violet
+      "rgba(167, 139, 250, 0.5)", // soft violet glow
+      "rgba(236, 72, 153, 0.5)", // magenta
     ];
 
     for (let i = 0; i < 50; i++) {
@@ -64,7 +64,7 @@ const AnimatedBackground = () => {
 
           if (distance < 150) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(96, 165, 250, ${0.2 * (1 - distance / 150)})`;
+            ctx.strokeStyle = `rgba(167, 139, 250, ${0.2 * (1 - distance / 150)})`;
             ctx.lineWidth = 0.5;
             ctx.moveTo(particle.x, particle.y);
             ctx.lineTo(otherParticle.x, otherParticle.y);
