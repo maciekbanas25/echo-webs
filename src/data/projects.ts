@@ -56,12 +56,12 @@ export const projects: Project[] = [
   },
   {
     id: "tradesman",
-    title: "Tradesman Prototype",
-    description: "Clean, trustworthy design for plumbers, electricians, and handymen",
-    image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1200&q=80&auto=format&fit=crop",
+    title: "Landscaping Prototype",
+    description: "Fresh, natural design for landscapers, gardeners, and outdoor maintenance pros",
+    image: "https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1200&q=80&auto=format&fit=crop",
     link: "/tradesman",
     category: "trades",
-    features: ["Service List", "Quote Form", "Trust Badges", "24/7 Contact"],
+    features: ["Service List", "Quote Form", "Project Gallery", "Seasonal Care Plans"],
   },
   {
     id: "restaurant",
