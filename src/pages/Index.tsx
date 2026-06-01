@@ -78,7 +78,7 @@ const Index = () => {
               { value: "Free", label: "Mock-Up & Quote" },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
-                <div className="text-2xl md:text-3xl font-bold bg-gradient-hero bg-clip-text text-transparent">
+                <div className="text-2xl md:text-3xl font-bold text-primary">
                   {stat.value}
                 </div>
                 <div className="text-sm text-muted-foreground mt-1">{stat.label}</div>

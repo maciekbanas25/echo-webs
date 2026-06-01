@@ -9,9 +9,10 @@ const CallToAction = () => {
       <div className="absolute inset-0 bg-gradient-glow opacity-50" />
       <div className="container mx-auto px-4 relative z-10">
         <Reveal className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-hero bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-6xl font-bold mb-6 text-foreground">
             Need a Website for Your Business?
           </h2>
+          <div className="w-24 h-1 bg-primary mx-auto mb-6 rounded-full shadow-glow" />
           <p className="text-xl md:text-2xl text-muted-foreground mb-10 leading-relaxed">
             Let's create something amazing together. Get a free mockup and quote for your project.
           </p>
