@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { projects } from "@/data/projects";
@@ -25,39 +25,38 @@ const WorkPreview = () => {
           {previewProjects.map((project, index) => (
             <Card
               key={project.id}
-              className="group overflow-hidden bg-secondary/50 border-primary/20 hover:border-primary/50 transition-all duration-500 hover:shadow-glow hover:scale-[1.02] animate-fade-in"
+              className="group overflow-hidden bg-secondary/50 border-primary/20 hover:border-primary/40 transition-all duration-500 hover:shadow-[0_20px_60px_-15px_hsl(217_91%_60%/0.35)] hover:-translate-y-2 animate-fade-in cursor-pointer"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <Link to={project.link} className="block">
-                <div className="relative overflow-hidden aspect-video">
+                <div className="relative overflow-hidden aspect-[4/3]">
                   <img
                     src={project.image}
                     alt={project.title}
                     loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
-                  <div className="absolute bottom-4 left-4">
-                    <span className="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider bg-primary/90 text-primary-foreground rounded-full">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                  {/* Category pill top-right */}
+                  <div className="absolute top-4 right-4">
+                    <span className="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider bg-black/60 backdrop-blur-sm text-white rounded-full border border-white/20">
                       {project.category}
                     </span>
                   </div>
+                  {/* Hover overlay */}
+                  <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                    <div className="bg-white/10 backdrop-blur-sm border border-white/30 rounded-full px-6 py-3 text-white font-semibold flex items-center gap-2 text-sm">
+                      View Demo <ArrowRight className="w-4 h-4" />
+                    </div>
+                  </div>
                 </div>
-                
                 <div className="p-6">
-                  <h3 className="text-2xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300">
+                  <h3 className="text-xl font-bold mb-2 text-foreground group-hover:text-primary transition-colors duration-300">
                     {project.title}
                   </h3>
-                  <p className="text-muted-foreground mb-6 leading-relaxed">
+                  <p className="text-muted-foreground text-sm leading-relaxed">
                     {project.description}
                   </p>
-                  
-                  <Button 
-                    variant="outline" 
-                    className="w-full border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 group-hover:shadow-glow"
-                  >
-                    View Demo
-                  </Button>
                 </div>
               </Link>
             </Card>
@@ -65,9 +64,9 @@ const WorkPreview = () => {
         </div>
 
         <div className="text-center mt-12 animate-fade-in">
-          <Button 
-            asChild 
-            size="lg" 
+          <Button
+            asChild
+            size="lg"
             variant="outline"
             className="border-primary/30 hover:border-primary hover:shadow-glow transition-all duration-300"
           >

@@ -34,6 +34,8 @@ const Barber = () => {
             <Scissors className="w-20 h-20 mx-auto text-barber-primary" />
           </div>
           <h1 className="text-7xl md:text-9xl font-bold mb-6 tracking-tighter" style={{
+            fontFamily: "'Bebas Neue', sans-serif",
+            letterSpacing: "0.05em",
             textShadow: `0 0 60px hsl(var(--barber-primary) / 0.5)`
           }}>
             Sharp Cuts
@@ -67,7 +69,7 @@ const Barber = () => {
               <Star className="w-6 h-6 text-barber-primary fill-barber-primary" />
               <Star className="w-6 h-6 text-barber-primary fill-barber-primary" />
             </div>
-            <h2 className="text-5xl font-bold mb-8 text-white uppercase tracking-tight">Master Barbers</h2>
+            <h2 className="text-5xl font-bold mb-8 text-white uppercase tracking-tight" style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.05em" }}>Master Barbers</h2>
             <p className="text-xl text-white/70 leading-relaxed">
               With over 20 years of combined experience, our team of master barbers delivers
               precision cuts and classic grooming services. We combine time-honored techniques
@@ -81,34 +83,46 @@ const Barber = () => {
       <section className="py-32" style={{ backgroundColor: "hsl(var(--barber-dark))" }}>
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-5xl font-bold mb-4 text-barber-primary uppercase tracking-tight">Our Services</h2>
+            <h2 className="text-5xl font-bold mb-4 text-barber-primary uppercase" style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.05em" }}>Our Services</h2>
             <p className="text-xl text-white/60 uppercase tracking-wider">Premium grooming for the modern gentleman</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div className="max-w-4xl mx-auto" style={{ borderTop: "1px solid hsl(var(--barber-primary) / 0.3)" }}>
             {services.map((service, index) => (
               <div
                 key={service.name}
-                className="group relative p-10 rounded-none border-2 transition-all duration-300 hover:-translate-y-2 animate-scale-in overflow-hidden"
-                style={{
-                  borderColor: "hsl(var(--barber-primary))",
-                  backgroundColor: "hsl(var(--barber-bg))",
-                  animationDelay: `${index * 0.1}s`,
-                  boxShadow: `0 0 0 hsl(var(--barber-primary) / 0.3)`
-                }}
+                className="group flex items-center justify-between py-8 border-b transition-all duration-300 cursor-pointer hover:px-4"
+                style={{ borderColor: "hsl(var(--barber-primary) / 0.3)" }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = `0 0 40px hsl(var(--barber-primary) / 0.6)`;
+                  e.currentTarget.style.borderColor = "hsl(var(--barber-primary))";
+                  e.currentTarget.style.backgroundColor = "hsl(var(--barber-primary) / 0.05)";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = `0 0 0 hsl(var(--barber-primary) / 0.3)`;
+                  e.currentTarget.style.borderColor = "hsl(var(--barber-primary) / 0.3)";
+                  e.currentTarget.style.backgroundColor = "transparent";
                 }}
               >
-                <div className="text-5xl mb-4">{service.icon}</div>
-                <div className="flex justify-between items-start mb-4">
-                  <h3 className="text-3xl font-bold text-white uppercase tracking-tight">{service.name}</h3>
-                  <span className="text-3xl font-bold text-barber-primary">{service.price}</span>
+                <div className="flex items-center gap-8">
+                  <span className="text-2xl">{service.icon}</span>
+                  <div>
+                    <h3
+                      className="text-4xl md:text-5xl font-bold text-white uppercase transition-colors group-hover:text-barber-primary"
+                      style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.05em" }}
+                    >
+                      {service.name}
+                    </h3>
+                    <p className="text-white/50 mt-1 text-sm uppercase tracking-widest">{service.description}</p>
+                  </div>
                 </div>
-                <p className="text-white/60 text-lg">{service.description}</p>
+                <div className="text-right">
+                  <span
+                    className="text-4xl md:text-5xl font-bold"
+                    style={{ fontFamily: "'Bebas Neue', sans-serif", color: "hsl(var(--barber-primary))", letterSpacing: "0.05em" }}
+                  >
+                    {service.price}
+                  </span>
+                  <div className="text-white/40 text-xs uppercase tracking-wider mt-1">Starting from</div>
+                </div>
               </div>
             ))}
           </div>
@@ -122,7 +136,7 @@ const Barber = () => {
             <div className="animate-fade-in text-center md:text-left">
               <div className="flex items-center gap-3 mb-8 justify-center md:justify-start">
                 <Clock className="w-10 h-10 text-barber-primary" />
-                <h3 className="text-4xl font-bold uppercase tracking-tight">Hours</h3>
+                <h3 className="text-4xl font-bold uppercase" style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.05em" }}>Hours</h3>
               </div>
               <div className="space-y-4 text-lg">
                 <p className="flex justify-between md:justify-start md:gap-6">
@@ -143,7 +157,7 @@ const Barber = () => {
             <div className="animate-fade-in-up text-center md:text-left">
               <div className="flex items-center gap-3 mb-8 justify-center md:justify-start">
                 <MapPin className="w-10 h-10 text-barber-primary" />
-                <h3 className="text-4xl font-bold uppercase tracking-tight">Visit Us</h3>
+                <h3 className="text-4xl font-bold uppercase" style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.05em" }}>Visit Us</h3>
               </div>
               <p className="text-lg mb-8 text-white/80 leading-relaxed">
                 456 Grooming Avenue<br />

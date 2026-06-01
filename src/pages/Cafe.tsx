@@ -34,7 +34,7 @@ const Cafe = () => {
           <div className="mb-4">
             <Coffee className="w-16 h-16 mx-auto text-cafe-primary" />
           </div>
-          <h1 className="text-6xl md:text-8xl font-bold mb-6 tracking-tight">The Daily Grind</h1>
+          <h1 className="text-6xl md:text-8xl font-bold mb-6 tracking-tight" style={{ fontFamily: "'Playfair Display', Georgia, serif", fontStyle: "italic" }}>The Daily Grind</h1>
           <p className="text-2xl md:text-3xl mb-12 font-light tracking-wide">Your neighborhood coffee sanctuary</p>
           <Button
             size="lg"
@@ -50,7 +50,7 @@ const Cafe = () => {
       <section className="py-32" style={{ backgroundColor: "hsl(var(--cafe-dark))" }}>
         <div className="container mx-auto px-4 max-w-5xl">
           <div className="text-center animate-fade-in-up">
-            <h2 className="text-5xl font-bold mb-8" style={{ color: "hsl(var(--cafe-primary))" }}>
+            <h2 className="text-5xl font-bold mb-8" style={{ color: "hsl(var(--cafe-primary))", fontFamily: "'Playfair Display', Georgia, serif" }}>
               Welcome Home
             </h2>
             <p className="text-xl text-white/80 leading-relaxed max-w-3xl mx-auto">
@@ -66,7 +66,7 @@ const Cafe = () => {
       <section className="py-32 bg-cafe-bg">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-5xl font-bold mb-6 text-cafe-dark">Our Menu</h2>
+            <h2 className="text-5xl font-bold mb-6 text-cafe-dark" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>Our Menu</h2>
             <p className="text-xl text-cafe-dark/70">Handcrafted beverages & fresh pastries</p>
           </div>
 
@@ -97,7 +97,7 @@ const Cafe = () => {
             <div className="animate-fade-in text-center md:text-left">
               <div className="flex items-center gap-3 mb-6 justify-center md:justify-start">
                 <Clock className="w-8 h-8" />
-                <h3 className="text-3xl font-bold">Hours</h3>
+                <h3 className="text-3xl font-bold" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>Hours</h3>
               </div>
               <div className="space-y-3 text-lg">
                 <p className="flex justify-between md:justify-start md:gap-4">
@@ -118,7 +118,7 @@ const Cafe = () => {
             <div className="animate-fade-in-up text-center md:text-left">
               <div className="flex items-center gap-3 mb-6 justify-center md:justify-start">
                 <MapPin className="w-8 h-8" />
-                <h3 className="text-3xl font-bold">Location</h3>
+                <h3 className="text-3xl font-bold" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>Location</h3>
               </div>
               <p className="text-lg mb-6 leading-relaxed">
                 123 Coffee Street<br />

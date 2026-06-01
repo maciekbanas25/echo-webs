@@ -53,7 +53,7 @@ const Tradesman = () => {
 
             <h1
               className="text-5xl md:text-7xl font-bold mb-6 tracking-tight"
-              style={{ color: "hsl(var(--tradesman-dark))" }}
+              style={{ color: "hsl(var(--tradesman-dark))", fontFamily: "'Oswald', sans-serif", fontWeight: 700 }}
             >
               Your Yard,
               <span style={{ color: "hsl(var(--tradesman-primary))" }}> Beautifully </span>
@@ -106,7 +106,7 @@ const Tradesman = () => {
       <section className="py-24" style={{ backgroundColor: "hsl(var(--tradesman-bg))" }}>
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: "hsl(var(--tradesman-dark))" }}>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: "hsl(var(--tradesman-dark))", fontFamily: "'Oswald', sans-serif", fontWeight: 600 }}>
               Our Services
             </h2>
             <p className="text-xl" style={{ color: "hsl(var(--tradesman-dark) / 0.6)" }}>
@@ -148,7 +148,7 @@ const Tradesman = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-12 animate-fade-in">
-              <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: "hsl(var(--tradesman-dark))" }}>
+              <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: "hsl(var(--tradesman-dark))", fontFamily: "'Oswald', sans-serif", fontWeight: 600 }}>
                 Request a Free Quote
               </h2>
               <p className="text-xl" style={{ color: "hsl(var(--tradesman-dark) / 0.6)" }}>
@@ -226,7 +226,7 @@ const Tradesman = () => {
       <section className="py-24" style={{ backgroundColor: "hsl(var(--tradesman-bg))" }}>
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: "hsl(var(--tradesman-dark))" }}>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: "hsl(var(--tradesman-dark))", fontFamily: "'Oswald', sans-serif", fontWeight: 600 }}>
               What Our Customers Say
             </h2>
           </div>

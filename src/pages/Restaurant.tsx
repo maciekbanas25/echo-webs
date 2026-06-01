@@ -74,10 +74,10 @@ const Restaurant = () => {
             </div>
           </div>
           
-          <h1 
+          <h1
             className="text-6xl md:text-8xl font-bold mb-6 tracking-tight"
-            style={{ 
-              fontFamily: "'Georgia', serif",
+            style={{
+              fontFamily: "'Playfair Display', Georgia, serif",
               textShadow: `0 0 60px hsl(var(--restaurant-primary) / 0.5)`
             }}
           >
@@ -142,7 +142,7 @@ const Restaurant = () => {
         <div className="container mx-auto px-4 max-w-4xl text-center animate-fade-in">
           <h2 
             className="text-4xl md:text-5xl font-bold mb-8"
-            style={{ color: "hsl(var(--restaurant-dark))", fontFamily: "'Georgia', serif" }}
+            style={{ color: "hsl(var(--restaurant-dark))", fontFamily: "'Playfair Display', Georgia, serif" }}
           >
             Our Story
           </h2>
@@ -163,7 +163,7 @@ const Restaurant = () => {
           <div className="text-center mb-16 animate-fade-in">
             <h2 
               className="text-4xl md:text-5xl font-bold mb-4"
-              style={{ color: "hsl(var(--restaurant-dark))", fontFamily: "'Georgia', serif" }}
+              style={{ color: "hsl(var(--restaurant-dark))", fontFamily: "'Playfair Display', Georgia, serif" }}
             >
               Our Menu
             </h2>
@@ -244,7 +244,7 @@ const Restaurant = () => {
           <div className="text-center mb-16 animate-fade-in">
             <h2 
               className="text-4xl md:text-5xl font-bold mb-4"
-              style={{ color: "hsl(var(--restaurant-dark))", fontFamily: "'Georgia', serif" }}
+              style={{ color: "hsl(var(--restaurant-dark))", fontFamily: "'Playfair Display', Georgia, serif" }}
             >
               Gallery
             </h2>
@@ -276,7 +276,7 @@ const Restaurant = () => {
       <section className="py-24" style={{ backgroundColor: "hsl(var(--restaurant-dark))" }}>
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-3xl mx-auto animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white" style={{ fontFamily: "'Georgia', serif" }}>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
               Order Online
             </h2>
             <p className="text-xl text-white/70 mb-12">
@@ -309,7 +309,7 @@ const Restaurant = () => {
         style={{ background: `linear-gradient(135deg, hsl(var(--restaurant-primary)) 0%, hsl(var(--restaurant-accent)) 100%)` }}
       >
         <div className="container mx-auto px-4 text-center text-white">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6" style={{ fontFamily: "'Georgia', serif" }}>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
             Make a Reservation
           </h2>
           <p className="text-xl mb-8 text-white/90">

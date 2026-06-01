@@ -78,11 +78,13 @@ const BeautySalon = () => {
             </div>
           </div>
           
-          <h1 
-            className="text-5xl md:text-7xl font-bold mb-6 tracking-tight"
-            style={{ 
+          <h1
+            className="text-5xl md:text-7xl mb-6"
+            style={{
               color: "hsl(var(--beauty-dark))",
-              fontFamily: "'Georgia', serif"
+              fontFamily: "'Cormorant Garamond', Georgia, serif",
+              fontWeight: 300,
+              letterSpacing: "0.1em"
             }}
           >
             Blush & Bloom
@@ -152,7 +154,7 @@ const BeautySalon = () => {
           <div className="text-center mb-16 animate-fade-in">
             <h2 
               className="text-4xl md:text-5xl font-bold mb-4"
-              style={{ color: "hsl(var(--beauty-dark))", fontFamily: "'Georgia', serif" }}
+              style={{ color: "hsl(var(--beauty-dark))", fontFamily: "'Cormorant Garamond', Georgia, serif" }}
             >
               Our Services
             </h2>
@@ -225,7 +227,7 @@ const BeautySalon = () => {
           <div className="text-center mb-16 animate-fade-in">
             <h2 
               className="text-4xl md:text-5xl font-bold mb-4"
-              style={{ color: "hsl(var(--beauty-dark))", fontFamily: "'Georgia', serif" }}
+              style={{ color: "hsl(var(--beauty-dark))", fontFamily: "'Cormorant Garamond', Georgia, serif" }}
             >
               Our Work
             </h2>
@@ -270,7 +272,7 @@ const BeautySalon = () => {
               <Instagram className="w-8 h-8" style={{ color: "hsl(var(--beauty-primary))" }} />
               <h2 
                 className="text-3xl md:text-4xl font-bold"
-                style={{ color: "hsl(var(--beauty-dark))", fontFamily: "'Georgia', serif" }}
+                style={{ color: "hsl(var(--beauty-dark))", fontFamily: "'Cormorant Garamond', Georgia, serif" }}
               >
                 Follow Us on Instagram
               </h2>
@@ -311,7 +313,7 @@ const BeautySalon = () => {
       >
         <div className="container mx-auto px-4 text-center text-white">
           <Sparkles className="w-16 h-16 mx-auto mb-6" />
-          <h2 className="text-4xl md:text-5xl font-bold mb-6" style={{ fontFamily: "'Georgia', serif" }}>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}>
             Ready to Glow?
           </h2>
           <p className="text-xl mb-8 text-white/90 max-w-xl mx-auto">

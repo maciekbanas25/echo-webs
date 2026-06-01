@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Bebas+Neue&family=Barlow+Condensed:wght@700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -156,6 +158,13 @@ All colors MUST be HSL.
   .bg-gradient-radial {
     background: var(--gradient-radial);
   }
+
+  .font-bebas { font-family: 'Bebas Neue', 'Arial Narrow', sans-serif; letter-spacing: 0.05em; }
+  .font-condensed { font-family: 'Barlow Condensed', 'Impact', sans-serif; }
+  .font-cormorant { font-family: 'Cormorant Garamond', Georgia, serif; }
+  .font-playfair { font-family: 'Playfair Display', Georgia, serif; }
+  .font-oswald { font-family: 'Oswald', sans-serif; }
+  .font-jakarta { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
 }
 
 @layer base {
@@ -165,5 +174,6 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   }
 }

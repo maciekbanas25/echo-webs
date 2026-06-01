@@ -55,7 +55,7 @@ const Photographer = () => {
           <div className="mb-6">
             <Camera className="w-16 h-16 mx-auto text-photographer-primary" strokeWidth={1.5} />
           </div>
-          <h1 className="text-7xl md:text-8xl font-light mb-6 tracking-wide text-photographer-dark">
+          <h1 className="text-7xl md:text-9xl mb-6 tracking-wide text-photographer-dark" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 300, letterSpacing: "0.08em" }}>
             Sarah Chen
           </h1>
           <p className="text-3xl md:text-4xl mb-12 font-light tracking-widest text-photographer-primary italic">
@@ -81,10 +81,10 @@ const Photographer = () => {
       <section className="py-32 bg-white">
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="text-center animate-fade-in-up">
-            <div className="flex items-center justify-center gap-2 mb-6">
-              <Sparkles className="w-6 h-6 text-photographer-primary" />
-              <h2 className="text-5xl font-light mb-2 text-photographer-dark tracking-wide">About Sarah</h2>
-              <Sparkles className="w-6 h-6 text-photographer-primary" />
+            <div className="flex items-center gap-4 mb-8 justify-center">
+              <div className="w-16 h-px" style={{ backgroundColor: "hsl(var(--photographer-primary))" }} />
+              <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: "3rem", color: "hsl(var(--photographer-dark))", letterSpacing: "0.1em" }}>About Sarah</h2>
+              <div className="w-16 h-px" style={{ backgroundColor: "hsl(var(--photographer-primary))" }} />
             </div>
             <div className="w-24 h-1 mx-auto mb-8 bg-photographer-secondary" />
             <p className="text-xl text-photographer-dark/70 leading-relaxed mb-8 font-light">
@@ -103,7 +103,7 @@ const Photographer = () => {
       <section className="py-32" style={{ backgroundColor: "hsl(var(--photographer-bg))" }}>
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-5xl font-light mb-4 text-photographer-dark tracking-wide">Services</h2>
+            <h2 className="text-5xl mb-4 text-photographer-dark" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 300, letterSpacing: "0.08em" }}>Services</h2>
             <div className="w-24 h-1 mx-auto mb-6 bg-photographer-primary" />
             <p className="text-xl text-photographer-dark/60 font-light italic">Professional photography for every occasion</p>
           </div>
@@ -116,7 +116,7 @@ const Photographer = () => {
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="text-5xl mb-6 text-center">{service.icon}</div>
-                <h3 className="text-3xl font-light mb-4 text-photographer-primary text-center tracking-wide">
+                <h3 className="text-3xl mb-4 text-photographer-primary text-center" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 300, letterSpacing: "0.06em" }}>
                   {service.name}
                 </h3>
                 <div className="w-16 h-0.5 mx-auto mb-4 bg-photographer-secondary" />
@@ -133,7 +133,7 @@ const Photographer = () => {
       <section className="py-32 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-5xl font-light mb-4 text-photographer-dark tracking-wide">Recent Work</h2>
+            <h2 className="text-5xl mb-4 text-photographer-dark" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 300, letterSpacing: "0.08em" }}>Recent Work</h2>
             <div className="w-24 h-1 mx-auto mb-6 bg-photographer-primary" />
             <p className="text-xl text-photographer-dark/60 font-light italic">A glimpse of my latest projects</p>
           </div>
@@ -163,13 +163,13 @@ const Photographer = () => {
         <div className="container mx-auto px-4 max-w-5xl">
           <div className="text-center mb-16 animate-fade-in">
             <Heart className="w-12 h-12 mx-auto mb-4 text-photographer-primary" />
-            <h2 className="text-5xl font-light mb-4 text-photographer-dark tracking-wide">Client Love</h2>
+            <h2 className="text-5xl mb-4 text-photographer-dark" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 300, letterSpacing: "0.08em" }}>Client Love</h2>
             <div className="w-24 h-1 mx-auto bg-photographer-primary" />
           </div>
 
           <div className="grid md:grid-cols-2 gap-10">
             <div className="bg-white p-12 rounded-3xl shadow-lg animate-fade-in-up">
-              <p className="text-photographer-dark/70 italic mb-6 text-lg leading-relaxed font-light">
+              <p className="text-photographer-dark/70 italic mb-6 text-lg leading-relaxed" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 400 }}>
                 "Sarah captured our wedding day perfectly. Every photo tells a story and brings back
                 the emotions of that special day. We couldn't be happier!"
               </p>
@@ -178,7 +178,7 @@ const Photographer = () => {
             </div>
 
             <div className="bg-white p-12 rounded-3xl shadow-lg animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
-              <p className="text-photographer-dark/70 italic mb-6 text-lg leading-relaxed font-light">
+              <p className="text-photographer-dark/70 italic mb-6 text-lg leading-relaxed" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 400 }}>
                 "Professional, creative, and incredibly talented. Sarah's portraits exceeded all
                 expectations. Highly recommend!"
               </p>
@@ -194,7 +194,7 @@ const Photographer = () => {
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-3xl mx-auto animate-fade-in">
             <Sparkles className="w-12 h-12 mx-auto mb-6 text-photographer-primary" />
-            <h2 className="text-6xl font-light mb-8 text-photographer-dark tracking-wide">Let's Create Together</h2>
+            <h2 className="text-6xl mb-8 text-photographer-dark" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 300, letterSpacing: "0.08em" }}>Let's Create Together</h2>
             <div className="w-32 h-1 mx-auto mb-8 bg-photographer-primary" />
             <p className="text-xl text-photographer-dark/70 mb-12 leading-relaxed font-light">
               Ready to book your session? Get in touch to discuss your vision and check availability.

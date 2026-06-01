@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { projects, categories } from "@/data/projects";
@@ -59,64 +59,54 @@ const PortfolioPage = () => {
       {/* Projects Grid */}
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {filteredProjects.map((project, index) => (
               <Card
                 key={project.id}
-                className="group overflow-hidden bg-card border-primary/20 hover:border-primary/50 transition-all duration-500 hover:shadow-glow animate-fade-in"
+                className="group overflow-hidden bg-card border-primary/20 hover:border-primary/40 transition-all duration-500 hover:shadow-[0_20px_60px_-15px_hsl(217_91%_60%/0.35)] hover:-translate-y-2 animate-fade-in cursor-pointer"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <Link to={project.link} className="block">
-                  <div className="relative overflow-hidden aspect-video">
+                  <div className="relative overflow-hidden aspect-[4/3]">
                     <img
                       src={project.image}
                       alt={project.title}
                       loading="lazy"
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <span className="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider bg-primary/90 text-primary-foreground rounded-full">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                    {/* Category pill top-right */}
+                    <div className="absolute top-4 right-4">
+                      <span className="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider bg-black/60 backdrop-blur-sm text-white rounded-full border border-white/20">
                         {project.category}
                       </span>
                     </div>
+                    {/* Hover overlay */}
+                    <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                      <div className="bg-white/10 backdrop-blur-sm border border-white/30 rounded-full px-6 py-3 text-white font-semibold flex items-center gap-2 text-sm">
+                        View Demo <ArrowRight className="w-4 h-4" />
+                      </div>
+                    </div>
                   </div>
-                </Link>
-                
-                <CardContent className="p-6">
-                  <Link to={project.link}>
-                    <h3 className="text-2xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300">
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-2 text-foreground group-hover:text-primary transition-colors duration-300">
                       {project.title}
                     </h3>
-                  </Link>
-                  <p className="text-muted-foreground mb-4 leading-relaxed">
-                    {project.description}
-                  </p>
-                  
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {project.features.slice(0, 3).map((feature) => (
-                      <span 
-                        key={feature} 
-                        className="text-xs px-2 py-1 bg-secondary text-muted-foreground rounded"
-                      >
-                        {feature}
-                      </span>
-                    ))}
+                    <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                      {project.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {project.features.slice(0, 3).map((feature) => (
+                        <span
+                          key={feature}
+                          className="text-xs px-2 py-1 bg-secondary text-muted-foreground rounded"
+                        >
+                          {feature}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                  
-                  <div className="flex gap-3">
-                    <Button 
-                      asChild
-                      variant="outline" 
-                      className="flex-1 border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground"
-                    >
-                      <Link to={project.link} className="flex items-center justify-center gap-2">
-                        View Demo
-                        <ArrowRight className="w-4 h-4" />
-                      </Link>
-                    </Button>
-                  </div>
-                </CardContent>
+                </Link>
               </Card>
             ))}
           </div>

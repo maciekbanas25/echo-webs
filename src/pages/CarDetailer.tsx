@@ -31,12 +31,12 @@ const CarDetailer = () => {
   ];
 
   const gallery = [
-    { title: "Sports Car Detail", category: "Exterior" },
-    { title: "Luxury SUV Interior", category: "Interior" },
-    { title: "Classic Restoration", category: "Full Detail" },
-    { title: "Paint Correction", category: "Exterior" },
-    { title: "Ceramic Coating", category: "Protection" },
-    { title: "Engine Bay Clean", category: "Detail" },
+    { src: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=600&q=80&auto=format&fit=crop", title: "Sports Car Detail", category: "Exterior" },
+    { src: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600&q=80&auto=format&fit=crop", title: "Luxury Interior", category: "Interior" },
+    { src: "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=600&q=80&auto=format&fit=crop", title: "Classic Restoration", category: "Full Detail" },
+    { src: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&q=80&auto=format&fit=crop", title: "Paint Correction", category: "Exterior" },
+    { src: "https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=600&q=80&auto=format&fit=crop", title: "Ceramic Coating", category: "Protection" },
+    { src: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=600&q=80&auto=format&fit=crop", title: "Engine Bay Clean", category: "Detail" },
   ];
 
   return (
@@ -199,31 +199,32 @@ const CarDetailer = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            <div 
+            <div
               className="relative aspect-video rounded-2xl overflow-hidden border-2"
               style={{ borderColor: "hsl(0 0% 30%)" }}
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-gray-600 to-gray-800 flex items-center justify-center">
-                <div className="text-center text-white/60">
-                  <Car className="w-16 h-16 mx-auto mb-4 opacity-50" />
-                  <p className="text-xl font-bold">BEFORE</p>
-                  <p className="text-sm">Placeholder for before image</p>
-                </div>
+              <img
+                src="https://images.unsplash.com/photo-1542362567-b07e54358753?w=900&q=80&auto=format&fit=crop"
+                alt="Before detailing"
+                loading="lazy"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute top-4 left-4">
+                <span className="bg-black/80 text-white text-sm font-bold px-3 py-1 rounded uppercase tracking-wider">Before</span>
               </div>
             </div>
-            <div 
+            <div
               className="relative aspect-video rounded-2xl overflow-hidden border-2"
               style={{ borderColor: "hsl(var(--detailer-accent))" }}
             >
-              <div 
-                className="absolute inset-0 flex items-center justify-center"
-                style={{ background: `linear-gradient(135deg, hsl(var(--detailer-dark)) 0%, hsl(0 0% 15%) 100%)` }}
-              >
-                <div className="text-center">
-                  <Sparkles className="w-16 h-16 mx-auto mb-4" style={{ color: "hsl(var(--detailer-accent))" }} />
-                  <p className="text-xl font-bold" style={{ color: "hsl(var(--detailer-accent))" }}>AFTER</p>
-                  <p className="text-sm text-white/60">Placeholder for after image</p>
-                </div>
+              <img
+                src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=900&q=80&auto=format&fit=crop"
+                alt="After detailing"
+                loading="lazy"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute top-4 left-4">
+                <span className="text-sm font-bold px-3 py-1 rounded uppercase tracking-wider" style={{ backgroundColor: "hsl(var(--detailer-accent))", color: "black" }}>After</span>
               </div>
             </div>
           </div>
@@ -245,9 +246,11 @@ const CarDetailer = () => {
                 className="group relative aspect-square rounded-xl overflow-hidden cursor-pointer transition-transform duration-300 hover:scale-105 animate-scale-in"
                 style={{ animationDelay: `${index * 0.05}s` }}
               >
-                <div 
-                  className="absolute inset-0"
-                  style={{ background: `linear-gradient(135deg, hsl(0 0% ${15 + index * 3}%) 0%, hsl(0 0% ${10 + index * 2}%) 100%)` }}
+                <img
+                  src={item.src}
+                  alt={item.title}
+                  loading="lazy"
+                  className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                   <div className="text-center text-white">
