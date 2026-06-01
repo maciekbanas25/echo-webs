@@ -32,7 +32,7 @@ const Index = () => {
                 Next-Gen Web Design
               </div>
             </div>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 bg-gradient-hero bg-clip-text text-transparent leading-tight">
+            <h1 className="font-playfair text-5xl md:text-7xl lg:text-8xl font-bold mb-6 bg-gradient-hero bg-clip-text text-transparent leading-tight">
               Modern, Fast, Affordable Websites
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-12 leading-relaxed max-w-3xl mx-auto">
@@ -108,7 +108,7 @@ const Index = () => {
           <section className="py-24 bg-secondary/20">
             <div className="container mx-auto px-4">
               <Reveal className="text-center mb-16">
-                <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
+                <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-4 text-foreground">
                   How It Works
                 </h2>
                 <div className="w-24 h-1 bg-primary mx-auto mb-6 rounded-full shadow-glow" />
