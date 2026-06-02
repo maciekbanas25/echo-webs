@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import RouteMeta from "./components/RouteMeta";
 import ScrollProgress from "./components/ScrollProgress";
@@ -27,6 +27,33 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
+// Re-keys on each navigation so the page replays a gentle enter animation.
+const AnimatedRoutes = () => {
+  const location = useLocation();
+  return (
+    <div key={location.pathname} className="animate-page-in">
+      <Routes location={location}>
+        <Route path="/" element={<Index />} />
+        <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/cafe" element={<Cafe />} />
+        <Route path="/barber" element={<Barber />} />
+        <Route path="/gym" element={<Gym />} />
+        <Route path="/photographer" element={<Photographer />} />
+        <Route path="/car-detailer" element={<CarDetailer />} />
+        <Route path="/tradesman" element={<Tradesman />} />
+        <Route path="/restaurant" element={<Restaurant />} />
+        <Route path="/beauty-salon" element={<BeautySalon />} />
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </div>
+  );
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -38,24 +65,7 @@ const App = () => (
       <BrowserRouter>
         <ScrollToTop />
         <RouteMeta />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/portfolio" element={<Portfolio />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/cafe" element={<Cafe />} />
-          <Route path="/barber" element={<Barber />} />
-          <Route path="/gym" element={<Gym />} />
-          <Route path="/photographer" element={<Photographer />} />
-          <Route path="/car-detailer" element={<CarDetailer />} />
-          <Route path="/tradesman" element={<Tradesman />} />
-          <Route path="/restaurant" element={<Restaurant />} />
-          <Route path="/beauty-salon" element={<BeautySalon />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <AnimatedRoutes />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

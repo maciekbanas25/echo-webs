@@ -178,6 +178,15 @@ All colors MUST be HSL.
   }
 }
 
+/* Page transition (enter) */
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-page-in {
+  animation: page-in 0.4s ease-out both;
+}
+
 /* Preloader bar fill */
 @keyframes preload-bar {
   from { transform: translateX(-100%); }
