@@ -5,6 +5,7 @@ import WorkPreview from "@/components/WorkPreview";
 import Testimonials from "@/components/Testimonials";
 import CallToAction from "@/components/CallToAction";
 import FAQ from "@/components/FAQ";
+import Comparison from "@/components/Comparison";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import GrainOverlay from "@/components/GrainOverlay";
 import CursorGlow from "@/components/CursorGlow";
@@ -130,6 +131,12 @@ const Index = () => {
           </div>
 
           <WorkPreview />
+
+          <div className="max-w-5xl mx-auto">
+            <div className="h-px bg-primary/20" />
+          </div>
+
+          <Comparison />
 
           <div className="max-w-5xl mx-auto">
             <div className="h-px bg-primary/20" />
