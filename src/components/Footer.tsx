@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
 import logo from "@/assets/ew-logo.png";
 import { Mail } from "lucide-react";
+import { isEmbedded } from "@/lib/embed";
 
 const Footer = () => {
+  // Hidden inside embedded previews (hero showcase iframes, showreel).
+  if (isEmbedded) return null;
+
   return (
     <footer className="bg-secondary py-16 border-t border-primary/10">
       <div className="container mx-auto px-4">

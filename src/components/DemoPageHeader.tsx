@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, MessageSquare, ArrowRight, Image } from "lucide-react";
+import { isEmbedded } from "@/lib/embed";
 
 interface DemoPageHeaderProps {
   title: string;
@@ -56,6 +57,7 @@ interface DemoPageCTAProps {
 }
 
 export const DemoPageCTA = ({ primaryColor }: DemoPageCTAProps) => {
+  if (isEmbedded) return null;
   return (
     <section className="py-16 relative overflow-hidden bg-background border-t border-primary/20">
       <div className="absolute inset-0 pointer-events-none" style={{
@@ -115,6 +117,7 @@ interface DemoPageBackButtonProps {
 }
 
 export const DemoPageBackButton = ({ primaryColor }: DemoPageBackButtonProps) => {
+  if (isEmbedded) return null;
   return (
     <section className="py-6 bg-background border-t border-border">
       <div className="container mx-auto px-4 text-center">

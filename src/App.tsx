@@ -26,6 +26,7 @@ import BeautySalon from "./pages/BeautySalon";
 import Auth from "./pages/Auth";
 import Admin from "./pages/Admin";
 import Privacy from "./pages/Privacy";
+import Showreel from "./pages/Showreel"; // TEMP: promo-video showreel — delete with its route
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -52,6 +53,8 @@ const AnimatedRoutes = () => {
         <Route path="/auth" element={<Auth />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/privacy" element={<Privacy />} />
+        {/* TEMP: showreel for recording the promo video — delete this line + the import + Showreel.tsx */}
+        <Route path="/showreel" element={<Showreel />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
