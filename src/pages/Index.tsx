@@ -6,6 +6,7 @@ import Testimonials from "@/components/Testimonials";
 import CallToAction from "@/components/CallToAction";
 import FAQ from "@/components/FAQ";
 import Comparison from "@/components/Comparison";
+import QuoteBuilder from "@/components/QuoteBuilder";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import GrainOverlay from "@/components/GrainOverlay";
 import CursorGlow from "@/components/CursorGlow";
@@ -207,6 +208,12 @@ const Index = () => {
               </div>
             </div>
           </section>
+
+          <div className="max-w-5xl mx-auto">
+            <div className="h-px bg-primary/20" />
+          </div>
+
+          <QuoteBuilder />
 
           <div className="max-w-5xl mx-auto">
             <div className="h-px bg-primary/20" />
