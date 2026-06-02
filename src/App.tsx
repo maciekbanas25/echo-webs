@@ -8,6 +8,7 @@ import RouteMeta from "./components/RouteMeta";
 import ScrollProgress from "./components/ScrollProgress";
 import CustomCursor from "./components/CustomCursor";
 import Preloader from "./components/Preloader";
+import SmoothScroll from "./components/SmoothScroll";
 import Index from "./pages/Index";
 import Portfolio from "./pages/Portfolio";
 import Services from "./pages/Services";
@@ -60,6 +61,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <Preloader />
+      <SmoothScroll />
       <ScrollProgress />
       <CustomCursor />
       <BrowserRouter>

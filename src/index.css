@@ -178,6 +178,21 @@ All colors MUST be HSL.
   }
 }
 
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
 /* Page transition (enter) */
 @keyframes page-in {
   from { opacity: 0; transform: translateY(8px); }
