@@ -8,7 +8,9 @@ import FAQ from "@/components/FAQ";
 import Comparison from "@/components/Comparison";
 import QuoteBuilder from "@/components/QuoteBuilder";
 import TrustStrip from "@/components/TrustStrip";
+import BeforeAfter from "@/components/BeforeAfter";
 import AnimatedBackground from "@/components/AnimatedBackground";
+import beforeAfterImg from "@/assets/restaurant-hero.jpg";
 import GrainOverlay from "@/components/GrainOverlay";
 import CursorGlow from "@/components/CursorGlow";
 import FloatingQuoteButton from "@/components/FloatingQuoteButton";
@@ -141,6 +143,30 @@ const Index = () => {
           </div>
 
           <Comparison />
+
+          <div className="max-w-5xl mx-auto">
+            <div className="h-px bg-primary/20" />
+          </div>
+
+          <section className="py-24">
+            <div className="container mx-auto px-4">
+              <Reveal className="text-center mb-12">
+                <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-4 text-foreground">
+                  See the difference
+                </h2>
+                <div className="w-24 h-1 bg-primary mx-auto mb-6 rounded-full shadow-glow" />
+                <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                  Drag to compare a generic template with a custom EchoWebs build.
+                </p>
+              </Reveal>
+              <Reveal className="max-w-4xl mx-auto">
+                <BeforeAfter afterSrc={beforeAfterImg} />
+                <p className="mt-3 text-center text-xs text-muted-foreground/70">
+                  Illustrative comparison.
+                </p>
+              </Reveal>
+            </div>
+          </section>
 
           <div className="max-w-5xl mx-auto">
             <div className="h-px bg-primary/20" />
