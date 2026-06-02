@@ -26,6 +26,7 @@ const SERVICES = [
   { id: "starter", label: "Starter Site (Single Page)" },
   { id: "premium", label: "Premium Website (Multi-page)" },
   { id: "ecommerce", label: "E-Commerce Website" },
+  { id: "booking", label: "Booking Integration" },
   { id: "redesign", label: "Website Redesign" },
   { id: "other", label: "Not Sure Yet" },
 ];
@@ -319,10 +320,10 @@ const ContactPage = () => {
                     <div>
                       <h3 className="font-semibold text-foreground">Email</h3>
                       <a 
-                        href="mailto:echowebs25@gmail.com" 
+                        href="mailto:contact@echowebs.co.uk" 
                         className="text-muted-foreground hover:text-primary transition-colors"
                       >
-                        echowebs25@gmail.com
+                        contact@echowebs.co.uk
                       </a>
                     </div>
                   </div>
@@ -339,7 +340,7 @@ const ContactPage = () => {
                       className="w-full justify-start border-primary/30 hover:border-primary"
                     >
                       <a 
-                        href="mailto:echowebs25@gmail.com" 
+                        href="mailto:contact@echowebs.co.uk" 
                         className="flex items-center gap-3"
                       >
                         <Mail className="w-5 h-5" />

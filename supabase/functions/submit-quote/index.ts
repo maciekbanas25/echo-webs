@@ -107,6 +107,7 @@ const handler = async (req: Request): Promise<Response> => {
       starter: "Starter Site (Single Page)",
       premium: "Premium Website (Multi-page)",
       ecommerce: "E-Commerce Website",
+      booking: "Booking Integration",
       redesign: "Website Redesign",
       other: "Other / Not Sure",
     };
@@ -128,7 +129,7 @@ const handler = async (req: Request): Promise<Response> => {
           },
           body: JSON.stringify({
             from: "EchoWebs <contact@echowebs.co.uk>", // verified Resend domain sender
-            to: ["echowebs25@gmail.com"], // Your email address
+            to: ["contact@echowebs.co.uk"], // Your email address
             subject: `New Quote Request - ${ticketRef}`,
             html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">

@@ -66,21 +66,6 @@ const HeroShowcase = () => {
             className="absolute inset-0 z-0 h-full w-full object-cover object-top"
           />
 
-          {/* Loading state (desktop): blurs the preview image and shows a
-              spinner while the live demo loads, then fades out as it appears. */}
-          {!isMobile && (
-            <div
-              className={`pointer-events-none absolute inset-0 z-[15] flex flex-col items-center justify-center gap-3 bg-secondary/50 backdrop-blur-md transition-opacity duration-500 ${
-                frameLoaded ? "opacity-0" : "opacity-100"
-              }`}
-            >
-              <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary/30 border-t-primary" />
-              <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-                Loading preview
-              </span>
-            </div>
-          )}
-
           {/* The actual live demo, faded in once loaded; click-through.
               Skipped on mobile where it doesn't render cleanly. */}
           {!isMobile && (

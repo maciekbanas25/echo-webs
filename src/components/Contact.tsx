@@ -18,7 +18,7 @@ const Contact = () => {
             size="lg"
             className="shadow-glow hover:shadow-intense hover:scale-110 hover:-translate-y-1 transition-all duration-300 text-lg px-10 py-6 h-auto"
           >
-            <a href="mailto:echowebs25@gmail.com" className="flex items-center gap-3">
+            <a href="mailto:contact@echowebs.co.uk" className="flex items-center gap-3">
               <Mail className="w-5 h-5" />
               <span>Contact Me</span>
             </a>

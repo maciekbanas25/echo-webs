@@ -32,22 +32,31 @@ const PACKAGES: Record<
 };
 
 const ECOMMERCE = { now: 399, was: 599 };
+const BOOKING = { now: 199, was: 299 };
 const MAINTENANCE = 49;
 
 const QuoteBuilder = () => {
   const [pkg, setPkg] = useState<PackageId>("premium");
   const [ecommerce, setEcommerce] = useState(false);
+  const [booking, setBooking] = useState(false);
   const [maintenance, setMaintenance] = useState(false);
 
-  const now = PACKAGES[pkg].now + (ecommerce ? ECOMMERCE.now : 0);
-  const was = PACKAGES[pkg].was + (ecommerce ? ECOMMERCE.was : 0);
+  const now =
+    PACKAGES[pkg].now + (ecommerce ? ECOMMERCE.now : 0) + (booking ? BOOKING.now : 0);
+  const was =
+    PACKAGES[pkg].was + (ecommerce ? ECOMMERCE.was : 0) + (booking ? BOOKING.was : 0);
   const saved = was - now;
 
   // Hand the current selection over to the contact form so nothing is lost.
-  const services = [pkg, ...(ecommerce ? ["ecommerce"] : [])];
+  const services = [
+    pkg,
+    ...(ecommerce ? ["ecommerce"] : []),
+    ...(booking ? ["booking"] : []),
+  ];
   const quoteSummary =
     `I'd like a quote for the ${PACKAGES[pkg].label}` +
     `${ecommerce ? " plus an online shop add-on" : ""}` +
+    `${booking ? " plus booking integration" : ""}` +
     `${maintenance ? " with monthly maintenance" : ""}. ` +
     `Estimated total: £${now}${maintenance ? ` + £${MAINTENANCE}/mo maintenance` : ""} (launch pricing).`;
 
@@ -124,6 +133,20 @@ const QuoteBuilder = () => {
                   <span className="text-sm text-muted-foreground">Products, cart & checkout</span>
                 </span>
                 <span className="font-semibold text-primary">+£{ECOMMERCE.now}</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setBooking((v) => !v)}
+                className={`flex w-full items-center justify-between rounded-xl border p-4 transition-all ${
+                  booking ? "border-primary bg-primary/5" : "border-border bg-card/40 hover:border-primary/40"
+                }`}
+              >
+                <span className="text-left">
+                  <span className="block font-semibold text-foreground">Add booking integration</span>
+                  <span className="text-sm text-muted-foreground">Online appointments & reminders</span>
+                </span>
+                <span className="font-semibold text-primary">+£{BOOKING.now}</span>
               </button>
 
               <button

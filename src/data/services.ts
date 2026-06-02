@@ -1,4 +1,4 @@
-import { Zap, Rocket, ShoppingCart, Wrench } from "lucide-react";
+import { Zap, Rocket, ShoppingCart, Wrench, CalendarCheck } from "lucide-react";
 
 export interface ServicePlan {
   id: string;
@@ -62,6 +62,22 @@ export const servicePlans: ServicePlan[] = [
       "Order management",
       "Inventory tracking basics",
       "Customer accounts",
+    ],
+  },
+  {
+    id: "booking",
+    name: "Booking Integration",
+    price: "from £199",
+    originalPrice: "£299",
+    description: "Let customers book appointments or tables directly on your site",
+    icon: CalendarCheck,
+    features: [
+      "Online booking calendar",
+      "Automated email confirmations",
+      "Availability management",
+      "Reminders to cut no-shows",
+      "Syncs to your calendar",
+      "Works on mobile",
     ],
   },
   {
