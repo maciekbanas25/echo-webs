@@ -8,6 +8,7 @@ import RouteMeta from "./components/RouteMeta";
 import ScrollProgress from "./components/ScrollProgress";
 import Preloader from "./components/Preloader";
 import SmoothScroll from "./components/SmoothScroll";
+import { isEmbedded } from "./lib/embed";
 import Index from "./pages/Index";
 import Portfolio from "./pages/Portfolio";
 import Services from "./pages/Services";
@@ -53,10 +54,6 @@ const AnimatedRoutes = () => {
     </div>
   );
 };
-
-// True when the app is running inside an iframe (e.g. the homepage hero
-// preview), so we can skip global overlays that don't belong in a preview.
-const isEmbedded = typeof window !== "undefined" && window.self !== window.top;
 
 const App = () => (
   <QueryClientProvider client={queryClient}>

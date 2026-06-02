@@ -3,10 +3,14 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/ew-logo.png";
+import { isEmbedded } from "@/lib/embed";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+
+  // Hidden inside the homepage hero's live-demo previews.
+  if (isEmbedded) return null;
 
   const links = [
     { to: "/", label: "Home" },
