@@ -20,7 +20,8 @@ const WorkPreview = () => {
           </h2>
           <div className="w-24 h-1 bg-primary mx-auto mb-6 rounded-full shadow-glow" />
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Explore some of our live demos — every design built for speed, style, and simplicity.
+            Explore live demos — every feature is chosen to turn visitors into
+            paying customers.
           </p>
         </Reveal>
 
@@ -61,6 +62,16 @@ const WorkPreview = () => {
                   <p className="text-muted-foreground text-sm leading-relaxed">
                     {project.description}
                   </p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {project.features.slice(0, 3).map((feature) => (
+                      <span
+                        key={feature}
+                        className="rounded-full border border-primary/20 bg-primary/5 px-2.5 py-1 text-xs text-muted-foreground"
+                      >
+                        {feature}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </Link>
             </Card>
