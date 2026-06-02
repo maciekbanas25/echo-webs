@@ -63,7 +63,9 @@ const HeroShowcase = () => {
           <img
             src={current.image}
             alt={current.title}
-            className="absolute inset-0 z-0 h-full w-full object-cover object-top"
+            className={`absolute inset-0 z-0 h-full w-full object-cover object-top ${
+              isMobile ? "" : "scale-110 blur-xl"
+            }`}
           />
 
           {/* The actual live demo, faded in once loaded; click-through.

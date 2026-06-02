@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 /**
  * A slim right-hand dot rail that lets visitors jump between the main sections
@@ -44,7 +45,9 @@ const SectionNav = () => {
       ?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  return (
+  // Rendered through a portal to <body> so it's never trapped inside a
+  // transformed ancestor (which would break position:fixed).
+  return createPortal(
     <nav
       aria-label="Page sections"
       className="fixed right-3 top-1/2 z-50 -translate-y-1/2 sm:right-4"
@@ -82,7 +85,8 @@ const SectionNav = () => {
         );
       })}
       </div>
-    </nav>
+    </nav>,
+    document.body
   );
 };
 
