@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { projects } from "@/data/projects";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
-import BrowserChrome from "@/components/BrowserChrome";
 
 /**
  * A browser-window mockup in the hero that auto-cycles through the live demo
@@ -41,8 +40,6 @@ const HeroShowcase = () => {
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
-        <BrowserChrome url={`echo-webs.com${current.link}`} />
-
         {/* Live demo viewport — stock image fallback, real site on top */}
         <div className="relative aspect-[16/10] overflow-hidden bg-secondary">
           {/* Instant image fallback (shows while the live frame loads) */}
@@ -58,6 +55,7 @@ const HeroShowcase = () => {
             src={current.link}
             title={`Live preview — ${current.title}`}
             loading="lazy"
+            scrolling="no"
             tabIndex={-1}
             aria-hidden="true"
             onLoad={() => setFrameLoaded(true)}
