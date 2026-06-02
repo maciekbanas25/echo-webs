@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 /**
  * A slim right-hand dot rail that lets visitors jump between the main sections
  * of the (long) homepage. The active section is tracked with an
- * IntersectionObserver; labels reveal on hover so the rail stays unobtrusive.
- * Desktop only — mobile keeps the existing top menu.
+ * IntersectionObserver; its label stays visible while the others reveal on
+ * hover. Shown on all screen sizes (dots sit at the right edge).
  */
 const sections = [
   { id: "top", label: "Top" },
@@ -47,7 +47,7 @@ const SectionNav = () => {
   return (
     <nav
       aria-label="Page sections"
-      className="fixed right-5 top-1/2 z-40 hidden -translate-y-1/2 flex-col items-end gap-3 lg:flex"
+      className="fixed right-3 top-1/2 z-40 flex -translate-y-1/2 flex-col items-end gap-2 sm:right-4 sm:gap-3"
     >
       {sections.map(({ id, label }) => {
         const isActive = active === id;
@@ -58,20 +58,23 @@ const SectionNav = () => {
             onClick={() => handleClick(id)}
             aria-label={`Go to ${label}`}
             aria-current={isActive ? "true" : undefined}
-            className="group flex items-center gap-2"
+            className="group relative flex items-center p-1.5"
           >
+            {/* Label sits to the left of the dot, out of the tap area. */}
             <span
-              className={`pointer-events-none whitespace-nowrap rounded-md bg-card/90 px-2 py-1 text-xs font-medium opacity-0 shadow-sm backdrop-blur-sm transition-opacity duration-200 group-hover:opacity-100 ${
-                isActive ? "text-primary" : "text-muted-foreground"
+              className={`pointer-events-none absolute right-full mr-2 whitespace-nowrap rounded-md bg-card/95 px-2 py-1 text-xs font-medium shadow-md backdrop-blur-sm transition-opacity duration-200 ${
+                isActive
+                  ? "text-primary opacity-100"
+                  : "text-muted-foreground opacity-0 group-hover:opacity-100"
               }`}
             >
               {label}
             </span>
             <span
-              className={`h-2.5 w-2.5 rounded-full border transition-all duration-300 ${
+              className={`rounded-full border-2 transition-all duration-300 ${
                 isActive
-                  ? "scale-125 border-primary bg-primary shadow-glow"
-                  : "border-primary/40 bg-transparent group-hover:border-primary group-hover:bg-primary/40"
+                  ? "h-3 w-3 scale-110 border-primary bg-primary shadow-glow"
+                  : "h-3 w-3 border-primary/50 bg-primary/20 group-hover:border-primary group-hover:bg-primary/60"
               }`}
             />
           </button>

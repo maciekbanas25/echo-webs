@@ -12,6 +12,21 @@ const HeroShowcase = () => {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const [frameLoaded, setFrameLoaded] = useState(false);
+  // On phones, live demo iframes don't sit well in the small frame (and are
+  // heavy), so we show the clean preview image there instead and keep the
+  // live previews for larger screens.
+  const [isMobile, setIsMobile] = useState(
+    () =>
+      typeof window !== "undefined" &&
+      window.matchMedia("(max-width: 639px)").matches
+  );
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 639px)");
+    const onChange = () => setIsMobile(mq.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
 
   const goTo = (index: number) =>
     setActive((index + projects.length) % projects.length);
@@ -40,32 +55,35 @@ const HeroShowcase = () => {
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
-        {/* Live demo viewport — stock image fallback, real site on top.
-            Taller (portrait) on mobile so the demos' mobile layouts fill the
-            frame like a phone; wide 16:10 on larger screens. */}
-        <div className="relative aspect-[3/4] sm:aspect-[16/10] overflow-hidden bg-secondary">
-          {/* Instant image fallback (shows while the live frame loads) */}
+        {/* Live demo viewport — preview image on mobile, live site on top for
+            larger screens. */}
+        <div className="relative aspect-[16/10] overflow-hidden bg-secondary">
+          {/* Preview image (always present; the only layer shown on mobile,
+              and the instant fallback while the live frame loads elsewhere). */}
           <img
             src={current.image}
             alt={current.title}
             className="absolute inset-0 z-0 h-full w-full object-cover object-top"
           />
 
-          {/* The actual live demo, faded in once loaded; click-through */}
-          <iframe
-            key={active}
-            src={current.link}
-            title={`Live preview — ${current.title}`}
-            loading="lazy"
-            scrolling="no"
-            tabIndex={-1}
-            aria-hidden="true"
-            onLoad={() => setFrameLoaded(true)}
-            className={`absolute inset-0 z-10 h-full w-full border-0 transition-opacity duration-500 ${
-              frameLoaded ? "opacity-100" : "opacity-0"
-            }`}
-            style={{ pointerEvents: "none" }}
-          />
+          {/* The actual live demo, faded in once loaded; click-through.
+              Skipped on mobile where it doesn't render cleanly. */}
+          {!isMobile && (
+            <iframe
+              key={active}
+              src={current.link}
+              title={`Live preview — ${current.title}`}
+              loading="lazy"
+              scrolling="no"
+              tabIndex={-1}
+              aria-hidden="true"
+              onLoad={() => setFrameLoaded(true)}
+              className={`absolute inset-0 z-10 h-full w-full border-0 transition-opacity duration-500 ${
+                frameLoaded ? "opacity-100" : "opacity-0"
+              }`}
+              style={{ pointerEvents: "none" }}
+            />
+          )}
 
           {/* Gradient + caption (visual only, never blocks clicks) */}
           <div className="pointer-events-none absolute inset-0 z-30 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
