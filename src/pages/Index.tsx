@@ -10,7 +10,8 @@ import QuoteBuilder from "@/components/QuoteBuilder";
 import TrustStrip from "@/components/TrustStrip";
 import BeforeAfter from "@/components/BeforeAfter";
 import AnimatedBackground from "@/components/AnimatedBackground";
-import beforeAfterImg from "@/assets/restaurant-hero.jpg";
+import beforeImg from "@/assets/hero-bg.jpg";
+import afterImg from "@/assets/restaurant-hero.jpg";
 import GrainOverlay from "@/components/GrainOverlay";
 import FloatingQuoteButton from "@/components/FloatingQuoteButton";
 import Reveal from "@/components/Reveal";
@@ -158,9 +159,14 @@ const Index = () => {
                 </p>
               </Reveal>
               <Reveal className="max-w-4xl mx-auto">
-                <BeforeAfter afterSrc={beforeAfterImg} />
+                <BeforeAfter
+                  beforeSrc={beforeImg}
+                  afterSrc={afterImg}
+                  beforeLabel="Before"
+                  afterLabel="After"
+                />
                 <p className="mt-3 text-center text-xs text-muted-foreground/70">
-                  Illustrative comparison.
+                  Example before &amp; after — swap in your own pair.
                 </p>
               </Reveal>
             </div>
