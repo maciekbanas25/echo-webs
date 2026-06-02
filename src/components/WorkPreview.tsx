@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { projects } from "@/data/projects";
 import { ArrowRight } from "lucide-react";
 import Reveal from "@/components/Reveal";
-import BrowserChrome from "@/components/BrowserChrome";
 import Tilt from "@/components/Tilt";
 
 const WorkPreview = () => {
@@ -33,7 +32,6 @@ const WorkPreview = () => {
               className="group h-full overflow-hidden bg-secondary/50 border-primary/20 hover:border-primary/40 transition-colors duration-500 hover:shadow-[0_20px_60px_-15px_hsl(var(--primary)/0.35)] cursor-pointer"
             >
               <Link to={project.link} className="block">
-                <BrowserChrome url={`echo-webs.com${project.link}`} compact />
                 <div className="relative overflow-hidden aspect-[4/3]">
                   <img
                     src={project.image}
