@@ -32,7 +32,10 @@ const Showreel = () => {
       // visible — otherwise only the hero shows.
       const style = doc.createElement("style");
       style.textContent =
-        '[class*="opacity-0"][class*="translate-y"],[class*="opacity-0"][class*="scale-9"]{opacity:1 !important;transform:none !important;}';
+        '[class*="opacity-0"][class*="translate-y"],[class*="opacity-0"][class*="scale-9"]{opacity:1 !important;transform:none !important;}' +
+        // Kill parallax/fixed backgrounds — in a full-height fitted iframe they
+        // stretch to cover everything and look hugely zoomed.
+        '*{background-attachment:scroll !important;}';
       doc.head.appendChild(style);
 
       const apply = () => {
@@ -76,7 +79,7 @@ const Showreel = () => {
               title={d.label}
               onLoad={fit}
               scrolling="no"
-              className="block w-full border-0"
+              className="pointer-events-none block w-full border-0"
               style={{ height: "100vh" }}
             />
             <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#0b0b0e] to-transparent" />

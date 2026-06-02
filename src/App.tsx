@@ -66,7 +66,9 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      {!isEmbedded && (
+      {/* Skip the smooth-scroll/preloader on /showreel — Lenis fights the
+          tall live-iframe scroll and resets it. */}
+      {!isEmbedded && !window.location.pathname.startsWith("/showreel") && (
         <>
           <Preloader />
           <SmoothScroll />
