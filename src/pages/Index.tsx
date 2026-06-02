@@ -13,6 +13,7 @@ import GrainOverlay from "@/components/GrainOverlay";
 import FloatingQuoteButton from "@/components/FloatingQuoteButton";
 import Reveal from "@/components/Reveal";
 import HeroShowcase from "@/components/HeroShowcase";
+import SectionNav from "@/components/SectionNav";
 import RotatingWord from "@/components/RotatingWord";
 import CountUp from "@/components/CountUp";
 import Magnetic from "@/components/Magnetic";
@@ -30,9 +31,10 @@ const Index = () => {
       <GrainOverlay />
       <FloatingQuoteButton />
       <Navigation />
+      <SectionNav />
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-24 overflow-hidden min-h-screen flex items-center">
+      <section id="top" className="relative pt-32 pb-24 overflow-hidden min-h-screen flex items-center scroll-mt-20">
         <AnimatedBackground />
         <div className="absolute inset-0 bg-gradient-glow" />
 
@@ -145,7 +147,7 @@ const Index = () => {
           </div>
 
           {/* How It Works */}
-          <section className="py-24 bg-secondary/20">
+          <section id="process" className="py-24 bg-secondary/20 scroll-mt-20">
             <div className="container mx-auto px-4">
               <Reveal className="text-center mb-16">
                 <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-4 text-foreground">
@@ -220,13 +222,17 @@ const Index = () => {
             <div className="h-px bg-primary/20" />
           </div>
 
-          <Testimonials />
+          <div id="reviews" className="scroll-mt-20">
+            <Testimonials />
+          </div>
 
           <div className="max-w-5xl mx-auto">
             <div className="h-px bg-primary/20" />
           </div>
 
-          <FAQ />
+          <div id="faq" className="scroll-mt-20">
+            <FAQ />
+          </div>
 
           <div className="max-w-5xl mx-auto">
             <div className="h-px bg-primary/20" />
