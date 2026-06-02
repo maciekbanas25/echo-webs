@@ -29,11 +29,11 @@ const Services = () => {
       {/* Pricing Cards */}
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+          <div className="flex flex-wrap justify-center gap-6 max-w-7xl mx-auto">
             {servicePlans.map((plan, index) => (
               <Card
                 key={plan.id}
-                className={`relative overflow-hidden transition-all duration-500 animate-fade-in hover:shadow-glow ${
+                className={`w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(25%-1.125rem)] relative overflow-hidden transition-all duration-500 animate-fade-in hover:shadow-glow ${
                   plan.popular 
                     ? "border-primary shadow-glow scale-105 z-10" 
                     : "border-primary/20 hover:border-primary/50"

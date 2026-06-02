@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { projects } from "@/data/projects";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import logo from "@/assets/ew-logo.png";
 
 /**
  * A browser-window mockup in the hero that auto-cycles through the live demo
@@ -42,7 +43,7 @@ const HeroShowcase = () => {
   // carousel because each step loads a real site.
   useEffect(() => {
     if (paused) return;
-    const id = setInterval(next, 5500);
+    const id = setInterval(next, 7000);
     return () => clearInterval(id);
   }, [paused, active]);
 
@@ -67,6 +68,24 @@ const HeroShowcase = () => {
               isMobile ? "" : "scale-110 blur-xl"
             }`}
           />
+
+          {/* Branded loading overlay (desktop) shown while the live preview
+              loads, fading out as it appears — matches the site intro. */}
+          {!isMobile && (
+            <div
+              className={`pointer-events-none absolute inset-0 z-[15] flex flex-col items-center justify-center bg-background transition-opacity duration-500 ${
+                frameLoaded ? "opacity-0" : "opacity-100"
+              }`}
+            >
+              <img src={logo} alt="" className="mb-3 h-12 w-12" />
+              <div className="mb-4 bg-gradient-hero bg-clip-text font-playfair text-lg font-bold text-transparent">
+                EchoWebs
+              </div>
+              <div className="h-0.5 w-32 overflow-hidden rounded-full bg-border">
+                <div className="h-full w-1/3 rounded-full bg-gradient-hero animate-preload-bar-loop" />
+              </div>
+            </div>
+          )}
 
           {/* The actual live demo, faded in once loaded; click-through.
               Skipped on mobile where it doesn't render cleanly. */}
