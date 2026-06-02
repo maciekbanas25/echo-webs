@@ -12,7 +12,6 @@ import BeforeAfter from "@/components/BeforeAfter";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import beforeAfterImg from "@/assets/restaurant-hero.jpg";
 import GrainOverlay from "@/components/GrainOverlay";
-import CursorGlow from "@/components/CursorGlow";
 import FloatingQuoteButton from "@/components/FloatingQuoteButton";
 import Reveal from "@/components/Reveal";
 import HeroShowcase from "@/components/HeroShowcase";
@@ -31,7 +30,6 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <GrainOverlay />
-      <CursorGlow />
       <FloatingQuoteButton />
       <Navigation />
 

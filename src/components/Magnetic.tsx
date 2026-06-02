@@ -9,7 +9,7 @@ interface MagneticProps {
 }
 
 /** Wraps content so it leans toward the cursor while hovered, then springs back. */
-const Magnetic = ({ children, strength = 0.3, className }: MagneticProps) => {
+const Magnetic = ({ children, strength = 0.15, className }: MagneticProps) => {
   const ref = useRef<HTMLSpanElement>(null);
 
   const handleMove = (e: MouseEvent<HTMLSpanElement>) => {

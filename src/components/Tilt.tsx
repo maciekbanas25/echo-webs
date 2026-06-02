@@ -9,7 +9,7 @@ interface TiltProps {
 }
 
 /** Tilts its content in 3D toward the cursor, leveling out on mouse leave. */
-const Tilt = ({ children, max = 8, className }: TiltProps) => {
+const Tilt = ({ children, max = 4, className }: TiltProps) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const handleMove = (e: MouseEvent<HTMLDivElement>) => {

@@ -6,7 +6,6 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import RouteMeta from "./components/RouteMeta";
 import ScrollProgress from "./components/ScrollProgress";
-import CustomCursor from "./components/CustomCursor";
 import Preloader from "./components/Preloader";
 import SmoothScroll from "./components/SmoothScroll";
 import Index from "./pages/Index";
@@ -55,15 +54,22 @@ const AnimatedRoutes = () => {
   );
 };
 
+// True when the app is running inside an iframe (e.g. the homepage hero
+// preview), so we can skip global overlays that don't belong in a preview.
+const isEmbedded = typeof window !== "undefined" && window.self !== window.top;
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <Preloader />
-      <SmoothScroll />
-      <ScrollProgress />
-      <CustomCursor />
+      {!isEmbedded && (
+        <>
+          <Preloader />
+          <SmoothScroll />
+          <ScrollProgress />
+        </>
+      )}
       <BrowserRouter>
         <ScrollToTop />
         <RouteMeta />
