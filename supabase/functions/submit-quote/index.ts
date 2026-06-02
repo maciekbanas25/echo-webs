@@ -6,10 +6,7 @@
 // Make sure to verify your domain at: https://resend.com/domains
 
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
-import { Resend } from "https://esm.sh/resend@2.0.0";
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-
-const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.38.4";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -114,13 +111,26 @@ const handler = async (req: Request): Promise<Response> => {
       other: "Other / Not Sure",
     };
 
-    // Send notification email to you (the business owner)
+    // Send notification email to you (the business owner) — best-effort only.
+    // The lead is already saved above; a failed/unconfigured email must NOT
+    // fail the request or block the visitor.
     // UPDATE THIS EMAIL to your verified domain email when ready
-    const emailResponse = await resend.emails.send({
-      from: "EchoWebs <onboarding@resend.dev>", // Update to your verified domain
-      to: ["echowebs25@gmail.com"], // Your email address
-      subject: `New Quote Request - ${ticketRef}`,
-      html: `
+    try {
+      const resendKey = Deno.env.get("RESEND_API_KEY");
+      if (!resendKey) {
+        console.log("RESEND_API_KEY not set — skipping email notification (quote still saved)");
+      } else {
+        const emailRes = await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${resendKey}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            from: "EchoWebs <onboarding@resend.dev>", // Update to your verified domain
+            to: ["echowebs25@gmail.com"], // Your email address
+            subject: `New Quote Request - ${ticketRef}`,
+            html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h1 style="color: #333; border-bottom: 2px solid #6366f1; padding-bottom: 10px;">
             New Quote Request
@@ -158,7 +168,17 @@ const handler = async (req: Request): Promise<Response> => {
           </p>
         </div>
       `,
-    });
+          }),
+        });
+        if (!emailRes.ok) {
+          console.error("Resend API error (quote still saved):", emailRes.status, await emailRes.text());
+        } else {
+          console.log("Notification email sent for", ticketRef);
+        }
+      }
+    } catch (emailError: any) {
+      console.error("Email notification failed (quote still saved):", emailError?.message || emailError);
+    }
 
     console.log("Quote submitted successfully:", ticketRef);
 
