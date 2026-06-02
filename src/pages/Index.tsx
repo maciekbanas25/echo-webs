@@ -7,6 +7,7 @@ import CallToAction from "@/components/CallToAction";
 import FAQ from "@/components/FAQ";
 import Comparison from "@/components/Comparison";
 import QuoteBuilder from "@/components/QuoteBuilder";
+import TrustStrip from "@/components/TrustStrip";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import GrainOverlay from "@/components/GrainOverlay";
 import CursorGlow from "@/components/CursorGlow";
@@ -120,6 +121,8 @@ const Index = () => {
           </div>
         </div>
       </div>
+
+      <TrustStrip />
 
       {/* Main Content */}
       <div className="bg-background relative overflow-hidden">
