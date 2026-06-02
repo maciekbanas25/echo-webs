@@ -176,6 +176,48 @@ const handler = async (req: Request): Promise<Response> => {
         } else {
           console.log("Notification email sent for", ticketRef);
         }
+
+        // Confirmation email to the customer (best-effort).
+        const confirmRes = await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${resendKey}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            from: "EchoWebs <contact@echowebs.co.uk>",
+            to: [email],
+            subject: `We've received your request — ${ticketRef}`,
+            html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h1 style="color: #333; border-bottom: 2px solid #6366f1; padding-bottom: 10px;">
+            Thanks, ${name}! 👋
+          </h1>
+          <p style="color: #555; line-height: 1.6;">
+            I've received your request and I'll personally get back to you within 24 hours.
+          </p>
+          <p style="color: #666; font-size: 14px;">
+            Your reference number is <strong>${ticketRef}</strong> — quote it if you need to follow up.
+          </p>
+          <div style="margin-top: 20px; padding: 15px; background-color: #f8f9fa; border-radius: 8px;">
+            <p style="color: #555; line-height: 1.6; margin: 0;">
+              <strong>What you asked about:</strong><br/>
+              ${serviceTypeDisplay[serviceType] || serviceType}
+            </p>
+          </div>
+          <p style="color: #888; font-size: 12px; margin-top: 30px;">
+            — EchoWebs · Professional web design for small businesses<br/>
+            <a href="https://echowebs.co.uk" style="color: #6366f1;">echowebs.co.uk</a>
+          </p>
+        </div>
+      `,
+          }),
+        });
+        if (!confirmRes.ok) {
+          console.error("Customer confirmation email failed:", confirmRes.status, await confirmRes.text());
+        } else {
+          console.log("Confirmation email sent to customer for", ticketRef);
+        }
       }
     } catch (emailError: any) {
       console.error("Email notification failed (quote still saved):", emailError?.message || emailError);

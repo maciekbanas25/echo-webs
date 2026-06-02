@@ -1,5 +1,6 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
+import { Analytics } from "@vercel/analytics/react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
@@ -24,6 +25,7 @@ import Restaurant from "./pages/Restaurant";
 import BeautySalon from "./pages/BeautySalon";
 import Auth from "./pages/Auth";
 import Admin from "./pages/Admin";
+import Privacy from "./pages/Privacy";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -49,6 +51,7 @@ const AnimatedRoutes = () => {
         <Route path="/beauty-salon" element={<BeautySalon />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/privacy" element={<Privacy />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
@@ -72,6 +75,7 @@ const App = () => (
         <RouteMeta />
         <AnimatedRoutes />
       </BrowserRouter>
+      <Analytics />
     </TooltipProvider>
   </QueryClientProvider>
 );

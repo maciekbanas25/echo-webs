@@ -54,6 +54,10 @@ const Footer = () => {
         <div className="border-t border-primary/10 pt-8 text-center">
           <div className="text-sm text-muted-foreground">
             © {new Date().getFullYear()} EchoWebs. All Rights Reserved.
+            {" · "}
+            <Link to="/privacy" className="hover:text-primary transition-colors">
+              Privacy Policy
+            </Link>
           </div>
         </div>
       </div>
