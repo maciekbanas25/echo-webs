@@ -127,7 +127,7 @@ const handler = async (req: Request): Promise<Response> => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            from: "EchoWebs <onboarding@resend.dev>", // Update to your verified domain
+            from: "EchoWebs <contact@echowebs.co.uk>", // verified Resend domain sender
             to: ["echowebs25@gmail.com"], // Your email address
             subject: `New Quote Request - ${ticketRef}`,
             html: `
