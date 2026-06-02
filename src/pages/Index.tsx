@@ -7,6 +7,7 @@ import CallToAction from "@/components/CallToAction";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import GrainOverlay from "@/components/GrainOverlay";
 import CursorGlow from "@/components/CursorGlow";
+import FloatingQuoteButton from "@/components/FloatingQuoteButton";
 import Reveal from "@/components/Reveal";
 import HeroShowcase from "@/components/HeroShowcase";
 import RotatingWord from "@/components/RotatingWord";
@@ -25,6 +26,7 @@ const Index = () => {
     <div className="min-h-screen">
       <GrainOverlay />
       <CursorGlow />
+      <FloatingQuoteButton />
       <Navigation />
 
       {/* Hero Section */}
