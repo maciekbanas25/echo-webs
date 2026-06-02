@@ -40,13 +40,15 @@ const HeroShowcase = () => {
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
-        {/* Live demo viewport — stock image fallback, real site on top */}
-        <div className="relative aspect-[16/10] overflow-hidden bg-secondary">
+        {/* Live demo viewport — stock image fallback, real site on top.
+            Taller (portrait) on mobile so the demos' mobile layouts fill the
+            frame like a phone; wide 16:10 on larger screens. */}
+        <div className="relative aspect-[3/4] sm:aspect-[16/10] overflow-hidden bg-secondary">
           {/* Instant image fallback (shows while the live frame loads) */}
           <img
             src={current.image}
             alt={current.title}
-            className="absolute inset-0 z-0 h-full w-full object-cover"
+            className="absolute inset-0 z-0 h-full w-full object-cover object-top"
           />
 
           {/* The actual live demo, faded in once loaded; click-through */}
