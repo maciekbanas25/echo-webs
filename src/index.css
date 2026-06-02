@@ -178,6 +178,15 @@ All colors MUST be HSL.
   }
 }
 
+/* Preloader bar fill */
+@keyframes preload-bar {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+.animate-preload-bar {
+  animation: preload-bar 1.2s ease-out forwards;
+}
+
 /* Custom cursor */
 .cursor-none,
 .cursor-none * {
