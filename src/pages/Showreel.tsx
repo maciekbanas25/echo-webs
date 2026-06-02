@@ -26,11 +26,22 @@ const Showreel = () => {
     try {
       const doc = frame.contentWindow?.document;
       if (!doc) return;
+
+      // The demos reveal each section on scroll (IntersectionObserver). A
+      // fitted iframe never actually scrolls, so force the reveal content
+      // visible — otherwise only the hero shows.
+      const style = doc.createElement("style");
+      style.textContent =
+        '[class*="opacity-0"][class*="translate-y"],[class*="opacity-0"][class*="scale-9"]{opacity:1 !important;transform:none !important;}';
+      doc.head.appendChild(style);
+
       const apply = () => {
         frame.style.height = `${doc.documentElement.scrollHeight}px`;
       };
       apply();
       new ResizeObserver(apply).observe(doc.documentElement);
+      // Re-measure as images/fonts finish loading.
+      [400, 1200, 2500].forEach((t) => setTimeout(apply, t));
     } catch {
       /* ignore – same-origin only */
     }
