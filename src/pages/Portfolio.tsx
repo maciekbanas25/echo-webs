@@ -63,16 +63,16 @@ const PortfolioPage = () => {
             {filteredProjects.map((project, index) => (
               <Card
                 key={project.id}
-                className="group overflow-hidden bg-card border-primary/20 hover:border-primary/40 transition-all duration-500 hover:shadow-[0_20px_60px_-15px_hsl(217_91%_60%/0.35)] hover:-translate-y-2 animate-fade-in cursor-pointer"
+                className="group transform-gpu overflow-hidden bg-card border-primary/20 hover:border-primary/40 transition-all duration-500 hover:shadow-[0_20px_60px_-15px_hsl(var(--primary)/0.35)] hover:-translate-y-2 animate-fade-in cursor-pointer"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <Link to={project.link} className="block">
-                  <div className="relative overflow-hidden aspect-[4/3]">
+                  <div className="relative aspect-[4/3] overflow-hidden [transform:translateZ(0)]">
                     <img
                       src={project.image}
                       alt={project.title}
                       loading="lazy"
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 transform-gpu"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
                     {/* Category pill top-right */}
