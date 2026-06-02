@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { useLocation } from "react-router-dom";
 import { Mail, Send, ExternalLink, CheckCircle2 } from "lucide-react";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
@@ -17,23 +17,46 @@ const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters").max(100),
   business: z.string().max(100).optional(),
   email: z.string().email("Please enter a valid email address").max(255),
-  serviceType: z.string().min(1, "Please select a service type"),
+  serviceType: z.string().min(1, "Please select at least one service"),
   projectDetails: z.string().min(10, "Project details must be at least 10 characters").max(2000),
 });
 
+// Selectable services — visitors can pick more than one.
+const SERVICES = [
+  { id: "starter", label: "Starter Site (Single Page)" },
+  { id: "premium", label: "Premium Website (Multi-page)" },
+  { id: "ecommerce", label: "E-Commerce Website" },
+  { id: "redesign", label: "Website Redesign" },
+  { id: "other", label: "Not Sure Yet" },
+];
+
 const ContactPage = () => {
   const { toast } = useToast();
+  const location = useLocation();
+  // Prefill from the homepage "Build Your Quote" handoff, if present.
+  const incoming = location.state as
+    | { services?: string[]; projectDetails?: string }
+    | null;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [ticketRef, setTicketRef] = useState<string | null>(null);
+  const [selectedServices, setSelectedServices] = useState<string[]>(
+    incoming?.services ?? []
+  );
   const [formData, setFormData] = useState({
     name: "",
     business: "",
     email: "",
-    serviceType: "",
-    projectDetails: "",
+    projectDetails: incoming?.projectDetails ?? "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const toggleService = (id: string) => {
+    setSelectedServices((prev) =>
+      prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]
+    );
+    if (errors.serviceType) setErrors((prev) => ({ ...prev, serviceType: "" }));
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -49,9 +72,14 @@ const ContactPage = () => {
     setErrors({});
 
     try {
+      // Combine the chosen services into one readable string for storage/email.
+      const serviceType = selectedServices
+        .map((id) => SERVICES.find((s) => s.id === id)?.label ?? id)
+        .join(", ");
+
       // Validate form data
-      const validated = contactSchema.parse(formData);
-      
+      const validated = contactSchema.parse({ ...formData, serviceType });
+
       // Submit to edge function
       const { data, error } = await supabase.functions.invoke("submit-quote", {
         body: {
@@ -102,11 +130,11 @@ const ContactPage = () => {
   const handleNewRequest = () => {
     setIsSubmitted(false);
     setTicketRef(null);
+    setSelectedServices([]);
     setFormData({
       name: "",
       business: "",
       email: "",
-      serviceType: "",
       projectDetails: "",
     });
   };
@@ -221,29 +249,32 @@ const ContactPage = () => {
                         {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
                       </div>
 
-                      {/* Service type dropdown - required */}
+                      {/* Service type — pick one or more */}
                       <div className="space-y-2">
-                        <Label htmlFor="serviceType">Service Type *</Label>
-                        <Select
-                          value={formData.serviceType}
-                          onValueChange={(value) => {
-                            setFormData(prev => ({ ...prev, serviceType: value }));
-                            if (errors.serviceType) {
-                              setErrors(prev => ({ ...prev, serviceType: "" }));
-                            }
-                          }}
-                        >
-                          <SelectTrigger className={errors.serviceType ? "border-destructive" : ""}>
-                            <SelectValue placeholder="Select a service type" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="starter">Starter Site (Single Page)</SelectItem>
-                            <SelectItem value="premium">Premium Website (Multi-page)</SelectItem>
-                            <SelectItem value="ecommerce">E-Commerce Website</SelectItem>
-                            <SelectItem value="redesign">Website Redesign</SelectItem>
-                            <SelectItem value="other">Not Sure Yet</SelectItem>
-                          </SelectContent>
-                        </Select>
+                        <Label>
+                          Service Type *{" "}
+                          <span className="font-normal text-muted-foreground">(select all that apply)</span>
+                        </Label>
+                        <div className="flex flex-wrap gap-2">
+                          {SERVICES.map((s) => {
+                            const active = selectedServices.includes(s.id);
+                            return (
+                              <button
+                                key={s.id}
+                                type="button"
+                                onClick={() => toggleService(s.id)}
+                                aria-pressed={active}
+                                className={`rounded-full border px-4 py-2 text-sm font-medium transition-all ${
+                                  active
+                                    ? "border-primary bg-primary/10 text-primary shadow-glow"
+                                    : "border-border bg-card/40 text-muted-foreground hover:border-primary/40"
+                                }`}
+                              >
+                                {s.label}
+                              </button>
+                            );
+                          })}
+                        </div>
                         {errors.serviceType && <p className="text-sm text-destructive">{errors.serviceType}</p>}
                       </div>
 

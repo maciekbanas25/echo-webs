@@ -43,6 +43,14 @@ const QuoteBuilder = () => {
   const was = PACKAGES[pkg].was + (ecommerce ? ECOMMERCE.was : 0);
   const saved = was - now;
 
+  // Hand the current selection over to the contact form so nothing is lost.
+  const services = [pkg, ...(ecommerce ? ["ecommerce"] : [])];
+  const quoteSummary =
+    `I'd like a quote for the ${PACKAGES[pkg].label}` +
+    `${ecommerce ? " plus an online shop add-on" : ""}` +
+    `${maintenance ? " with monthly maintenance" : ""}. ` +
+    `Estimated total: £${now}${maintenance ? ` + £${MAINTENANCE}/mo maintenance` : ""} (launch pricing).`;
+
   return (
     <section id="quote" className="py-24 scroll-mt-20">
       <div className="container mx-auto px-4">
@@ -154,7 +162,11 @@ const QuoteBuilder = () => {
             </p>
 
             <Button asChild size="lg" className="w-full shadow-glow hover:shadow-intense">
-              <Link to="/contact" className="flex items-center justify-center gap-2">
+              <Link
+                to="/contact"
+                state={{ services, projectDetails: quoteSummary }}
+                className="flex items-center justify-center gap-2"
+              >
                 Get this quote <ArrowRight className="h-5 w-5" />
               </Link>
             </Button>
