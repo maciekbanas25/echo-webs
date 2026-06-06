@@ -9,7 +9,7 @@ import { Camera, Heart, Sparkles } from "lucide-react";
 const galleryImages = [
   { src: "https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80&auto=format&fit=crop", alt: "Wedding ceremony" },
   { src: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80&auto=format&fit=crop", alt: "Portrait session" },
-  { src: "https://images.unsplash.com/photo-1511285560929-80b456503681?w=600&q=80&auto=format&fit=crop", alt: "Wedding couple" },
+  { src: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=600&q=80&auto=format&fit=crop", alt: "Wedding couple" },
   { src: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80&auto=format&fit=crop", alt: "Event coverage" },
   { src: "https://images.unsplash.com/photo-1495121553079-4c61bcce1894?w=600&q=80&auto=format&fit=crop", alt: "Lifestyle shoot" },
   { src: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=600&q=80&auto=format&fit=crop", alt: "Product photography" },
