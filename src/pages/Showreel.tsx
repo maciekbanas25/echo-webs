@@ -27,15 +27,25 @@ const Showreel = () => {
       const doc = frame.contentWindow?.document;
       if (!doc) return;
 
-      // The demos reveal each section on scroll (IntersectionObserver). A
-      // fitted iframe never actually scrolls, so force the reveal content
-      // visible — otherwise only the hero shows.
+      // An iframe's own rendered height IS the viewport its `vh` units resolve
+      // against. Because we grow each frame to its full content height below,
+      // the demos' `h-[85vh]`/`min-h-screen` hero sections would balloon to a
+      // fraction of the ENTIRE stacked demo (and feed back into the height),
+      // blowing their `bg-cover` images up enormously. Pin every vh-based /
+      // screen-height box to the real screen height so heroes render normally.
+      const vp = window.innerHeight;
       const style = doc.createElement("style");
       style.textContent =
+        // The demos reveal each section on scroll (IntersectionObserver). A
+        // fitted iframe never actually scrolls, so force the reveal content
+        // visible — otherwise only the hero shows.
         '[class*="opacity-0"][class*="translate-y"],[class*="opacity-0"][class*="scale-9"]{opacity:1 !important;transform:none !important;}' +
         // Kill parallax/fixed backgrounds — in a full-height fitted iframe they
         // stretch to cover everything and look hugely zoomed.
-        '*{background-attachment:scroll !important;}';
+        '*{background-attachment:scroll !important;}' +
+        // Resolve hero `vh` heights against the real screen, not the giant frame.
+        `[class*="vh]"]{height:${vp}px !important;}` +
+        `.min-h-screen{min-height:${vp}px !important;}`;
       doc.head.appendChild(style);
 
       const apply = () => {
