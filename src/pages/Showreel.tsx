@@ -7,6 +7,10 @@
  * TO DELETE: remove the `/showreel` route + import in App.tsx, then delete
  * this file. Nothing else depends on it.
  */
+import { useEffect } from "react";
+import Lenis from "lenis";
+import logo from "@/assets/ew-logo.png";
+
 const demos = [
   { path: "/cafe", label: "Cafés" },
   { path: "/barber", label: "Barbers" },
@@ -18,7 +22,32 @@ const demos = [
   { path: "/tradesman", label: "Tradesmen" },
 ];
 
+// Masked blur so the blur itself fades out (no hard seam) — strongest at the
+// screen edge, gone toward the middle of the demo. Combined with the dark
+// gradient it makes each demo melt into the next.
+const fadeMask = (dir: "top" | "bottom") => ({
+  WebkitMaskImage: `linear-gradient(to ${dir === "top" ? "bottom" : "top"}, black, transparent)`,
+  maskImage: `linear-gradient(to ${dir === "top" ? "bottom" : "top"}, black, transparent)`,
+});
+
 const Showreel = () => {
+  // Cinematic weighted scrolling for the recording (matches the main site's
+  // Lenis feel, a touch slower). This temp page is excluded from the global
+  // SmoothScroll in App.tsx, so this is the only instance.
+  useEffect(() => {
+    const lenis = new Lenis({ duration: 1.5, smoothWheel: true });
+    let raf = 0;
+    const loop = (time: number) => {
+      lenis.raf(time);
+      raf = requestAnimationFrame(loop);
+    };
+    raf = requestAnimationFrame(loop);
+    return () => {
+      cancelAnimationFrame(raf);
+      lenis.destroy();
+    };
+  }, []);
+
   // Same-origin iframe: size it to its full content height so this page's
   // scroll runs through the whole demo. Re-measures as images/animations load.
   const fit = (e: React.SyntheticEvent<HTMLIFrameElement>) => {
@@ -62,12 +91,21 @@ const Showreel = () => {
 
   return (
     <div className="bg-[#0b0b0e]">
+      {/* Extra lead-in space (same bg) so the scroll has room to ramp up
+          before anything appears. */}
+      <div className="h-screen" />
+
       {/* Intro */}
-      <div className="flex h-screen flex-col items-center justify-center gap-4 px-4 text-center">
-        <div className="bg-gradient-hero bg-clip-text font-playfair text-6xl md:text-7xl font-bold text-transparent">
+      <div className="flex h-screen flex-col items-center justify-center gap-6 px-4 text-center">
+        <img
+          src={logo}
+          alt="EchoWebs"
+          className="h-24 w-24 object-contain md:h-28 md:w-28"
+        />
+        <div className="bg-gradient-hero bg-clip-text font-jakarta text-6xl md:text-7xl font-bold text-transparent">
           EchoWebs
         </div>
-        <p className="text-lg text-muted-foreground md:text-xl">
+        <p className="font-jakarta text-lg text-muted-foreground md:text-xl">
           Websites I design for small businesses
         </p>
       </div>
@@ -77,12 +115,13 @@ const Showreel = () => {
           {/* Branded label / transition band */}
           <div className="relative flex h-[45vh] items-center justify-center overflow-hidden">
             <div className="absolute inset-0 bg-gradient-hero opacity-20 blur-3xl" />
-            <span className="relative bg-gradient-hero bg-clip-text font-playfair text-5xl md:text-7xl font-bold text-transparent">
+            <span className="relative bg-gradient-hero bg-clip-text font-jakarta text-5xl md:text-7xl font-bold text-transparent">
               {d.label}
             </span>
           </div>
 
-          {/* The live demo, sized to its full height, with soft edge fades */}
+          {/* The live demo, sized to its full height, with soft edge fades +
+              masked blur so each demo melts into the next. */}
           <div className="relative">
             <iframe
               src={d.path}
@@ -92,18 +131,28 @@ const Showreel = () => {
               className="pointer-events-none block w-full border-0"
               style={{ height: "100vh" }}
             />
-            <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#0b0b0e] to-transparent" />
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#0b0b0e] to-transparent" />
+            {/* top edge */}
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-56 bg-gradient-to-b from-[#0b0b0e] via-[#0b0b0e]/80 to-transparent" />
+            <div
+              className="pointer-events-none absolute inset-x-0 top-0 h-56 backdrop-blur-md"
+              style={fadeMask("top")}
+            />
+            {/* bottom edge */}
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-[#0b0b0e] via-[#0b0b0e]/80 to-transparent" />
+            <div
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-56 backdrop-blur-md"
+              style={fadeMask("bottom")}
+            />
           </div>
         </section>
       ))}
 
       {/* Outro / CTA */}
       <div className="flex h-screen flex-col items-center justify-center gap-4 px-4 text-center">
-        <div className="bg-gradient-hero bg-clip-text font-playfair text-5xl md:text-6xl font-bold text-transparent">
+        <div className="bg-gradient-hero bg-clip-text font-jakarta text-5xl md:text-6xl font-bold text-transparent">
           Get a free quote
         </div>
-        <p className="text-xl text-muted-foreground">echowebs.co.uk</p>
+        <p className="font-jakarta text-xl text-muted-foreground">echowebs.co.uk</p>
       </div>
     </div>
   );
