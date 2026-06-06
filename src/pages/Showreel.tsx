@@ -112,10 +112,10 @@ const Showreel = () => {
 
       {demos.map((d) => (
         <section key={d.path}>
-          {/* Branded label / transition band */}
-          <div className="relative flex h-[45vh] items-center justify-center overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-hero opacity-20 blur-3xl" />
-            <span className="relative bg-gradient-hero bg-clip-text font-jakarta text-5xl md:text-7xl font-bold text-transparent">
+          {/* Branded label / transition band — plain #0b0b0e (same as the
+              fades), with the gradient-hero wordmark colour on the label. */}
+          <div className="flex h-[45vh] items-center justify-center overflow-hidden">
+            <span className="bg-gradient-hero bg-clip-text font-jakarta text-5xl md:text-7xl font-bold text-transparent">
               {d.label}
             </span>
           </div>
