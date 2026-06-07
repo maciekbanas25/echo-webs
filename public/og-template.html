@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>EchoWebs OG card template</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      html, body {
+        background: #1a1a1f;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+      }
+
+      /* The exact 1200x630 card to screenshot. */
+      .card {
+        position: relative;
+        width: 1200px;
+        height: 630px;
+        background: #0b0c0f;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #fafbfc;
+      }
+
+      /* Brand glow + faint grid, echoing the site hero. */
+      .card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(70% 80% at 50% -10%, rgba(45, 165, 250, 0.18) 0%, transparent 60%),
+          radial-gradient(50% 60% at 90% 110%, rgba(34, 211, 238, 0.12) 0%, transparent 60%);
+      }
+      .card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+        background-size: 48px 48px;
+        mask-image: radial-gradient(circle at 50% 40%, #000 0%, transparent 75%);
+        -webkit-mask-image: radial-gradient(circle at 50% 40%, #000 0%, transparent 75%);
+      }
+
+      .inner { position: relative; z-index: 1; padding: 0 80px; }
+
+      .logo { width: 132px; height: 132px; margin-bottom: 30px; }
+
+      .wordmark {
+        font-weight: 800;
+        font-size: 92px;
+        letter-spacing: -0.03em;
+        line-height: 1;
+        background: linear-gradient(120deg, #3d8bfa 0%, #22d3ee 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 22px;
+      }
+
+      .tagline {
+        font-size: 34px;
+        font-weight: 500;
+        color: #c7ccd6;
+        letter-spacing: -0.01em;
+        margin-bottom: 40px;
+      }
+
+      .pills { display: flex; gap: 16px; justify-content: center; }
+      .pill {
+        font-size: 22px;
+        font-weight: 600;
+        color: #e6f6ff;
+        padding: 12px 26px;
+        border-radius: 999px;
+        border: 1px solid rgba(61, 139, 250, 0.35);
+        background: rgba(61, 139, 250, 0.08);
+      }
+
+      .url {
+        position: absolute;
+        bottom: 40px;
+        left: 0;
+        right: 0;
+        z-index: 1;
+        font-size: 22px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #6b7280;
+      }
+
+      /* On-screen helper — NOT part of the card, won't appear in a node screenshot. */
+      .help {
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        font-family: monospace;
+        font-size: 13px;
+        color: #9aa3af;
+        background: #0b0c0f;
+        border: 1px solid #2a2f3a;
+        padding: 8px 12px;
+        border-radius: 8px;
+        max-width: 540px;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="help">
+      Screenshot the dark card below at exactly 1200×630, save as
+      <b>opengraph-image.jpg</b> in /public.<br />
+      Easiest: F12 → Ctrl/Cmd+Shift+P → “Capture node screenshot” → click the card.
+    </div>
+
+    <div class="card">
+      <div class="inner">
+        <img class="logo" src="./email-logo.png" alt="EchoWebs" />
+        <div class="wordmark">EchoWebs</div>
+        <div class="tagline">Professional Web Design for Small Businesses</div>
+        <div class="pills">
+          <span class="pill">From £299</span>
+          <span class="pill">Ready in 7 days</span>
+          <span class="pill">Free mock-up</span>
+        </div>
+      </div>
+      <div class="url">echowebs.co.uk</div>
+    </div>
+  </body>
+</html>
