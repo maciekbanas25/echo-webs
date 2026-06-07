@@ -10,52 +10,59 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 240 7% 6%;
-    --foreground: 240 11% 97%;
+    /* Deep, near-black canvas with a faint cool cast that flatters the
+       blue/cyan brand without reading as "blue". */
+    --background: 222 16% 5%;
+    --foreground: 210 17% 98%;
 
-    --card: 240 5% 11%;
-    --card-foreground: 240 11% 97%;
+    /* Elevated surfaces step up subtly from the background for real depth. */
+    --card: 223 14% 8%;
+    --card-foreground: 210 17% 98%;
 
-    --popover: 240 5% 11%;
-    --popover-foreground: 240 11% 97%;
+    --popover: 223 16% 7%;
+    --popover-foreground: 210 17% 98%;
 
-    --primary: 217 91% 60%;
-    --primary-foreground: 240 11% 97%;
-    --primary-hover: 213 94% 68%;
+    /* Brand blue — matches the lighter top of the EW logo gradient. */
+    --primary: 213 94% 62%;
+    --primary-foreground: 222 47% 6%;
+    --primary-hover: 205 96% 70%;
 
-    --secondary: 240 5% 11%;
-    --secondary-foreground: 240 11% 97%;
+    --secondary: 223 14% 9%;
+    --secondary-foreground: 210 17% 98%;
 
-    --muted: 240 5% 11%;
-    --muted-foreground: 220 13% 65%;
+    --muted: 223 12% 10%;
+    --muted-foreground: 217 12% 62%;
 
-    --accent: 189 94% 43%;
-    --accent-foreground: 240 11% 97%;
-    --accent-hover: 189 94% 38%;
+    /* Electric cyan — matches the brighter bottom of the logo gradient. */
+    --accent: 190 95% 52%;
+    --accent-foreground: 222 47% 6%;
+    --accent-hover: 190 96% 58%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 72% 55%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 240 5% 20%;
-    --input: 240 5% 20%;
-    --ring: 217 91% 60%;
+    /* Hairline borders — present but quiet, the hallmark of a polished dark UI. */
+    --border: 220 13% 14%;
+    --input: 220 13% 16%;
+    --ring: 205 96% 62%;
 
-    --radius: 0.75rem;
+    --radius: 0.85rem;
 
-    /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(217 91% 60%) 0%, hsl(189 94% 43%) 100%);
-    --gradient-subtle: linear-gradient(180deg, hsl(240 7% 6%) 0%, hsl(240 5% 11%) 100%);
-    --gradient-glow: radial-gradient(circle at 50% 50%, hsl(217 91% 60% / 0.2) 0%, transparent 70%);
+    /* Gradients — angled to echo the logo's diagonal blue→cyan sweep. */
+    --gradient-hero: linear-gradient(120deg, hsl(213 94% 64%) 0%, hsl(190 95% 55%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(222 16% 5%) 0%, hsl(223 14% 8%) 100%);
+    --gradient-glow: radial-gradient(60% 60% at 50% 0%, hsl(205 96% 55% / 0.12) 0%, transparent 70%);
     --gradient-radial: radial-gradient(circle at center, var(--tw-gradient-stops));
 
-    /* Shadows */
-    --shadow-card: 0 4px 6px -1px hsl(0 0% 0% / 0.3), 0 2px 4px -2px hsl(0 0% 0% / 0.2);
-    --shadow-hover: 0 10px 15px -3px hsl(217 91% 60% / 0.3), 0 4px 6px -4px hsl(189 94% 43% / 0.3);
-    --shadow-glow: 0 0 40px hsl(213 94% 68% / 0.4), 0 0 80px hsl(189 94% 43% / 0.3);
-    --shadow-intense: 0 25px 60px -15px hsl(217 91% 60% / 0.6), 0 10px 30px -10px hsl(189 94% 43% / 0.5);
+    /* Shadows — restrained. Depth comes from soft black; the glow is a
+       whisper of brand colour, not a neon halo. */
+    --shadow-card: 0 1px 2px hsl(0 0% 0% / 0.4), 0 10px 30px -16px hsl(0 0% 0% / 0.7);
+    --shadow-hover: 0 12px 40px -16px hsl(0 0% 0% / 0.7), 0 0 0 1px hsl(205 96% 60% / 0.15);
+    --shadow-glow: 0 0 28px hsl(205 96% 60% / 0.18);
+    --shadow-intense: 0 24px 60px -24px hsl(205 96% 55% / 0.35), 0 8px 24px -16px hsl(0 0% 0% / 0.6);
 
     /* RGB values for use in rgba */
-    --primary-rgb: 59, 130, 246;
+    --primary-rgb: 61, 139, 250;
 
     /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -129,12 +136,12 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 240 7% 6%;
-    --foreground: 240 11% 97%;
+    --background: 222 16% 5%;
+    --foreground: 210 17% 98%;
 
     /* Dark mode shadows */
-    --shadow-card: 0 4px 6px -1px hsl(0 0% 0% / 0.3), 0 2px 4px -2px hsl(0 0% 0% / 0.2);
-    --shadow-hover: 0 10px 15px -3px hsl(217 91% 60% / 0.3), 0 4px 6px -4px hsl(189 94% 43% / 0.3);
+    --shadow-card: 0 1px 2px hsl(0 0% 0% / 0.4), 0 10px 30px -16px hsl(0 0% 0% / 0.7);
+    --shadow-hover: 0 12px 40px -16px hsl(0 0% 0% / 0.7), 0 0 0 1px hsl(205 96% 60% / 0.15);
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -175,6 +182,52 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
     font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Display headings sit tighter — a small thing that reads as "designed". */
+  h1, h2, h3 {
+    letter-spacing: -0.02em;
+  }
+
+  /* On-brand text selection instead of the browser default. */
+  ::selection {
+    background: hsl(205 96% 60% / 0.28);
+    color: hsl(210 17% 98%);
+  }
+
+  /* Quiet, premium scrollbar on the dark canvas. */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: hsl(222 16% 5%); }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(220 13% 18%);
+    border-radius: 9999px;
+    border: 2px solid hsl(222 16% 5%);
+  }
+  ::-webkit-scrollbar-thumb:hover { background: hsl(205 40% 30%); }
+}
+
+@layer utilities {
+  /* Reusable brand text gradient for headings/keywords. */
+  .text-gradient {
+    background: var(--gradient-hero);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Hairline divider that fades in from the edges — replaces flat 1px lines. */
+  .divider-soft {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      hsl(220 13% 22% / 0.8) 50%,
+      transparent
+    );
   }
 }
 

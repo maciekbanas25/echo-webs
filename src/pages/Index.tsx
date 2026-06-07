@@ -40,12 +40,14 @@ const Index = () => {
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center animate-fade-in">
-            <div className="mb-6 inline-block">
-              <div className="text-sm font-semibold text-primary mb-4 tracking-wider uppercase animate-pulse">
-                Next-Gen Web Design
-              </div>
+            <div className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-primary/90 backdrop-blur-sm">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
+              </span>
+              Next-Gen Web Design
             </div>
-            <h1 className="font-playfair text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight text-foreground">
+            <h1 className="font-playfair text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-[1.05] text-foreground">
               Stunning websites for{" "}
               <RotatingWord
                 words={[
@@ -58,7 +60,7 @@ const Index = () => {
                   "Tradesmen",
                   "Detailers",
                 ]}
-                className="bg-gradient-hero bg-clip-text text-transparent"
+                className="text-gradient"
               />
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-12 leading-relaxed max-w-3xl mx-auto">
@@ -130,20 +132,20 @@ const Index = () => {
         <div className="relative">
           <Benefits />
 
-          <div className="max-w-5xl mx-auto">
-            <div className="h-px bg-primary/20" />
+          <div className="max-w-5xl mx-auto px-4">
+            <div className="divider-soft" />
           </div>
 
           <WorkPreview />
 
-          <div className="max-w-5xl mx-auto">
-            <div className="h-px bg-primary/20" />
+          <div className="max-w-5xl mx-auto px-4">
+            <div className="divider-soft" />
           </div>
 
           <Comparison />
 
-          <div className="max-w-5xl mx-auto">
-            <div className="h-px bg-primary/20" />
+          <div className="max-w-5xl mx-auto px-4">
+            <div className="divider-soft" />
           </div>
 
           {/* How It Works */}
@@ -212,30 +214,30 @@ const Index = () => {
             </div>
           </section>
 
-          <div className="max-w-5xl mx-auto">
-            <div className="h-px bg-primary/20" />
+          <div className="max-w-5xl mx-auto px-4">
+            <div className="divider-soft" />
           </div>
 
           <QuoteBuilder />
 
-          <div className="max-w-5xl mx-auto">
-            <div className="h-px bg-primary/20" />
+          <div className="max-w-5xl mx-auto px-4">
+            <div className="divider-soft" />
           </div>
 
           <div id="reviews" className="scroll-mt-20">
             <Testimonials />
           </div>
 
-          <div className="max-w-5xl mx-auto">
-            <div className="h-px bg-primary/20" />
+          <div className="max-w-5xl mx-auto px-4">
+            <div className="divider-soft" />
           </div>
 
           <div id="faq" className="scroll-mt-20">
             <FAQ />
           </div>
 
-          <div className="max-w-5xl mx-auto">
-            <div className="h-px bg-primary/20" />
+          <div className="max-w-5xl mx-auto px-4">
+            <div className="divider-soft" />
           </div>
 
           <CallToAction />
