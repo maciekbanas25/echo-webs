@@ -32,7 +32,7 @@ const WorkPreview = () => {
               className="group h-full overflow-hidden bg-secondary/50 border-primary/20 hover:border-primary/40 transition-colors duration-500 hover:shadow-[0_20px_60px_-15px_hsl(var(--primary)/0.35)] cursor-pointer"
             >
               <Link to={project.link} className="block">
-                <div className="relative overflow-hidden aspect-[4/3]">
+                <div className="relative overflow-hidden rounded-t-lg aspect-[4/3]">
                   <img
                     src={project.image}
                     alt={project.title}
