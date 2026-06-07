@@ -16,7 +16,7 @@ const Services = () => {
         <div className="absolute inset-0 bg-gradient-glow opacity-30" />
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center animate-fade-in">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-hero bg-clip-text text-transparent">
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight pb-2 bg-gradient-hero bg-clip-text text-transparent">
               Services & Pricing
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
