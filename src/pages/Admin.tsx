@@ -52,6 +52,34 @@ const Admin = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Auto sign-out after 15 minutes of inactivity, so an unattended dashboard
+  // doesn't stay open. (Refreshing/closing the tab already logs out — the
+  // session is held in memory only.)
+  useEffect(() => {
+    if (!isAdmin) return;
+    const TIMEOUT_MS = 15 * 60 * 1000;
+    let timer: number;
+    const logout = async () => {
+      await supabase.auth.signOut();
+      toast({
+        title: "Signed out",
+        description: "You were logged out after 15 minutes of inactivity.",
+      });
+      navigate("/auth");
+    };
+    const reset = () => {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(logout, TIMEOUT_MS);
+    };
+    const events = ["mousemove", "keydown", "click", "scroll", "touchstart"];
+    events.forEach((e) => window.addEventListener(e, reset, { passive: true }));
+    reset();
+    return () => {
+      window.clearTimeout(timer);
+      events.forEach((e) => window.removeEventListener(e, reset));
+    };
+  }, [isAdmin, navigate, toast]);
+
   const checkAdminAccess = async () => {
     try {
       const { data: { session } } = await supabase.auth.getSession();

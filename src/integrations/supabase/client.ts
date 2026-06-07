@@ -8,10 +8,12 @@ const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 // Import the supabase client like this:
 // import { supabase } from "@/integrations/supabase/client";
 
+// Admin sessions are intentionally NOT persisted: the session lives in memory
+// only, so refreshing the page or closing the tab logs the admin straight out.
+// (No localStorage token to steal or leave behind on a shared machine.)
 export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
   auth: {
-    storage: localStorage,
-    persistSession: true,
+    persistSession: false,
     autoRefreshToken: true,
   }
 });
