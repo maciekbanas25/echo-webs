@@ -294,9 +294,10 @@ const ContactPage = () => {
                         {errors.projectDetails && <p className="text-sm text-destructive">{errors.projectDetails}</p>}
                       </div>
 
-                      <Button 
-                        type="submit" 
-                        size="lg" 
+                      <Button
+                        type="submit"
+                        size="lg"
+                        variant="brand"
                         className="w-full shadow-glow hover:shadow-intense transition-all duration-300"
                         disabled={isSubmitting}
                       >

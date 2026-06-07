@@ -17,7 +17,7 @@ const FloatingQuoteButton = () => {
     <Link
       to="/contact"
       aria-label="Get a free quote"
-      className={`fixed bottom-6 right-6 z-[90] flex items-center gap-2 rounded-full bg-primary px-5 py-3 font-semibold text-primary-foreground shadow-glow transition-all duration-300 hover:shadow-intense ${
+      className={`fixed bottom-6 right-6 z-[90] flex items-center gap-2 rounded-full bg-gradient-hero px-5 py-3 font-semibold text-primary-foreground shadow-glow transition-all duration-300 hover:shadow-intense hover:brightness-110 ${
         show ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"
       }`}
     >

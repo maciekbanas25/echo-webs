@@ -184,7 +184,7 @@ const QuoteBuilder = () => {
               One-off price. You own the site. Free mock-up before you pay a penny.
             </p>
 
-            <Button asChild size="lg" className="w-full shadow-glow hover:shadow-intense">
+            <Button asChild size="lg" variant="brand" className="w-full shadow-glow hover:shadow-intense">
               <Link
                 to="/contact"
                 state={{ services, projectDetails: quoteSummary }}

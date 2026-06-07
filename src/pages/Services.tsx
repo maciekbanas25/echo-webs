@@ -88,7 +88,7 @@ const Services = () => {
                         ? "shadow-glow" 
                         : "bg-secondary text-foreground hover:bg-primary hover:text-primary-foreground"
                     }`}
-                    variant={plan.popular ? "default" : "outline"}
+                    variant={plan.popular ? "brand" : "outline"}
                   >
                     <Link to="/contact" className="flex items-center justify-center gap-2">
                       Get Started
@@ -175,7 +175,7 @@ const Services = () => {
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
             Let's discuss your project and find the perfect solution for your business.
           </p>
-          <Button asChild size="lg" className="shadow-glow hover:shadow-intense transition-all duration-300">
+          <Button asChild size="lg" variant="brand" className="shadow-glow hover:shadow-intense transition-all duration-300">
             <Link to="/contact" className="flex items-center gap-2">
               Get a Free Quote
               <ArrowRight className="w-5 h-5" />

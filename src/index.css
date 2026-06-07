@@ -10,9 +10,9 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Deep, near-black canvas with a faint cool cast that flatters the
-       blue/cyan brand without reading as "blue". */
-    --background: 222 16% 5%;
+    /* Deep, near-black canvas (#0B0C0F) with a faint cool cast that flatters
+       the blue/cyan brand without reading as "blue". */
+    --background: 225 15% 5%;
     --foreground: 210 17% 98%;
 
     /* Elevated surfaces step up subtly from the background for real depth. */
@@ -50,7 +50,7 @@ All colors MUST be HSL.
 
     /* Gradients — angled to echo the logo's diagonal blue→cyan sweep. */
     --gradient-hero: linear-gradient(120deg, hsl(213 94% 64%) 0%, hsl(190 95% 55%) 100%);
-    --gradient-subtle: linear-gradient(180deg, hsl(222 16% 5%) 0%, hsl(223 14% 8%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(225 15% 5%) 0%, hsl(223 14% 8%) 100%);
     --gradient-glow: radial-gradient(60% 60% at 50% 0%, hsl(205 96% 55% / 0.12) 0%, transparent 70%);
     --gradient-radial: radial-gradient(circle at center, var(--tw-gradient-stops));
 
@@ -136,7 +136,7 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222 16% 5%;
+    --background: 225 15% 5%;
     --foreground: 210 17% 98%;
 
     /* Dark mode shadows */
@@ -200,11 +200,11 @@ All colors MUST be HSL.
 
   /* Quiet, premium scrollbar on the dark canvas. */
   ::-webkit-scrollbar { width: 10px; height: 10px; }
-  ::-webkit-scrollbar-track { background: hsl(222 16% 5%); }
+  ::-webkit-scrollbar-track { background: hsl(225 15% 5%); }
   ::-webkit-scrollbar-thumb {
     background: hsl(220 13% 18%);
     border-radius: 9999px;
-    border: 2px solid hsl(222 16% 5%);
+    border: 2px solid hsl(225 15% 5%);
   }
   ::-webkit-scrollbar-thumb:hover { background: hsl(205 40% 30%); }
 }

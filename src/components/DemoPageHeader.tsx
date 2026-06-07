@@ -92,6 +92,7 @@ export const DemoPageCTA = ({ primaryColor }: DemoPageCTAProps) => {
             <Button
               asChild
               size="lg"
+              variant="brand"
               className="shadow-glow hover:shadow-intense transition-all duration-300"
             >
               <Link to="/contact" className="flex items-center gap-2">

@@ -47,7 +47,7 @@ const Navigation = () => {
                 {link.label}
               </Link>
             ))}
-            <Button asChild size="sm" className="shadow-glow">
+            <Button asChild size="sm" variant="brand" className="shadow-glow">
               <Link to="/contact">Get a Quote</Link>
             </Button>
           </div>
@@ -81,7 +81,7 @@ const Navigation = () => {
                   {link.label}
                 </Link>
               ))}
-              <Button asChild className="mt-2">
+              <Button asChild variant="brand" className="mt-2">
                 <Link to="/contact" onClick={() => setIsOpen(false)}>Get a Quote</Link>
               </Button>
             </div>

@@ -131,7 +131,7 @@ const PortfolioPage = () => {
             <p className="text-xl text-muted-foreground mb-8">
               Let's build something amazing for your business. Get a custom website tailored to your needs.
             </p>
-            <Button asChild size="lg" className="shadow-glow hover:shadow-intense transition-all duration-300">
+            <Button asChild size="lg" variant="brand" className="shadow-glow hover:shadow-intense transition-all duration-300">
               <Link to="/contact" className="flex items-center gap-2">
                 <MessageSquare className="w-5 h-5" />
                 Request a Website Like This

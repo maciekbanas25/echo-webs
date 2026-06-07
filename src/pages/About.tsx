@@ -176,7 +176,7 @@ const AboutPage = () => {
             Ready to take your business to the next level with a stunning website?
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="shadow-glow hover:shadow-intense transition-all duration-300">
+            <Button asChild size="lg" variant="brand" className="shadow-glow hover:shadow-intense transition-all duration-300">
               <Link to="/contact" className="flex items-center gap-2">
                 Get In Touch
                 <ArrowRight className="w-5 h-5" />

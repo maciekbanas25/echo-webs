@@ -70,6 +70,7 @@ const Index = () => {
               <Magnetic>
                 <Button
                   size="lg"
+                  variant="brand"
                   onClick={scrollToWork}
                   className="shadow-glow hover:shadow-intense transition-all duration-300 text-lg px-8 py-6 h-auto"
                 >
@@ -100,7 +101,7 @@ const Index = () => {
       </section>
 
       {/* Stats / Trust Bar */}
-      <div className="border-y border-primary/10 bg-secondary/50">
+      <div className="border-y border-primary/10">
         <div className="container mx-auto px-4 py-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
             {([
@@ -128,7 +129,6 @@ const Index = () => {
 
       {/* Main Content */}
       <div className="bg-background relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent" />
         <div className="relative">
           <Benefits />
 
@@ -149,7 +149,7 @@ const Index = () => {
           </div>
 
           {/* How It Works */}
-          <section id="process" className="py-24 bg-secondary/20 scroll-mt-20">
+          <section id="process" className="py-24 scroll-mt-20">
             <div className="container mx-auto px-4">
               <Reveal className="text-center mb-16">
                 <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-4 text-foreground">
@@ -203,6 +203,7 @@ const Index = () => {
                 <Button
                   asChild
                   size="lg"
+                  variant="brand"
                   className="shadow-glow hover:shadow-intense transition-all duration-300"
                 >
                   <a href="/contact" className="flex items-center gap-2">

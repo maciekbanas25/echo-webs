@@ -23,6 +23,7 @@ const CallToAction = () => {
               <Button
                 asChild
                 size="lg"
+                variant="brand"
                 className="shadow-glow hover:shadow-intense transition-all duration-300 text-lg px-8 py-6 h-auto"
               >
                 <Link to="/contact" className="flex items-center gap-3">

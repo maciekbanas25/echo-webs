@@ -16,6 +16,7 @@ const Contact = () => {
           <Button
             asChild
             size="lg"
+            variant="brand"
             className="shadow-glow hover:shadow-intense hover:scale-110 hover:-translate-y-1 transition-all duration-300 text-lg px-10 py-6 h-auto"
           >
             <a href="mailto:contact@echowebs.co.uk" className="flex items-center gap-3">
