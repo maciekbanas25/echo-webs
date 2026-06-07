@@ -4,7 +4,7 @@ import { Mail } from "lucide-react";
 import { isEmbedded } from "@/lib/embed";
 
 const Footer = () => {
-  // Hidden inside embedded previews (hero showcase iframes, showreel).
+  // Hidden inside embedded previews (hero showcase iframes).
   if (isEmbedded) return null;
 
   return (
