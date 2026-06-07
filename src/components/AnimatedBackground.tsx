@@ -10,8 +10,16 @@ const AnimatedBackground = () => {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    // Size to the parent section (e.g. the hero), not the viewport — the hero is
+    // taller than one screen, so a viewport-sized canvas would stop partway down.
+    const parent = canvas.parentElement;
+    const sizeToParent = () => {
+      const w = parent?.clientWidth ?? window.innerWidth;
+      const h = parent?.clientHeight ?? window.innerHeight;
+      canvas.width = w;
+      canvas.height = h;
+    };
+    sizeToParent();
 
     const particles: Array<{
       x: number;
@@ -28,7 +36,9 @@ const AnimatedBackground = () => {
       "rgba(6, 182, 212, 0.5)", // cyan teal
     ];
 
-    for (let i = 0; i < 50; i++) {
+    // Scale particle count to the area so the taller hero doesn't look sparse.
+    const count = Math.max(50, Math.min(110, Math.round((canvas.width * canvas.height) / 22000)));
+    for (let i = 0; i < count; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
@@ -39,6 +49,7 @@ const AnimatedBackground = () => {
       });
     }
 
+    let rafId = 0;
     const animate = () => {
       ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -73,27 +84,31 @@ const AnimatedBackground = () => {
         });
       });
 
-      requestAnimationFrame(animate);
+      rafId = requestAnimationFrame(animate);
     };
 
-    animate();
+    rafId = requestAnimationFrame(animate);
 
-    const handleResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-
-    window.addEventListener("resize", handleResize);
+    // Re-fit when the viewport changes and when the hero section itself grows
+    // (e.g. once the demo mockup/iframe loads and pushes the section taller).
+    window.addEventListener("resize", sizeToParent);
+    const ro =
+      parent && "ResizeObserver" in window
+        ? new ResizeObserver(sizeToParent)
+        : null;
+    if (parent && ro) ro.observe(parent);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      cancelAnimationFrame(rafId);
+      window.removeEventListener("resize", sizeToParent);
+      ro?.disconnect();
     };
   }, []);
 
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 pointer-events-none"
+      className="absolute inset-0 h-full w-full pointer-events-none"
       style={{ opacity: 0.4 }}
     />
   );
