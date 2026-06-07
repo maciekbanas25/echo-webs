@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import Lenis from "lenis";
+import { setLenis } from "@/lib/lenis";
 
 /**
  * Adds weighted momentum scrolling site-wide via Lenis. Skipped for users who
@@ -13,6 +14,7 @@ const SmoothScroll = () => {
     if (prefersReduced) return;
 
     const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+    setLenis(lenis);
 
     let raf = 0;
     const loop = (time: number) => {
@@ -24,6 +26,7 @@ const SmoothScroll = () => {
     return () => {
       cancelAnimationFrame(raf);
       lenis.destroy();
+      setLenis(null);
     };
   }, []);
 

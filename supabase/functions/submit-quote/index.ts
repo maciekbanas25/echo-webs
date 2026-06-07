@@ -102,6 +102,25 @@ const handler = async (req: Request): Promise<Response> => {
     // Format ticket number as TKT-00XXX
     const ticketRef = `TKT-${String(quoteData.ticket_number).padStart(5, "0")}`;
 
+    // Escape user-supplied values before interpolating into email HTML so a
+    // submission can't inject markup (links/images) into the emails we send.
+    const esc = (input: string | undefined | null): string =>
+      (input ?? "").replace(/[<>"'&]/g, (char) => {
+        const entities: Record<string, string> = {
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;",
+          "&": "&amp;",
+        };
+        return entities[char];
+      });
+
+    const safeName = esc(name);
+    const safeEmail = esc(email);
+    const safeBusiness = business ? esc(business) : "Not provided";
+    const safeProjectDetails = esc(projectDetails);
+
     // Service type display mapping
     const serviceTypeDisplay: Record<string, string> = {
       starter: "Starter Site (Single Page)",
@@ -147,24 +166,24 @@ const handler = async (req: Request): Promise<Response> => {
               <table style="width:100%;border-collapse:collapse;">
                 <tr style="border-bottom:1px solid #e5e7eb;">
                   <td style="padding:12px 0;color:#94a3b8;width:120px;">Name</td>
-                  <td style="padding:12px 0;color:#0f172a;">${name}</td>
+                  <td style="padding:12px 0;color:#0f172a;">${safeName}</td>
                 </tr>
                 <tr style="border-bottom:1px solid #e5e7eb;">
                   <td style="padding:12px 0;color:#94a3b8;">Email</td>
-                  <td style="padding:12px 0;"><a href="mailto:${email}" style="color:#3B82F6;">${email}</a></td>
+                  <td style="padding:12px 0;"><a href="mailto:${safeEmail}" style="color:#3B82F6;">${safeEmail}</a></td>
                 </tr>
                 <tr style="border-bottom:1px solid #e5e7eb;">
                   <td style="padding:12px 0;color:#94a3b8;">Business</td>
-                  <td style="padding:12px 0;color:#0f172a;">${business || "Not provided"}</td>
+                  <td style="padding:12px 0;color:#0f172a;">${safeBusiness}</td>
                 </tr>
                 <tr style="border-bottom:1px solid #e5e7eb;">
                   <td style="padding:12px 0;color:#94a3b8;">Service</td>
-                  <td style="padding:12px 0;color:#0f172a;">${serviceTypeDisplay[serviceType] || serviceType}</td>
+                  <td style="padding:12px 0;color:#0f172a;">${esc(serviceTypeDisplay[serviceType] || serviceType)}</td>
                 </tr>
               </table>
               <div style="margin-top:20px;padding:16px;background-color:#eff6ff;border-radius:8px;">
                 <h3 style="color:#0f172a;margin:0 0 8px 0;font-size:15px;">Project details</h3>
-                <p style="color:#334155;line-height:1.6;margin:0;white-space:pre-wrap;">${projectDetails}</p>
+                <p style="color:#334155;line-height:1.6;margin:0;white-space:pre-wrap;">${safeProjectDetails}</p>
               </div>
               <p style="color:#94a3b8;font-size:12px;margin:28px 0 0 0;text-align:center;">
                 Submitted via the EchoWebs contact form.
@@ -204,11 +223,11 @@ const handler = async (req: Request): Promise<Response> => {
               <div style="color:#ffffff;font-size:20px;font-weight:bold;margin-top:10px;">EchoWebs</div>
             </div>
             <div style="padding:28px;">
-              <h1 style="color:#0f172a;font-size:22px;margin:0 0 12px 0;">Thanks, ${name}! &#128075;</h1>
+              <h1 style="color:#0f172a;font-size:22px;margin:0 0 12px 0;">Thanks, ${safeName}! &#128075;</h1>
               <p style="color:#334155;line-height:1.6;margin:0 0 14px 0;">I've received your request and I'll personally get back to you within 24 hours.</p>
               <p style="color:#64748b;font-size:14px;margin:0 0 20px 0;">Your reference number is <strong style="color:#3B82F6;">${ticketRef}</strong> &mdash; quote it if you need to follow up.</p>
               <div style="padding:16px;background-color:#eff6ff;border-radius:8px;">
-                <p style="color:#334155;line-height:1.6;margin:0;"><strong>What you asked about:</strong><br/>${serviceTypeDisplay[serviceType] || serviceType}</p>
+                <p style="color:#334155;line-height:1.6;margin:0;"><strong>What you asked about:</strong><br/>${esc(serviceTypeDisplay[serviceType] || serviceType)}</p>
               </div>
               <p style="color:#94a3b8;font-size:12px;margin:28px 0 0 0;">
                 EchoWebs &middot; Professional web design for small businesses<br/>
