@@ -210,13 +210,17 @@ All colors MUST be HSL.
 }
 
 @layer utilities {
-  /* Reusable brand text gradient for headings/keywords. */
+  /* Reusable brand text gradient for headings/keywords. The small bottom
+     padding extends the painted area below the baseline so descenders
+     (g, p, y) aren't clipped when line-height is tight. */
   .text-gradient {
     background: var(--gradient-hero);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
+    display: inline-block;
+    padding-bottom: 0.15em;
   }
 
   /* Hairline divider that fades in from the edges — replaces flat 1px lines. */
