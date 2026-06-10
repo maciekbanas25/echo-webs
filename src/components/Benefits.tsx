@@ -1,4 +1,3 @@
-import { Card, CardContent } from "@/components/ui/card";
 import { benefits } from "@/data/benefits";
 import Reveal from "@/components/Reveal";
 
@@ -6,34 +5,30 @@ const Benefits = () => {
   return (
     <section className="py-24">
       <div className="container mx-auto px-4">
-        <Reveal className="text-center mb-16">
-          <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-6 text-foreground">
+        <Reveal className="mb-16 max-w-3xl">
+          <span className="eyebrow mb-5">What you get</span>
+          <h2 className="mb-5 font-syne text-4xl font-bold text-foreground md:text-6xl">
             Why Choose EchoWebs?
           </h2>
-          <div className="w-24 h-1 bg-primary mx-auto mb-6 rounded-full shadow-glow" />
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl text-muted-foreground">
             Everything you need to succeed online, without the agency price tag.
           </p>
         </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {benefits.map((benefit, index) => (
             <Reveal key={benefit.title} delay={index * 0.1}>
-            <Card
-              className="group h-full border-primary/20 bg-card/50 hover:border-primary/50 hover:shadow-glow transition-all duration-500"
-            >
-              <CardContent className="p-6">
-                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors duration-300">
-                  <benefit.icon className="w-7 h-7 text-primary" />
+              <div className="card-stroke group h-full rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-glow">
+                <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 transition-colors duration-300 group-hover:bg-primary/20">
+                  <benefit.icon className="h-7 w-7 text-accent" />
                 </div>
-                <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors duration-300">
+                <h3 className="mb-3 font-syne text-xl font-bold text-foreground transition-colors duration-300 group-hover:text-accent">
                   {benefit.title}
                 </h3>
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="leading-relaxed text-muted-foreground">
                   {benefit.description}
                 </p>
-              </CardContent>
-            </Card>
+              </div>
             </Reveal>
           ))}
         </div>

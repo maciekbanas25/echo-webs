@@ -28,3 +28,14 @@ dist-ssr
 *.sln
 *.sw?
 FULL_SETUP.sql
+
+# Ruflo / claude-flow runtime data (machine-local, not for deploy)
+.claude-flow/data/
+.claude-flow/logs/
+.claude-flow/sessions/
+.claude-flow/metrics/
+.claude-flow/learning/
+.claude/settings.local.json
+
+# Design reference files (Refero DESIGN.md, etc) — reference-only, not deployed
+design-refs/

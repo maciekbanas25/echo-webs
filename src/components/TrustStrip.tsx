@@ -14,7 +14,7 @@ const TrustStrip = () => (
       <Reveal className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-muted-foreground">
         {items.map((item) => (
           <span key={item.label} className="flex items-center gap-2">
-            <item.icon className="h-4 w-4 text-primary" />
+            <item.icon className="h-4 w-4 text-accent" />
             {item.label}
           </span>
         ))}

@@ -6,45 +6,44 @@ import Magnetic from "@/components/Magnetic";
 
 const CallToAction = () => {
   return (
-    <section className="py-24 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-glow opacity-50" />
-      <div className="container mx-auto px-4 relative z-10">
-        <Reveal className="max-w-4xl mx-auto text-center">
-          <h2 className="font-playfair text-4xl md:text-6xl font-bold mb-6 text-foreground">
-            Need a Website for Your Business?
+    <section className="relative overflow-hidden py-32 md:py-44">
+      <div className="absolute inset-0 bg-gradient-glow" />
+      {/* Static brand atmosphere anchoring the closing statement. */}
+      <div className="pointer-events-none absolute -bottom-40 left-1/2 h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-[#1A6FD4] opacity-[0.08] blur-[140px]" />
+
+      <div className="container relative z-10 mx-auto px-4">
+        <Reveal className="mx-auto max-w-5xl text-center">
+          <span className="eyebrow mb-8 justify-center">Ready when you are</span>
+          <h2 className="mb-8 font-syne text-[clamp(2.5rem,6.5vw,5.5rem)] font-extrabold leading-[1.02] tracking-tight text-foreground">
+            Your business deserves
+            <span className="text-gradient block">a better website.</span>
           </h2>
-          <div className="w-24 h-1 bg-primary mx-auto mb-6 rounded-full shadow-glow" />
-          <p className="text-xl md:text-2xl text-muted-foreground mb-10 leading-relaxed">
-            Let's create something amazing together. Get a free mockup and quote for your project.
+          <p className="mx-auto mb-12 max-w-xl text-lg text-muted-foreground md:text-xl">
+            Free mock-up and quote. A reply within 24 hours. Live in about
+            seven days.
           </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+
+          <div className="flex flex-col items-center gap-6">
             <Magnetic>
               <Button
                 asChild
                 size="lg"
                 variant="brand"
-                className="shadow-glow hover:shadow-intense transition-all duration-300 text-lg px-8 py-6 h-auto"
+                className="h-auto px-10 py-7 text-lg shadow-glow transition-all duration-300 hover:shadow-intense"
               >
                 <Link to="/contact" className="flex items-center gap-3">
-                  <MessageSquare className="w-5 h-5" />
+                  <MessageSquare className="h-5 w-5" />
                   Get a Free Quote
                 </Link>
               </Button>
             </Magnetic>
-            <Magnetic>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="border-primary/50 hover:border-primary hover:bg-primary/10 transition-all duration-300 text-lg px-8 py-6 h-auto"
-              >
-                <Link to="/services" className="flex items-center gap-3">
-                  View Pricing
-                  <ArrowRight className="w-5 h-5" />
-                </Link>
-              </Button>
-            </Magnetic>
+            <Link
+              to="/services"
+              className="group flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-accent"
+            >
+              View pricing
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </Link>
           </div>
         </Reveal>
       </div>

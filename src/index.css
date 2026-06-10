@@ -1,4 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Bebas+Neue&family=Barlow+Condensed:wght@700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap');
+/* Live homepage display face: Syne — bold, geometric, unmistakably designed. */
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&display=swap');
+/* "Midnight Observatory" /newhome showcase: geometric display + monospace instrument labels. */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+/* "Blueprint on Midnight Glass" /newhome2 showcase: Vercel-family geometric (Geist) + Inter workhorse. */
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -10,56 +16,59 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Deep, near-black canvas (#0B0C0F) with a faint cool cast that flatters
-       the blue/cyan brand without reading as "blue". */
-    --background: 225 15% 5%;
-    --foreground: 210 17% 98%;
+    /* "Midnight Observatory" canvas (#080A0F) — dark blue-black, never pure
+       black, with warm off-white (#E8E4D9) text instead of clinical white. */
+    --background: 223 30% 4.5%;
+    --foreground: 44 25% 88%;
 
-    /* Elevated surfaces step up subtly from the background for real depth. */
-    --card: 223 14% 8%;
-    --card-foreground: 210 17% 98%;
+    /* Elevated surfaces (#0D1F3C) — a clear blue step up from the canvas. */
+    --card: 217 64% 14%;
+    --card-foreground: 44 25% 88%;
 
-    --popover: 223 16% 7%;
-    --popover-foreground: 210 17% 98%;
+    --popover: 219 50% 9%;
+    --popover-foreground: 44 25% 88%;
 
-    /* Brand blue — matches the lighter top of the EW logo gradient. */
-    --primary: 213 94% 62%;
+    /* Brand blue (#1A6FD4), lifted slightly for legibility on the dark canvas. */
+    --primary: 213 78% 56%;
     --primary-foreground: 222 47% 6%;
-    --primary-hover: 205 96% 70%;
+    --primary-hover: 205 90% 64%;
 
-    --secondary: 223 14% 9%;
-    --secondary-foreground: 210 17% 98%;
+    --secondary: 218 45% 9%;
+    --secondary-foreground: 44 25% 88%;
 
-    --muted: 223 12% 10%;
-    --muted-foreground: 217 12% 62%;
+    --muted: 219 40% 10%;
+    --muted-foreground: 42 12% 66%;
 
-    /* Electric cyan — matches the brighter bottom of the logo gradient. */
-    --accent: 190 95% 52%;
+    /* Electric cyan (#00CFFF) — the bright end of the brand gradient. */
+    --accent: 191 100% 50%;
     --accent-foreground: 222 47% 6%;
-    --accent-hover: 190 96% 58%;
+    --accent-hover: 191 100% 58%;
 
     --destructive: 0 72% 55%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Hairline borders — present but quiet, the hallmark of a polished dark UI. */
-    --border: 220 13% 14%;
-    --input: 220 13% 16%;
-    --ring: 205 96% 62%;
+    /* Hairline borders — blue-tinted, present but quiet. */
+    --border: 217 35% 15%;
+    --input: 217 35% 17%;
+    --ring: 191 100% 50%;
+
+    /* Cool-white "wireframe" hairline for the /newhome observatory aesthetic. */
+    --border-wire: hsl(205 40% 82% / 0.12);
 
     --radius: 0.85rem;
 
-    /* Gradients — angled to echo the logo's diagonal blue→cyan sweep. */
-    --gradient-hero: linear-gradient(120deg, hsl(213 94% 64%) 0%, hsl(190 95% 55%) 100%);
-    --gradient-subtle: linear-gradient(180deg, hsl(225 15% 5%) 0%, hsl(223 14% 8%) 100%);
-    --gradient-glow: radial-gradient(60% 60% at 50% 0%, hsl(205 96% 55% / 0.12) 0%, transparent 70%);
+    /* Gradients — the exact brand DNA sweep, #1A6FD4 → #00CFFF. */
+    --gradient-hero: linear-gradient(120deg, #1A6FD4 0%, #00CFFF 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(223 30% 4.5%) 0%, hsl(218 45% 8%) 100%);
+    --gradient-glow: radial-gradient(60% 60% at 50% 0%, rgba(26, 111, 212, 0.16) 0%, transparent 70%);
     --gradient-radial: radial-gradient(circle at center, var(--tw-gradient-stops));
 
-    /* Shadows — restrained. Depth comes from soft black; the glow is a
+    /* Shadows — restrained. Depth comes from soft blue-black; the glow is a
        whisper of brand colour, not a neon halo. */
-    --shadow-card: 0 1px 2px hsl(0 0% 0% / 0.4), 0 10px 30px -16px hsl(0 0% 0% / 0.7);
-    --shadow-hover: 0 12px 40px -16px hsl(0 0% 0% / 0.7), 0 0 0 1px hsl(205 96% 60% / 0.15);
-    --shadow-glow: 0 0 28px hsl(205 96% 60% / 0.18);
-    --shadow-intense: 0 24px 60px -24px hsl(205 96% 55% / 0.35), 0 8px 24px -16px hsl(0 0% 0% / 0.6);
+    --shadow-card: 0 1px 2px hsl(222 47% 2% / 0.4), 0 10px 30px -16px hsl(222 47% 2% / 0.7);
+    --shadow-hover: 0 12px 40px -16px hsl(222 47% 2% / 0.7), 0 0 0 1px hsl(191 100% 50% / 0.15);
+    --shadow-glow: 0 0 28px hsl(191 100% 50% / 0.16);
+    --shadow-intense: 0 24px 60px -24px hsl(205 96% 55% / 0.35), 0 8px 24px -16px hsl(222 47% 2% / 0.6);
 
     /* RGB values for use in rgba */
     --primary-rgb: 61, 139, 250;
@@ -172,6 +181,43 @@ All colors MUST be HSL.
   .font-playfair { font-family: 'Playfair Display', Georgia, serif; }
   .font-oswald { font-family: 'Oswald', sans-serif; }
   .font-jakarta { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+
+  /* "Midnight Observatory" /newhome showcase utilities. */
+  .font-display { font-family: 'Space Grotesk', system-ui, sans-serif; }
+  .font-mono-label {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+  }
+  /* Cool-white hairline "wireframe" border, observatory style. */
+  .border-wire { border-color: var(--border-wire); }
+  .bg-wire { background-color: var(--border-wire); }
+  .text-tabular { font-variant-numeric: tabular-nums; }
+
+  /* "Blueprint on Midnight Glass" /newhome2 showcase utilities. */
+  .font-display2 { font-family: 'Geist', 'Space Grotesk', system-ui, sans-serif; }
+  .font-ui { font-family: 'Inter', system-ui, sans-serif; letter-spacing: -0.01em; }
+  .font-bp-label {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    letter-spacing: 0.1em;
+    font-variant-numeric: tabular-nums;
+  }
+  /* Faint 40px architectural grid — the "blueprint" ground. */
+  .bp-grid {
+    background-image:
+      linear-gradient(rgba(186, 215, 247, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(186, 215, 247, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  /* Elevation from blue-tinted inset hairlines + soft glow, never drop shadow. */
+  .bp-hairline { box-shadow: inset 0 0 0 1px rgba(186, 215, 247, 0.12); }
+  .bp-glow { box-shadow: 0 0 6px 0 rgba(186, 207, 247, 0.32); }
+  .bp-card {
+    box-shadow:
+      inset 0 1px 1px 0 rgba(199, 211, 234, 0.12),
+      inset 0 24px 48px 0 rgba(199, 211, 234, 0.05),
+      0 24px 32px 0 rgba(6, 6, 14, 0.7);
+  }
 }
 
 @layer base {
@@ -181,7 +227,7 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-family: 'Inter', 'Plus Jakarta Sans', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -200,13 +246,19 @@ All colors MUST be HSL.
 
   /* Quiet, premium scrollbar on the dark canvas. */
   ::-webkit-scrollbar { width: 10px; height: 10px; }
-  ::-webkit-scrollbar-track { background: hsl(225 15% 5%); }
+  ::-webkit-scrollbar-track { background: hsl(223 30% 4.5%); }
   ::-webkit-scrollbar-thumb {
-    background: hsl(220 13% 18%);
+    background: hsl(217 30% 18%);
     border-radius: 9999px;
-    border: 2px solid hsl(225 15% 5%);
+    border: 2px solid hsl(223 30% 4.5%);
   }
   ::-webkit-scrollbar-thumb:hover { background: hsl(205 40% 30%); }
+
+  /* /newhome industry marquee. */
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
 }
 
 @layer utilities {
@@ -223,15 +275,63 @@ All colors MUST be HSL.
     padding-bottom: 0.15em;
   }
 
-  /* Hairline divider that fades in from the edges — replaces flat 1px lines. */
+  /* Hairline divider that fades in from the edges — replaces flat 1px lines.
+     Carries a faint trace of the brand gradient at its centre. */
   .divider-soft {
     height: 1px;
     background: linear-gradient(
       90deg,
       transparent,
-      hsl(220 13% 22% / 0.8) 50%,
+      rgba(26, 111, 212, 0.45) 35%,
+      rgba(0, 207, 255, 0.45) 65%,
       transparent
     );
+  }
+
+  /* Homepage display face. */
+  .font-syne {
+    font-family: 'Syne', 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+
+  /* Editorial section eyebrow — small caps label with a gradient dash. */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: hsl(var(--accent));
+  }
+  .eyebrow::before {
+    content: "";
+    width: 2rem;
+    height: 1px;
+    background: var(--gradient-hero);
+  }
+
+  /* Card with a blue→cyan gradient-stroked border. The double background
+     paints the surface in padding-box and the gradient in border-box, so the
+     stroke follows the rounded corners with no extra wrapper element. */
+  .card-stroke {
+    border: 1px solid transparent;
+    background:
+      linear-gradient(hsl(218 45% 8%), hsl(218 45% 8%)) padding-box,
+      linear-gradient(135deg, rgba(26, 111, 212, 0.5), rgba(0, 207, 255, 0.5)) border-box;
+  }
+
+  /* Marquee ticker — CSS only; the track holds two copies of the strip and
+     slides one full copy per cycle. The only looping animation on the page. */
+  .ticker-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 30s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ticker-track {
+      animation: none;
+    }
   }
 }
 

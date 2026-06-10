@@ -40,12 +40,12 @@ const faqs = [
 const FAQ = () => (
   <section className="py-24">
     <div className="container mx-auto px-4">
-      <Reveal className="text-center mb-16">
-        <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-4 text-foreground">
+      <Reveal className="mb-16 max-w-3xl">
+        <span className="eyebrow mb-5">Questions</span>
+        <h2 className="mb-5 font-syne text-4xl font-bold text-foreground md:text-6xl">
           Frequently Asked Questions
         </h2>
-        <div className="w-24 h-1 bg-primary mx-auto mb-6 rounded-full shadow-glow" />
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+        <p className="text-xl text-muted-foreground">
           Everything you need to know before getting started.
         </p>
       </Reveal>

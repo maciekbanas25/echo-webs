@@ -27,7 +27,7 @@ const Navigation = () => {
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center gap-3">
             <img src={logo} alt="EchoWebs Logo" className="h-10 w-10 object-contain" />
-            <div className="text-2xl font-bold bg-gradient-hero bg-clip-text text-transparent">
+            <div className="font-syne text-2xl font-bold bg-gradient-hero bg-clip-text text-transparent">
               EchoWebs
             </div>
           </Link>
