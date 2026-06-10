@@ -37,13 +37,13 @@ const rows = [
 const Comparison = () => (
   <section className="py-24">
     <div className="container mx-auto px-4">
-      <Reveal className="mb-16 max-w-3xl">
-        <span className="eyebrow mb-5">The honest comparison</span>
-        <h2 className="mb-5 font-syne text-4xl font-bold text-foreground md:text-6xl">
+      <Reveal className="text-center mb-16">
+        <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-4 text-foreground">
           Why not just use Wix or Squarespace?
         </h2>
-        <p className="text-xl text-muted-foreground">
-          DIY builders are fine, until you value your time and your brand.
+        <div className="w-24 h-1 bg-primary mx-auto mb-6 rounded-full shadow-glow" />
+        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          DIY builders are fine — until you value your time and your brand.
         </p>
       </Reveal>
 

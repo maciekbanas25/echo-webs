@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Check, ArrowRight, Rocket } from "lucide-react";
+import { Check, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Reveal from "@/components/Reveal";
 
@@ -63,16 +63,16 @@ const QuoteBuilder = () => {
   return (
     <section id="quote" className="py-24 scroll-mt-20">
       <div className="container mx-auto px-4">
-        <Reveal className="mb-12 max-w-3xl">
-          <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-1 text-sm font-semibold text-accent">
-            <Rocket className="h-4 w-4" />
-            Launch pricing — first 10 clients
+        <Reveal className="text-center mb-12">
+          <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1 text-sm font-semibold text-primary">
+            🚀 Launch pricing — first 10 clients
           </span>
-          <h2 className="mb-5 font-syne text-4xl font-bold text-foreground md:text-6xl">
+          <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-4 text-foreground">
             Build Your Quote
           </h2>
-          <p className="text-xl text-muted-foreground">
-            Pick what you need and see an instant estimate. No email required.
+          <div className="w-24 h-1 bg-primary mx-auto mb-6 rounded-full shadow-glow" />
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Pick what you need and see an instant estimate — no email required.
           </p>
         </Reveal>
 

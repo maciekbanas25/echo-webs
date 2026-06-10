@@ -10,9 +10,6 @@ const AnimatedBackground = () => {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Static canvas for visitors who prefer reduced motion.
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
     // Size to the parent section (e.g. the hero), not the viewport — the hero is
     // taller than one screen, so a viewport-sized canvas would stop partway down.
     const parent = canvas.parentElement;
