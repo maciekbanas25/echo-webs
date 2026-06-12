@@ -30,7 +30,7 @@ const CarDetailer = () => {
   ];
 
   const gallery = [
-    { src: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=600&q=80&auto=format&fit=crop", title: "Sports Car Detail", category: "Exterior" },
+    { src: "/car-detailing.jpg", title: "Sports Car Detail", category: "Exterior" },
     { src: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600&q=80&auto=format&fit=crop", title: "Luxury Interior", category: "Interior" },
     { src: "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=600&q=80&auto=format&fit=crop", title: "Classic Restoration", category: "Full Detail" },
     { src: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&q=80&auto=format&fit=crop", title: "Paint Correction", category: "Exterior" },
@@ -217,7 +217,7 @@ const CarDetailer = () => {
               style={{ borderColor: "hsl(var(--detailer-accent))" }}
             >
               <img
-                src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=900&q=80&auto=format&fit=crop"
+                src="/car-detailing.jpg"
                 alt="After detailing"
                 loading="lazy"
                 className="w-full h-full object-cover"

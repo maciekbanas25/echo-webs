@@ -49,7 +49,7 @@ export const projects: Project[] = [
     id: "car-detailer",
     title: "Car Detailing — Prestige Auto",
     description: "Dark, premium aesthetic that screams quality. Service packages with clear pricing, before/after sections, and a booking flow that gets calls coming in.",
-    image: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1200&q=80&auto=format&fit=crop",
+    image: "/car-detailing.jpg",
     link: "/car-detailer",
     category: "automotive",
     features: ["Service Packages", "Before/After Gallery", "Online Booking", "Contact CTA"],
