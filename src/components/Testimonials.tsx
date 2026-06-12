@@ -107,11 +107,10 @@ const Testimonials = () => {
     <section className="py-24">
       <div className="container mx-auto px-4">
         <Reveal className="text-center mb-16">
-          <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-4 text-foreground">
+          <h2 className="mb-4 text-4xl md:text-5xl font-bold text-foreground">
             Client Feedback
           </h2>
-          <div className="w-24 h-1 bg-primary mx-auto mb-6 rounded-full shadow-glow" />
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-4">
+          <p className="mx-auto mb-4 max-w-2xl text-xl text-muted-foreground">
             See what my clients have to say
           </p>
           

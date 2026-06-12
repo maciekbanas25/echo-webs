@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Check, ArrowRight } from "lucide-react";
+import { Check, ArrowRight, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Reveal from "@/components/Reveal";
 
@@ -64,16 +64,16 @@ const QuoteBuilder = () => {
     <section id="quote" className="py-24 scroll-mt-20">
       <div className="container mx-auto px-4">
         <Reveal className="text-center mb-12">
-          <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1 text-sm font-semibold text-primary">
-            🚀 Launch pricing — first 10 clients
-          </span>
-          <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-4 text-foreground">
+          <h2 className="mb-4 text-4xl md:text-5xl font-bold text-foreground">
             Build Your Quote
           </h2>
-          <div className="w-24 h-1 bg-primary mx-auto mb-6 rounded-full shadow-glow" />
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Pick what you need and see an instant estimate — no email required.
+          <p className="mx-auto mb-5 max-w-2xl text-xl text-muted-foreground">
+            Pick what you need and see an instant estimate. No email required.
           </p>
+          <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1 text-sm font-semibold text-primary">
+            <Rocket className="h-4 w-4" />
+            Launch pricing, first 10 clients
+          </span>
         </Reveal>
 
         <Reveal className="grid lg:grid-cols-[1fr_360px] gap-6 max-w-5xl mx-auto">
@@ -169,7 +169,7 @@ const QuoteBuilder = () => {
           <div className="rounded-2xl border border-primary/30 bg-card p-6 shadow-intense h-fit lg:sticky lg:top-24">
             <p className="text-sm uppercase tracking-wider text-muted-foreground">Your estimate</p>
             <div className="mt-2 flex items-end gap-3">
-              <span className="font-playfair text-5xl font-bold text-foreground">£{now}</span>
+              <span className="bg-gradient-hero bg-clip-text text-5xl font-bold text-transparent">£{now}</span>
               <span className="mb-1 text-lg text-muted-foreground line-through">£{was}</span>
             </div>
             <p className="mt-1 text-sm font-semibold text-primary">You save £{saved} (launch offer)</p>

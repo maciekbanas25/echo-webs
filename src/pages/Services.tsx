@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import QuoteBuilder from "@/components/QuoteBuilder";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -101,6 +102,9 @@ const Services = () => {
           </div>
         </div>
       </section>
+
+      {/* Interactive quote builder (moved here from the homepage). */}
+      <QuoteBuilder />
 
       {/* Process Section */}
       <section className="py-24 bg-secondary/30">
