@@ -13,7 +13,7 @@ export const projects: Project[] = [
     id: "cafe",
     title: "Café — The Daily Grind",
     description: "Warm, inviting design that turns browsers into regulars. Full menu showcase, hours, and location — everything a coffee shop needs online.",
-    image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1200&q=80&auto=format&fit=crop",
+    image: "/cafe.jpg",
     link: "/cafe",
     category: "food",
     features: ["Menu Display", "Hours & Location", "Online Ordering Ready", "Responsive Design"],

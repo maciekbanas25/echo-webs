@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "motion/react";
 import AuroraShader from "./AuroraShader";
 
-const line1 = ["Websites", "worth"];
-const line2 = ["staring", "at."];
+const line1 = ["A", "website", "your", "customers"];
+const line2 = ["actually", "remember."];
 
 /**
  * The wow: a fullscreen living aurora rendered in WebGL, with one billboard
@@ -59,7 +59,7 @@ const AuroraHero = () => {
           className="mx-auto mt-8 max-w-md font-satoshi text-lg leading-relaxed text-[#E8E4D9]/65 md:text-xl"
           {...enter(0.75)}
         >
-          Custom sites for small businesses. Live in seven days, from £299.
+          Custom-built websites for small businesses. Designed, built, and live in seven days.
         </motion.p>
 
         <motion.div className="mt-11" {...enter(0.9)}>

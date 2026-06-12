@@ -7,7 +7,7 @@ const Portfolio = () => {
     {
       title: "Cafe Prototype",
       description: "Warm, inviting design for coffee shops with modern aesthetics",
-      image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1200&q=80&auto=format&fit=crop",
+      image: "/cafe.jpg",
       link: "/cafe",
     },
     {

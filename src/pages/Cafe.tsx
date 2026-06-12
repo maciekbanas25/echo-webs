@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { DemoPageCTA, DemoPageBackButton } from "@/components/DemoPageHeader";
 import { Coffee, Clock, MapPin, CheckCircle } from "lucide-react";
 
-const cafeHero = "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1920&q=80&auto=format&fit=crop";
+const cafeHero = "/cafe.jpg";
 
 const isOpenNow = () => {
   const now = new Date();
