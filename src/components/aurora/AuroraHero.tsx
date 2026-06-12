@@ -42,7 +42,7 @@ const AuroraHero = () => {
         aria-hidden
       />
 
-      <div className="relative z-10 mx-auto max-w-5xl px-5 text-center">
+      <div className="relative z-10 mx-auto max-w-[88rem] px-5 text-center">
         <motion.p
           className="mb-7 font-satoshi text-sm font-medium uppercase tracking-[0.32em] text-[#E8E4D9]/60"
           {...enter(0.15)}
@@ -50,7 +50,7 @@ const AuroraHero = () => {
           EchoWebs · Web Design Studio
         </motion.p>
 
-        <h1 className="font-clash text-[clamp(3.4rem,10vw,8.75rem)] font-semibold leading-[1.0] tracking-[-0.02em] text-[#E8E4D9]">
+        <h1 className="font-clash text-[clamp(2.6rem,7vw,6rem)] font-semibold leading-[1.04] tracking-[-0.02em] text-[#E8E4D9]">
           <span className="block space-x-[0.24em]">{line1.map((t) => word(t))}</span>
           <span className="block space-x-[0.24em]">{line2.map((t) => word(t, true))}</span>
         </h1>
