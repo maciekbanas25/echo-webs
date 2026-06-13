@@ -69,11 +69,11 @@ All colors MUST be HSL.
     /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-    /* Industry Colors - Cafe: Warm Orange/Brown */
-    --cafe-primary: 28 85% 55%;
-    --cafe-secondary: 35 65% 45%;
-    --cafe-bg: 30 40% 96%;
-    --cafe-dark: 25 45% 15%;
+    /* Industry Colors - Cafe: Espresso / cream / terracotta (specialty coffee) */
+    --cafe-primary: 17 58% 47%;     /* terracotta / clay accent */
+    --cafe-secondary: 28 30% 38%;   /* roasted caramel for labels */
+    --cafe-bg: 36 33% 94%;          /* warm paper */
+    --cafe-dark: 24 26% 11%;        /* deep espresso for dark sections */
 
     /* Industry Colors - Barber: Dark Gold/Black */
     --barber-primary: 45 85% 60%;

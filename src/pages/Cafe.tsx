@@ -1,236 +1,355 @@
 import { useState } from "react";
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
-import { Button } from "@/components/ui/button";
+import { motion, useReducedMotion } from "motion/react";
+import { Coffee, Clock, MapPin, Star, ArrowUpRight } from "lucide-react";
+import {
+  DemoBar,
+  DemoNav,
+  DemoFooter,
+  type DemoNavLink,
+} from "@/components/demo/DemoChrome";
 import { DemoPageCTA, DemoPageBackButton } from "@/components/DemoPageHeader";
-import { Coffee, Clock, MapPin, CheckCircle } from "lucide-react";
 
-const cafeHero = "/cafe.jpg";
+const heroImg = "/cafe.jpg";
+const img = (id: string, w = 900) =>
+  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`;
 
 const isOpenNow = () => {
   const now = new Date();
   const hour = now.getHours();
-  const day = now.getDay(); // 0=Sun, 1=Mon...6=Sat
-  if (day >= 1 && day <= 5) return hour >= 7 && hour < 19; // Mon-Fri 7-7
-  if (day === 6) return hour >= 8 && hour < 20; // Sat 8-8
-  return hour >= 8 && hour < 18; // Sun 8-6
+  const day = now.getDay(); // 0=Sun
+  if (day >= 1 && day <= 5) return hour >= 7 && hour < 19;
+  if (day === 6) return hour >= 8 && hour < 20;
+  return hour >= 8 && hour < 18;
 };
 
-const menuItems = [
-  { name: "Espresso", price: "£2.80", category: "Coffee", description: "Single origin, double shot" },
-  { name: "Flat White", price: "£3.50", category: "Coffee", description: "Velvety microfoam on espresso" },
-  { name: "Oat Latte", price: "£4.20", category: "Coffee", description: "Creamy oat milk, house blend" },
-  { name: "Iced Matcha", price: "£4.50", category: "Coffee", description: "Ceremonial grade, cold milk" },
-  { name: "Pour Over", price: "£4.00", category: "Coffee", description: "Single origin filter, daily rotation" },
-  { name: "Cortado", price: "£3.20", category: "Coffee", description: "Equal parts espresso and milk" },
-  { name: "Almond Croissant", price: "£3.80", category: "Pastry", description: "Frangipane filled, toasted almonds" },
-  { name: "Pain au Chocolat", price: "£3.20", category: "Pastry", description: "Dark chocolate, butter pastry" },
-  { name: "Banana Bread", price: "£3.50", category: "Pastry", description: "Toasted with salted butter" },
-  { name: "Cinnamon Roll", price: "£4.00", category: "Pastry", description: "Cream cheese glaze, warm served" },
-  { name: "Avocado Toast", price: "£9.50", category: "Food", description: "Sourdough, chilli flakes, poached egg" },
-  { name: "Shakshuka", price: "£11.00", category: "Food", description: "Baked eggs, spiced tomato, feta" },
-  { name: "Granola Bowl", price: "£8.50", category: "Food", description: "House granola, seasonal fruit, honey" },
-  { name: "Smashed Avo BLT", price: "£10.50", category: "Food", description: "Bacon, lettuce, tomato, avocado" },
+type MenuItem = {
+  name: string;
+  price: string;
+  category: "Coffee" | "Pastry" | "Kitchen";
+  description: string;
+  fav?: boolean;
+};
+
+const menu: MenuItem[] = [
+  { name: "Flat White", price: "3.50", category: "Coffee", description: "Velvety microfoam, our house espresso blend.", fav: true },
+  { name: "Filter / Pour Over", price: "4.00", category: "Coffee", description: "This week's single origin, brewed to order." },
+  { name: "Oat Latte", price: "4.20", category: "Coffee", description: "Minor Figures oat, no upcharge." },
+  { name: "Cortado", price: "3.20", category: "Coffee", description: "Equal espresso and steamed milk." },
+  { name: "Iced Matcha", price: "4.50", category: "Coffee", description: "Ceremonial grade, cold whole milk." },
+  { name: "Espresso", price: "2.80", category: "Coffee", description: "Single or double. Chocolatey, low acidity." },
+  { name: "Almond Croissant", price: "3.80", category: "Pastry", description: "Frangipane filled, baked before sunrise.", fav: true },
+  { name: "Pain au Chocolat", price: "3.20", category: "Pastry", description: "Two batons of dark chocolate, all butter." },
+  { name: "Cinnamon Roll", price: "4.00", category: "Pastry", description: "Cream cheese glaze, served warm." },
+  { name: "Banana Bread", price: "3.50", category: "Pastry", description: "Toasted, with salted butter." },
+  { name: "Smashed Avo on Sourdough", price: "9.50", category: "Kitchen", description: "Chilli, lemon, poached egg.", fav: true },
+  { name: "Shakshuka", price: "11.00", category: "Kitchen", description: "Baked eggs, spiced tomato, feta, toast." },
+  { name: "Granola Bowl", price: "8.50", category: "Kitchen", description: "House granola, seasonal fruit, honey." },
 ];
 
-const tabs = ["All", "Coffee", "Pastry", "Food"];
+const tabs = ["All", "Coffee", "Pastry", "Kitchen"] as const;
+
+const gallery = [
+  { src: img("1442512595331-e89e73853f31", 800), alt: "Flat white on a cafe table" },
+  { src: img("1554118811-1e0d58224f24", 800), alt: "Light cafe interior with stools" },
+  { src: img("1509440159596-0249088772ff", 800), alt: "Fresh-baked croissants" },
+];
 
 const Cafe = () => {
-  const [activeTab, setActiveTab] = useState("All");
+  const reduce = useReducedMotion();
+  const [tab, setTab] = useState<(typeof tabs)[number]>("All");
   const open = isOpenNow();
+  const filtered = tab === "All" ? menu : menu.filter((m) => m.category === tab);
 
-  const filtered = activeTab === "All" ? menuItems : menuItems.filter(i => i.category === activeTab);
+  const reveal = (delay = 0) => ({
+    initial: { opacity: 0, y: reduce ? 0 : 24 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, amount: 0.25 },
+    transition: { duration: 0.7, delay, ease: [0.19, 1, 0.22, 1] as const },
+  });
+
+  const navLinks: DemoNavLink[] = [
+    { label: "Menu", href: "#menu" },
+    { label: "Our story", href: "#story" },
+    { label: "Gallery", href: "#gallery" },
+    { label: "Visit", href: "#visit" },
+  ];
+
+  const OpenBadge = ({ dark = false }: { dark?: boolean }) => (
+    <span
+      className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-satoshi text-xs font-semibold ${
+        open
+          ? "bg-emerald-500/15 text-emerald-700"
+          : dark
+            ? "bg-white/10 text-white/70"
+            : "bg-[hsl(var(--cafe-dark))]/10 text-[hsl(var(--cafe-dark))]/70"
+      }`}
+    >
+      <span className={`h-1.5 w-1.5 rounded-full ${open ? "bg-emerald-500" : "bg-current opacity-60"}`} />
+      {open ? "Open now" : "Closed"}
+    </span>
+  );
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "hsl(var(--cafe-bg))" }}>
-      <Navigation />
+    <div
+      id="top"
+      className="min-h-screen bg-[hsl(var(--cafe-bg))] text-[hsl(var(--cafe-dark))]"
+      style={{ fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif" }}
+    >
+      <DemoBar />
+      <DemoNav
+        name="The Daily Grind"
+        icon={<Coffee className="h-5 w-5 text-[hsl(var(--cafe-primary))]" />}
+        links={navLinks}
+        cta={{ label: "See the menu", href: "#menu" }}
+        rightSlot={<OpenBadge />}
+        brandClass="font-playfair font-bold italic"
+        overlayClass="text-white"
+        scrolledClass="bg-[hsl(var(--cafe-bg))]/95 text-[hsl(var(--cafe-dark))] backdrop-blur-md border-b border-[hsl(var(--cafe-dark))]/10 shadow-sm"
+        ctaClass="rounded-full bg-[hsl(var(--cafe-primary))] px-5 py-2 font-satoshi text-sm font-semibold text-white transition hover:brightness-110"
+      />
 
       {/* Hero */}
-      <section className="relative h-[85vh] flex items-center justify-center overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${cafeHero})` }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-cafe-dark/90" />
+      <section className="relative -mt-[72px] flex min-h-[92vh] items-end overflow-hidden">
+        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${heroImg})` }} />
+        <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--cafe-dark))] via-[hsl(var(--cafe-dark))]/45 to-[hsl(var(--cafe-dark))]/25" />
 
-        <div className="relative z-10 text-center text-white px-4 animate-fade-in">
-          <div className="mb-4">
-            <Coffee className="w-16 h-16 mx-auto text-cafe-primary" />
-          </div>
-          <h1
-            className="text-6xl md:text-8xl font-bold mb-4 tracking-tight"
-            style={{ fontFamily: "'Playfair Display', Georgia, serif", fontStyle: "italic" }}
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-16 pt-32 md:px-10 md:pb-24">
+          <motion.div
+            initial={{ opacity: 0, y: reduce ? 0 : 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, ease: [0.19, 1, 0.22, 1] }}
+            className="max-w-2xl text-white"
           >
-            The Daily Grind
-          </h1>
-          <p className="text-2xl md:text-3xl mb-6 font-light tracking-wide">
-            Your neighbourhood coffee sanctuary
-          </p>
-
-          {/* Live Open/Closed badge */}
-          <div className="flex justify-center mb-10">
-            <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold backdrop-blur-sm border ${
-              open
-                ? "bg-green-500/20 border-green-400/40 text-green-300"
-                : "bg-red-500/20 border-red-400/40 text-red-300"
-            }`}>
-              <span className={`w-2 h-2 rounded-full ${open ? "bg-green-400 animate-pulse" : "bg-red-400"}`} />
-              {open ? "Open Now" : "Currently Closed"}
-            </div>
-          </div>
-
-          <Button
-            size="lg"
-            className="text-lg px-8 py-6"
-            style={{ backgroundColor: "hsl(var(--cafe-primary))", color: "white" }}
-          >
-            View Full Menu
-          </Button>
-        </div>
-      </section>
-
-      {/* About */}
-      <section className="py-24" style={{ backgroundColor: "hsl(var(--cafe-dark))" }}>
-        <div className="container mx-auto px-4 max-w-5xl">
-          <div className="text-center animate-fade-in-up">
-            <h2
-              className="text-5xl font-bold mb-8"
-              style={{ color: "hsl(var(--cafe-primary))", fontFamily: "'Playfair Display', Georgia, serif" }}
-            >
-              Welcome Home
-            </h2>
-            <p className="text-xl text-white/80 leading-relaxed max-w-3xl mx-auto">
-              At The Daily Grind, we believe coffee is more than a drink — it's an experience.
-              From our ethically sourced single-origin beans to our freshly baked pastries, every detail
-              is crafted with care. Your morning ritual starts here.
+            <p className="mb-4 flex items-center gap-3 font-satoshi text-sm font-medium uppercase tracking-[0.28em] text-white/75">
+              Shoreditch · Specialty coffee
             </p>
-          </div>
+            <h1 className="font-playfair text-[clamp(3rem,8vw,6.5rem)] font-bold italic leading-[0.95]">
+              Coffee worth
+              <br />
+              the walk.
+            </h1>
+            <p className="mt-6 max-w-md font-satoshi text-lg leading-relaxed text-white/85">
+              Single-origin espresso, milk steamed the way it should be, and pastries
+              baked out back before sunrise. Pull up a stool.
+            </p>
+            <div className="mt-9 flex flex-wrap items-center gap-4">
+              <button
+                onClick={() => document.querySelector("#menu")?.scrollIntoView({ behavior: "smooth" })}
+                className="rounded-full bg-[hsl(var(--cafe-primary))] px-7 py-3.5 font-satoshi text-base font-semibold text-white transition hover:brightness-110"
+              >
+                See the menu
+              </button>
+              <button
+                onClick={() => document.querySelector("#visit")?.scrollIntoView({ behavior: "smooth" })}
+                className="rounded-full border border-white/35 px-7 py-3.5 font-satoshi text-base font-medium text-white backdrop-blur-sm transition hover:bg-white/10"
+              >
+                Find us
+              </button>
+              <span className="font-satoshi text-sm text-white/70">
+                Mon–Fri 7–7 · 14 Redchurch St
+              </span>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Tabbed Menu */}
-      <section className="py-24" style={{ backgroundColor: "hsl(var(--cafe-bg))" }}>
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12 animate-fade-in">
-            <h2
-              className="text-5xl font-bold mb-4 text-cafe-dark"
-              style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-            >
-              Our Menu
-            </h2>
-            <p className="text-xl text-cafe-dark/70 mb-8">Handcrafted drinks & fresh bakes daily</p>
+      {/* Story */}
+      <section id="story" className="scroll-mt-20 px-5 py-24 md:px-10 md:py-32">
+        <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
+          <div>
+            <motion.p {...reveal(0)} className="mb-3 font-satoshi text-xs font-semibold uppercase tracking-[0.28em] text-[hsl(var(--cafe-primary))]">
+              Our story
+            </motion.p>
+            <motion.h2 {...reveal(0.05)} className="font-playfair text-4xl font-bold italic leading-tight md:text-6xl">
+              Not a chain. Never will be.
+            </motion.h2>
+            <motion.p {...reveal(0.1)} className="mt-6 max-w-lg font-satoshi text-lg leading-relaxed text-[hsl(var(--cafe-dark))]/75">
+              We opened on Redchurch Street in 2019 with one espresso machine and a
+              stubborn idea: that a neighbourhood deserves coffee roasted by people who
+              know its name. We pour a new single origin every week and bake everything
+              in the kitchen behind you.
+            </motion.p>
+            <motion.p {...reveal(0.15)} className="mt-4 max-w-lg font-satoshi text-lg leading-relaxed text-[hsl(var(--cafe-dark))]/75">
+              No syrups pretending to be flavour. No queue that outlasts your lunch break.
+            </motion.p>
+          </div>
 
-            {/* Tab bar */}
-            <div className="inline-flex gap-2 p-1.5 rounded-2xl" style={{ backgroundColor: "hsl(var(--cafe-primary) / 0.1)" }}>
-              {tabs.map(tab => (
+          <motion.div {...reveal(0.1)} className="grid grid-cols-2 gap-4">
+            {[
+              { big: "2019", small: "Roasting on Redchurch St since" },
+              { big: "4.9★", small: "320+ Google reviews" },
+              { big: "60 sec", small: "Average flat white" },
+              { big: "1 / wk", small: "New single origin on rotation" },
+            ].map((s) => (
+              <div key={s.small} className="rounded-2xl border border-[hsl(var(--cafe-dark))]/10 bg-white/60 p-6">
+                <div className="font-playfair text-4xl font-bold italic text-[hsl(var(--cafe-primary))]">{s.big}</div>
+                <div className="mt-2 font-satoshi text-sm leading-snug text-[hsl(var(--cafe-dark))]/65">{s.small}</div>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Menu */}
+      <section id="menu" className="scroll-mt-20 bg-[hsl(var(--cafe-dark))] px-5 py-24 text-[hsl(var(--cafe-bg))] md:px-10 md:py-32">
+        <div className="mx-auto max-w-5xl">
+          <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+            <div>
+              <motion.p {...reveal(0)} className="mb-3 font-satoshi text-xs font-semibold uppercase tracking-[0.28em] text-[hsl(var(--cafe-primary))]">
+                The menu
+              </motion.p>
+              <motion.h2 {...reveal(0.05)} className="font-playfair text-4xl font-bold italic md:text-6xl">
+                Made fresh, priced fair.
+              </motion.h2>
+              <motion.p {...reveal(0.1)} className="mt-3 font-satoshi text-sm text-[hsl(var(--cafe-bg))]/55">
+                Oat, almond and soy on the house. Prices in £.
+              </motion.p>
+            </div>
+            <motion.div {...reveal(0.1)} className="inline-flex gap-1 rounded-full border border-[hsl(var(--cafe-bg))]/15 p-1">
+              {tabs.map((t) => (
                 <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className="px-6 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200"
-                  style={
-                    activeTab === tab
-                      ? { backgroundColor: "hsl(var(--cafe-primary))", color: "white" }
-                      : { color: "hsl(var(--cafe-dark))" }
-                  }
+                  key={t}
+                  onClick={() => setTab(t)}
+                  className={`rounded-full px-4 py-2 font-satoshi text-sm font-medium transition ${
+                    tab === t
+                      ? "bg-[hsl(var(--cafe-primary))] text-white"
+                      : "text-[hsl(var(--cafe-bg))]/70 hover:text-[hsl(var(--cafe-bg))]"
+                  }`}
                 >
-                  {tab}
+                  {t}
                 </button>
               ))}
-            </div>
+            </motion.div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto">
-            {filtered.map((item, index) => (
-              <div
+          <div className="mt-12 grid gap-x-14 gap-y-1 md:grid-cols-2">
+            {filtered.map((item, i) => (
+              <motion.div
                 key={item.name}
-                className="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-cafe-primary/10"
-                style={{ animationDelay: `${index * 0.04}s` }}
+                {...reveal(Math.min(i * 0.03, 0.2))}
+                className="flex items-baseline gap-3 border-b border-[hsl(var(--cafe-bg))]/10 py-4"
               >
-                <div className="text-xs font-bold mb-2 uppercase tracking-widest" style={{ color: "hsl(var(--cafe-secondary))" }}>
-                  {item.category}
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-baseline gap-2">
+                    <h3 className="font-satoshi text-lg font-semibold text-[hsl(var(--cafe-bg))]">{item.name}</h3>
+                    {item.fav && (
+                      <span className="inline-flex items-center gap-1 rounded-full bg-[hsl(var(--cafe-primary))]/20 px-2 py-0.5 font-satoshi text-[10px] font-semibold uppercase tracking-wide text-[hsl(var(--cafe-primary))]">
+                        <Star className="h-2.5 w-2.5 fill-current" /> Favourite
+                      </span>
+                    )}
+                  </div>
+                  <p className="mt-0.5 font-satoshi text-sm text-[hsl(var(--cafe-bg))]/55">{item.description}</p>
                 </div>
-                <div className="flex justify-between items-start mb-1">
-                  <h3 className="text-lg font-bold text-cafe-dark">{item.name}</h3>
-                  <span className="text-lg font-bold ml-4 flex-shrink-0" style={{ color: "hsl(var(--cafe-primary))" }}>
-                    {item.price}
-                  </span>
-                </div>
-                <p className="text-sm text-cafe-dark/60">{item.description}</p>
-              </div>
+                <div className="font-playfair text-xl font-bold italic text-[hsl(var(--cafe-primary))]">{item.price}</div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Hours & Location */}
-      <section className="py-24" style={{ backgroundColor: "hsl(var(--cafe-primary))" }}>
-        <div className="container mx-auto px-4 max-w-6xl">
-          <div className="grid md:grid-cols-2 gap-16 text-white">
-            {/* Hours */}
-            <div className="animate-fade-in">
-              <div className="flex items-center gap-3 mb-6">
-                <Clock className="w-8 h-8" />
-                <h3 className="text-3xl font-bold" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>Hours</h3>
-                <div className={`ml-auto inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${
-                  open ? "bg-green-400/20 text-green-200" : "bg-white/20 text-white/70"
-                }`}>
-                  <span className={`w-1.5 h-1.5 rounded-full ${open ? "bg-green-400 animate-pulse" : "bg-white/50"}`} />
-                  {open ? "Open Now" : "Closed"}
-                </div>
-              </div>
-              <div className="space-y-3 text-lg">
-                <p className="flex justify-between">
-                  <span className="font-semibold">Monday – Friday</span>
-                  <span>7:00 am – 7:00 pm</span>
-                </p>
-                <p className="flex justify-between">
-                  <span className="font-semibold">Saturday</span>
-                  <span>8:00 am – 8:00 pm</span>
-                </p>
-                <p className="flex justify-between">
-                  <span className="font-semibold">Sunday</span>
-                  <span>8:00 am – 6:00 pm</span>
-                </p>
-              </div>
-            </div>
-
-            {/* Location */}
-            <div className="animate-fade-in-up">
-              <div className="flex items-center gap-3 mb-6">
-                <MapPin className="w-8 h-8" />
-                <h3 className="text-3xl font-bold" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>Location</h3>
-              </div>
-              <p className="text-lg mb-4 leading-relaxed">
-                14 Redchurch Street<br />
-                Shoreditch, London<br />
-                E2 7DJ
-              </p>
-            </div>
+      {/* Gallery */}
+      <section id="gallery" className="scroll-mt-20 px-5 py-24 md:px-10 md:py-32">
+        <div className="mx-auto max-w-7xl">
+          <motion.h2 {...reveal(0)} className="mb-10 max-w-xl font-playfair text-4xl font-bold italic leading-tight md:text-5xl">
+            A room you won't want to leave.
+          </motion.h2>
+          <div className="grid gap-4 md:grid-cols-3">
+            {gallery.map((g, i) => (
+              <motion.div
+                key={g.src}
+                {...reveal(i * 0.08)}
+                className={`overflow-hidden rounded-2xl ${i === 0 ? "md:row-span-2 md:h-full" : ""}`}
+              >
+                <img
+                  src={g.src}
+                  alt={g.alt}
+                  loading="lazy"
+                  className="h-full min-h-[240px] w-full object-cover transition-transform duration-700 hover:scale-105"
+                />
+              </motion.div>
+            ))}
           </div>
-
-          {/* Google Map */}
-          <div className="mt-12 rounded-2xl overflow-hidden shadow-2xl" style={{ height: "320px" }}>
-            <iframe
-              title="The Daily Grind – Shoreditch"
-              src="https://www.openstreetmap.org/export/embed.html?bbox=-0.086%2C51.519%2C-0.064%2C51.527&layer=mapnik&marker=51.5228%2C-0.0752"
-              width="100%"
-              height="100%"
-              style={{ border: 0, filter: "contrast(1.05) saturate(0.9)" }}
-              loading="lazy"
-            />
-          </div>
-          <p className="text-center text-white/70 text-sm mt-3">
-            📍 14 Redchurch Street, Shoreditch — 3 min walk from Shoreditch High Street Station
-          </p>
         </div>
       </section>
 
-      {/* Demo CTA */}
+      {/* Visit */}
+      <section id="visit" className="scroll-mt-20 bg-[hsl(var(--cafe-primary))] px-5 py-24 text-white md:px-10 md:py-32">
+        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <motion.div {...reveal(0)} className="mb-6 flex items-center gap-3">
+              <Clock className="h-7 w-7" />
+              <h2 className="font-playfair text-3xl font-bold italic md:text-4xl">Opening hours</h2>
+              <OpenBadge dark />
+            </motion.div>
+            <motion.div {...reveal(0.05)} className="space-y-3 font-satoshi text-lg">
+              {[
+                ["Monday – Friday", "7:00am – 7:00pm"],
+                ["Saturday", "8:00am – 8:00pm"],
+                ["Sunday", "8:00am – 6:00pm"],
+              ].map(([d, h]) => (
+                <div key={d} className="flex items-center justify-between border-b border-white/15 pb-3">
+                  <span className="font-semibold">{d}</span>
+                  <span className="text-white/85">{h}</span>
+                </div>
+              ))}
+            </motion.div>
+
+            <motion.div {...reveal(0.1)} className="mt-8">
+              <div className="flex items-center gap-2 font-satoshi font-semibold">
+                <MapPin className="h-5 w-5" /> 14 Redchurch Street, Shoreditch, London E2 7DJ
+              </div>
+              <p className="mt-2 font-satoshi text-white/80">3 minutes from Shoreditch High Street station.</p>
+              <a
+                href="https://maps.google.com/?q=14+Redchurch+Street+London+E2+7DJ"
+                target="_blank"
+                rel="noreferrer"
+                className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-white px-6 py-3 font-satoshi text-sm font-semibold text-[hsl(var(--cafe-dark))] transition hover:bg-white/90"
+              >
+                Get directions <ArrowUpRight className="h-4 w-4" />
+              </a>
+            </motion.div>
+          </div>
+
+          <motion.div {...reveal(0.1)} className="overflow-hidden rounded-2xl border border-white/20 shadow-2xl">
+            <iframe
+              title="The Daily Grind, Shoreditch"
+              src="https://maps.google.com/maps?q=14%20Redchurch%20Street%20London%20E2%207DJ&t=&z=15&ie=UTF8&iwloc=&output=embed"
+              className="h-full min-h-[360px] w-full"
+              style={{ border: 0, filter: "saturate(0.9) contrast(1.05)" }}
+              loading="lazy"
+            />
+          </motion.div>
+        </div>
+      </section>
+
+      <DemoFooter
+        name="The Daily Grind"
+        blurb="Neighbourhood specialty coffee on Redchurch Street, Shoreditch. Roasted with care, served without the fuss."
+        className="bg-[hsl(var(--cafe-dark))] text-[hsl(var(--cafe-bg))]"
+        brandClass="font-playfair font-bold italic"
+        accentClass="text-[hsl(var(--cafe-primary))]"
+        columns={[
+          {
+            title: "Menu",
+            items: [
+              <button key="c" onClick={() => document.querySelector("#menu")?.scrollIntoView({ behavior: "smooth" })}>Coffee</button>,
+              <button key="p" onClick={() => document.querySelector("#menu")?.scrollIntoView({ behavior: "smooth" })}>Pastry</button>,
+              <button key="k" onClick={() => document.querySelector("#menu")?.scrollIntoView({ behavior: "smooth" })}>Kitchen</button>,
+            ],
+          },
+          {
+            title: "Visit",
+            items: ["14 Redchurch Street", "Shoreditch, London", "E2 7DJ"],
+          },
+          {
+            title: "Follow",
+            items: ["Instagram", "Hello@dailygrind.test", "Mon–Sun, 7am"],
+          },
+        ]}
+      />
+
       <DemoPageCTA />
-
       <DemoPageBackButton />
-
-      <Footer />
     </div>
   );
 };
