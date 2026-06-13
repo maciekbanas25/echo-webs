@@ -4,7 +4,6 @@ import AuroraHero from "@/components/aurora/AuroraHero";
 import AuroraTicker from "@/components/aurora/AuroraTicker";
 import AuroraWork from "@/components/aurora/AuroraWork";
 import AuroraProcess from "@/components/aurora/AuroraProcess";
-import AuroraServices from "@/components/aurora/AuroraServices";
 import AuroraStats from "@/components/aurora/AuroraStats";
 import AuroraCloser from "@/components/aurora/AuroraCloser";
 import AuroraFooter from "@/components/aurora/AuroraFooter";
@@ -23,7 +22,6 @@ const Index = () => (
       <AuroraTicker />
       <AuroraWork />
       <AuroraProcess />
-      <AuroraServices />
       <AuroraStats />
       <AuroraCloser />
     </main>
