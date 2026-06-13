@@ -1,194 +1,284 @@
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
-import QuoteBuilder from "@/components/QuoteBuilder";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { servicePlans } from "@/data/services";
-import { Check, ArrowRight } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
+import { Check, ArrowRight, ArrowUpRight, Plus } from "lucide-react";
+import AuroraNav from "@/components/aurora/AuroraNav";
+import AuroraFooter from "@/components/aurora/AuroraFooter";
+import AuroraShader from "@/components/aurora/AuroraShader";
+import { mainTiers, addOns, type ServicePlan } from "@/data/services";
+
+const ease = [0.19, 1, 0.22, 1] as const;
+
+const steps = [
+  { step: "01", title: "Discovery", description: "We talk through your business, goals, and vision for the site." },
+  { step: "02", title: "Design", description: "I craft a custom mockup tailored to your brand — never a template." },
+  { step: "03", title: "Development", description: "Built with modern, fast, secure tech and tuned for speed." },
+  { step: "04", title: "Launch", description: "We go live, and I'm on hand for support after you launch." },
+];
+
+const faqs = [
+  { q: "How long does it take to build a website?", a: "Most starter sites are completed within 1–2 weeks. Premium websites typically take 2–4 weeks depending on complexity." },
+  { q: "Do I need to provide content?", a: "Ideally, yes — you know your business best. But I can help with copywriting and source stock imagery if needed." },
+  { q: "What about hosting and domain?", a: "I'll guide you through setting up hosting and your domain. These are separate costs, but I'll recommend affordable, reliable options." },
+  { q: "Can I update the website myself?", a: "Premium packages include a CMS, so you can easily update text, images, and more — no coding required." },
+];
+
+/** One full pricing column. Premium is centered, raised, gradient-bordered. */
+const TierCard = ({ plan, featured }: { plan: ServicePlan; featured: boolean }) => {
+  const isMonthly = plan.id === "maintenance";
+
+  const inner = (
+    <div className="flex h-full flex-col rounded-[calc(1.5rem-1.5px)] bg-[#0A0E16] p-8 md:p-9">
+      {featured && (
+        <span className="mb-5 inline-flex w-fit items-center gap-1.5 rounded-full bg-gradient-to-r from-[#1A6FD4] to-[#00CFFF] px-3.5 py-1 font-satoshi text-[11px] font-semibold uppercase tracking-[0.18em] text-[#080A0F]">
+          Most popular
+        </span>
+      )}
+
+      <h3 className="font-clash text-2xl font-semibold tracking-tight text-[#E8E4D9]">
+        {plan.name}
+      </h3>
+      <p className="mt-2 font-satoshi text-sm leading-relaxed text-[#E8E4D9]/55">
+        {plan.description}
+      </p>
+
+      <div className="mt-6 flex items-end gap-2">
+        {plan.originalPrice && (
+          <span className="mb-1 font-satoshi text-base text-[#E8E4D9]/35 line-through">
+            {plan.originalPrice}
+          </span>
+        )}
+        <span
+          className={`font-clash text-5xl font-semibold leading-none ${
+            featured ? "obs-grad-text" : "text-[#E8E4D9]"
+          }`}
+        >
+          {plan.price}
+        </span>
+        {isMonthly && (
+          <span className="mb-1 font-satoshi text-sm text-[#E8E4D9]/50">/mo</span>
+        )}
+      </div>
+      {plan.originalPrice && (
+        <span className="mt-3 w-fit rounded-full border border-[#00CFFF]/30 bg-[#00CFFF]/[0.06] px-3 py-1 font-satoshi text-[11px] font-medium text-[#00CFFF]">
+          Limited launch offer
+        </span>
+      )}
+
+      <ul className="mt-7 space-y-3.5">
+        {plan.features.map((feature) => (
+          <li key={feature} className="flex items-start gap-3">
+            <Check className="mt-0.5 h-5 w-5 shrink-0 text-[#00CFFF]" strokeWidth={2.4} />
+            <span className="font-satoshi text-sm leading-snug text-[#E8E4D9]/75">
+              {feature}
+            </span>
+          </li>
+        ))}
+      </ul>
+
+      <Link
+        to="/contact"
+        className={`mt-8 flex items-center justify-center gap-2 rounded-full px-5 py-3 font-satoshi text-[15px] font-medium transition-all duration-300 ${
+          featured
+            ? "bg-gradient-to-r from-[#1A6FD4] to-[#00CFFF] text-[#080A0F] hover:shadow-[0_0_36px_-6px_rgba(0,207,255,0.6)]"
+            : "border border-[#E8E4D9]/15 text-[#E8E4D9] hover:border-[#00CFFF]/50 hover:text-[#00CFFF]"
+        }`}
+      >
+        Get started
+        <ArrowRight className="h-4 w-4" />
+      </Link>
+    </div>
+  );
+
+  return (
+    <div
+      className={`h-full ${
+        featured
+          ? "rounded-3xl bg-gradient-to-br from-[#1A6FD4] to-[#00CFFF] p-[1.5px] shadow-[0_0_70px_-20px_rgba(0,207,255,0.45)] md:-translate-y-4"
+          : "rounded-3xl border border-[#E8E4D9]/10 bg-[#E8E4D9]/[0.02] p-[1.5px]"
+      }`}
+    >
+      {inner}
+    </div>
+  );
+};
 
 const Services = () => {
+  const reduce = useReducedMotion();
+  const reveal = (delay = 0) => ({
+    initial: { opacity: 0, y: reduce ? 0 : 22 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, amount: 0.3 },
+    transition: { duration: 0.6, delay, ease },
+  });
+
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
+    <div className="min-h-screen bg-[#080A0F] font-satoshi text-[#E8E4D9]">
+      <AuroraNav />
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-16 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-glow opacity-30" />
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-3xl mx-auto text-center animate-fade-in">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight pb-2 bg-gradient-hero bg-clip-text text-transparent">
-              Services & Pricing
-            </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed">
-              Transparent pricing for premium web design. Choose the package that fits your business needs.
-            </p>
-          </div>
+      {/* Hero */}
+      <section className="relative overflow-hidden px-5 pb-16 pt-36 md:px-12 md:pt-44">
+        <AuroraShader intensity={0.5} className="opacity-70" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#080A0F]" />
+        <div className="relative mx-auto max-w-3xl text-center">
+          <motion.p {...reveal(0)} className="mb-4 font-satoshi text-xs font-medium uppercase tracking-[0.3em] text-[#00CFFF]">
+            Services &amp; Pricing
+          </motion.p>
+          <motion.h1 {...reveal(0.05)} className="font-clash text-5xl font-semibold tracking-tight text-[#E8E4D9] md:text-7xl">
+            Honest pricing.<br />No surprises.
+          </motion.h1>
+          <motion.p {...reveal(0.1)} className="mx-auto mt-6 max-w-xl font-satoshi text-lg text-[#E8E4D9]/60">
+            Premium web design at a small-business price. Pick a package, add what
+            you need, and you'll see the site before you pay a penny.
+          </motion.p>
         </div>
       </section>
 
-      {/* Pricing Cards */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-center gap-6 max-w-7xl mx-auto">
-            {servicePlans.map((plan, index) => (
-              <Card
+      {/* Main tiers */}
+      <section className="px-5 pb-8 md:px-12">
+        <div className="mx-auto grid max-w-6xl items-stretch gap-5 md:grid-cols-3 md:gap-6 md:pt-6">
+          {mainTiers.map((plan, i) => (
+            <motion.div key={plan.id} {...reveal(i * 0.08)} className="h-full">
+              <TierCard plan={plan} featured={!!plan.popular} />
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Add-ons strip */}
+      <section className="px-5 py-16 md:px-12">
+        <div className="mx-auto max-w-6xl">
+          <motion.div {...reveal(0)} className="mb-7 flex items-center gap-4">
+            <span className="font-satoshi text-xs font-medium uppercase tracking-[0.3em] text-[#00CFFF]">
+              Add to any package
+            </span>
+            <span className="h-px flex-1 bg-[#E8E4D9]/10" />
+          </motion.div>
+
+          <div className="grid gap-5 md:grid-cols-2">
+            {addOns.map((plan, i) => (
+              <motion.div
                 key={plan.id}
-                className={`w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(25%-1.125rem)] relative overflow-hidden transition-all duration-500 animate-fade-in hover:shadow-glow ${
-                  plan.popular 
-                    ? "border-primary shadow-glow scale-105 z-10" 
-                    : "border-primary/20 hover:border-primary/50"
-                }`}
-                style={{ animationDelay: `${index * 0.1}s` }}
+                {...reveal(i * 0.08)}
+                className="group flex flex-col gap-5 rounded-3xl border border-[#E8E4D9]/10 bg-[#E8E4D9]/[0.02] p-7 transition-all duration-300 hover:border-[#00CFFF]/40 sm:flex-row sm:items-center sm:justify-between"
               >
-                {plan.popular && (
-                  <div className="absolute top-0 left-0 right-0 bg-gradient-hero py-2 text-center">
-                    <span className="text-sm font-semibold text-primary-foreground uppercase tracking-wider">
-                      Most Popular
-                    </span>
-                  </div>
-                )}
-                
-                <CardHeader className={`text-center ${plan.popular ? "pt-14" : "pt-6"} pb-4`}>
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-primary/10 flex items-center justify-center">
-                    <plan.icon className="w-8 h-8 text-primary" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-foreground mb-2">{plan.name}</h3>
-                  <div className="flex flex-col items-center gap-1">
-                    {plan.originalPrice && (
-                      <span className="text-lg text-muted-foreground line-through">
-                        {plan.originalPrice}
+                <div className="flex items-start gap-4">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-[#E8E4D9]/10 bg-[#080A0F]/60 text-[#00CFFF]">
+                    <plan.icon className="h-6 w-6" strokeWidth={1.5} />
+                  </span>
+                  <div>
+                    <div className="flex items-center gap-2.5">
+                      <h3 className="font-clash text-xl font-semibold tracking-tight text-[#E8E4D9]">
+                        {plan.name}
+                      </h3>
+                      <span className="flex items-center gap-1 font-satoshi text-sm font-medium text-[#00CFFF]">
+                        <Plus className="h-3.5 w-3.5" />
+                        {plan.price}
                       </span>
-                    )}
-                    <div className="text-4xl font-bold bg-gradient-hero bg-clip-text text-transparent">
-                      {plan.price}
                     </div>
-                    {plan.originalPrice && (
-                      <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">
-                        Limited Launch Offer
-                      </span>
-                    )}
+                    <p className="mt-1.5 font-satoshi text-sm leading-relaxed text-[#E8E4D9]/55">
+                      {plan.description}
+                    </p>
+                    <div className="mt-3 flex flex-wrap gap-1.5">
+                      {plan.features.slice(0, 3).map((f) => (
+                        <span
+                          key={f}
+                          className="rounded-full border border-[#E8E4D9]/10 px-2.5 py-1 font-satoshi text-[11px] text-[#E8E4D9]/55"
+                        >
+                          {f}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                  <p className="text-sm text-muted-foreground mt-2">{plan.description}</p>
-                </CardHeader>
-                
-                <CardContent className="pt-0">
-                  <ul className="space-y-3 mb-6">
-                    {plan.features.map((feature) => (
-                      <li key={feature} className="flex items-start gap-3">
-                        <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                        <span className="text-muted-foreground text-sm">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  
-                  <Button 
-                    asChild
-                    className={`w-full ${
-                      plan.popular 
-                        ? "shadow-glow" 
-                        : "bg-secondary text-foreground hover:bg-primary hover:text-primary-foreground"
-                    }`}
-                    variant={plan.popular ? "brand" : "outline"}
-                  >
-                    <Link to="/contact" className="flex items-center justify-center gap-2">
-                      Get Started
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  </Button>
-                </CardContent>
-              </Card>
+                </div>
+                <Link
+                  to="/contact"
+                  aria-label={`Add ${plan.name}`}
+                  className="flex h-11 w-11 shrink-0 items-center justify-center self-end rounded-full border border-[#E8E4D9]/15 text-[#E8E4D9] transition-all duration-300 group-hover:border-[#00CFFF] group-hover:bg-[#00CFFF] group-hover:text-[#080A0F] sm:self-auto"
+                >
+                  <ArrowUpRight className="h-5 w-5" />
+                </Link>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Interactive quote builder (moved here from the homepage). */}
-      <QuoteBuilder />
+      {/* Process */}
+      <section className="border-t border-[#E8E4D9]/[0.06] px-5 py-24 md:px-12 md:py-32">
+        <div className="mx-auto max-w-6xl">
+          <motion.p {...reveal(0)} className="mb-3 font-satoshi text-xs font-medium uppercase tracking-[0.3em] text-[#00CFFF]">
+            How it works
+          </motion.p>
+          <motion.h2 {...reveal(0.05)} className="mb-14 font-clash text-4xl font-semibold tracking-tight text-[#E8E4D9] md:text-5xl">
+            A simple path from idea to launch.
+          </motion.h2>
 
-      {/* Process Section */}
-      <section className="py-24 bg-secondary/30">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
-              How It Works
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              A simple, transparent process from start to launch
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
-            {[
-              { step: "01", title: "Discovery", description: "We discuss your business, goals, and vision for your website" },
-              { step: "02", title: "Design", description: "I create a custom design mockup tailored to your brand" },
-              { step: "03", title: "Development", description: "Your site is built with modern, fast, and secure technology" },
-              { step: "04", title: "Launch", description: "We go live with your new site and provide support" },
-            ].map((item, index) => (
-              <div 
-                key={item.step} 
-                className="text-center animate-fade-in-up"
-                style={{ animationDelay: `${index * 0.15}s` }}
-              >
-                <div className="text-6xl font-bold text-primary/20 mb-4">{item.step}</div>
-                <h3 className="text-xl font-bold text-foreground mb-2">{item.title}</h3>
-                <p className="text-muted-foreground">{item.description}</p>
-              </div>
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {steps.map((item, i) => (
+              <motion.div key={item.step} {...reveal(i * 0.08)}>
+                <div className="font-clash text-5xl font-semibold text-[#E8E4D9]/[0.12]">
+                  {item.step}
+                </div>
+                <h3 className="mt-3 font-clash text-xl font-semibold tracking-tight text-[#E8E4D9]">
+                  {item.title}
+                </h3>
+                <p className="mt-2 font-satoshi text-sm leading-relaxed text-[#E8E4D9]/55">
+                  {item.description}
+                </p>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="py-24">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
-              Frequently Asked Questions
-            </h2>
-          </div>
-
-          <div className="max-w-3xl mx-auto space-y-6">
-            {[
-              { q: "How long does it take to build a website?", a: "Most starter sites are completed within 1-2 weeks. Premium websites typically take 2-4 weeks depending on complexity." },
-              { q: "Do I need to provide content?", a: "Ideally, yes! You know your business best. However, I can help with copywriting and source stock images if needed." },
-              { q: "What about hosting and domain?", a: "I'll guide you through setting up hosting and your domain. These are separate costs but I'll recommend affordable, reliable options." },
-              { q: "Can I update the website myself?", a: "Premium packages include a content management system (CMS) so you can easily update text, images, and more without coding knowledge." },
-            ].map((faq, index) => (
-              <Card 
-                key={index} 
-                className="border-primary/20 hover:border-primary/40 transition-all duration-300 animate-fade-in"
-                style={{ animationDelay: `${index * 0.1}s` }}
+      {/* FAQ */}
+      <section className="px-5 pb-24 md:px-12 md:pb-32">
+        <div className="mx-auto max-w-3xl">
+          <motion.h2 {...reveal(0)} className="mb-12 text-center font-clash text-4xl font-semibold tracking-tight text-[#E8E4D9] md:text-5xl">
+            Questions, answered.
+          </motion.h2>
+          <div className="space-y-4">
+            {faqs.map((faq, i) => (
+              <motion.div
+                key={faq.q}
+                {...reveal(i * 0.06)}
+                className="rounded-2xl border border-[#E8E4D9]/10 bg-[#E8E4D9]/[0.02] p-6 transition-colors duration-300 hover:border-[#00CFFF]/30"
               >
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-semibold text-foreground mb-2">{faq.q}</h3>
-                  <p className="text-muted-foreground">{faq.a}</p>
-                </CardContent>
-              </Card>
+                <h3 className="font-clash text-lg font-semibold tracking-tight text-[#E8E4D9]">
+                  {faq.q}
+                </h3>
+                <p className="mt-2 font-satoshi text-sm leading-relaxed text-[#E8E4D9]/60">
+                  {faq.a}
+                </p>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-24 bg-gradient-subtle">
-        <div className="container mx-auto px-4 text-center animate-fade-in">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-hero bg-clip-text text-transparent">
-            Ready to Get Started?
+      <section className="relative overflow-hidden border-t border-[#E8E4D9]/[0.06] px-5 py-28 md:px-12">
+        <AuroraShader intensity={0.42} className="opacity-60" />
+        <div className="pointer-events-none absolute inset-0 bg-[#080A0F]/40" />
+        <motion.div {...reveal(0)} className="relative mx-auto max-w-2xl text-center">
+          <h2 className="font-clash text-4xl font-semibold tracking-tight text-[#E8E4D9] md:text-6xl">
+            Ready to get started?
           </h2>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Let's discuss your project and find the perfect solution for your business.
+          <p className="mx-auto mt-5 max-w-lg font-satoshi text-lg text-[#E8E4D9]/60">
+            Tell me about your project and I'll send a free, no-obligation quote
+            within 24 hours.
           </p>
-          <Button asChild size="lg" variant="brand" className="shadow-glow hover:shadow-intense transition-all duration-300">
-            <Link to="/contact" className="flex items-center gap-2">
-              Get a Free Quote
-              <ArrowRight className="w-5 h-5" />
-            </Link>
-          </Button>
-        </div>
+          <Link
+            to="/contact"
+            className="mt-9 inline-flex items-center gap-2 rounded-full bg-[#E8E4D9] px-7 py-3.5 font-satoshi text-[15px] font-medium text-[#080A0F] transition-all duration-300 hover:bg-[#00CFFF]"
+          >
+            Get a free quote
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </motion.div>
       </section>
 
-      <Footer />
+      <AuroraFooter />
     </div>
   );
 };

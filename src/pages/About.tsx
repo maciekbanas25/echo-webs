@@ -1,199 +1,202 @@
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
-import Testimonials from "@/components/Testimonials";
-import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { motion, useReducedMotion } from "motion/react";
+import { Code, Palette, Zap, Heart, ArrowRight, Check } from "lucide-react";
+import AuroraNav from "@/components/aurora/AuroraNav";
+import AuroraFooter from "@/components/aurora/AuroraFooter";
+import AuroraShader from "@/components/aurora/AuroraShader";
+import Testimonials from "@/components/Testimonials";
 import logo from "@/assets/ew-logo.png";
-import { Code, Palette, Zap, Heart, ArrowRight, CheckCircle } from "lucide-react";
+
+const ease = [0.19, 1, 0.22, 1] as const;
+
+const skills = [
+  "React & Next.js",
+  "TypeScript",
+  "Tailwind CSS",
+  "Node.js",
+  "PostgreSQL",
+  "SEO Optimization",
+  "UI/UX Design",
+  "Responsive Design",
+];
+
+const values = [
+  {
+    icon: Zap,
+    title: "Speed & Efficiency",
+    description: "Quality work, delivered quickly. Modern tooling and a tight process mean you get results faster.",
+  },
+  {
+    icon: Palette,
+    title: "Design Excellence",
+    description: "Every pixel matters. Visually striking sites that capture your brand and impress visitors.",
+  },
+  {
+    icon: Code,
+    title: "Clean Code",
+    description: "Built with best practices and modern tech. Fast, secure, and easy to maintain.",
+  },
+  {
+    icon: Heart,
+    title: "Client-Focused",
+    description: "Your success is the priority. I listen, adapt, and build sites that serve your goals.",
+  },
+];
 
 const AboutPage = () => {
-  const skills = [
-    "React & Next.js",
-    "TypeScript",
-    "Tailwind CSS",
-    "Node.js",
-    "PostgreSQL",
-    "SEO Optimization",
-    "UI/UX Design",
-    "Responsive Design",
-  ];
-
-  const values = [
-    {
-      icon: Zap,
-      title: "Speed & Efficiency",
-      description: "I believe in delivering quality work quickly. Modern tools and streamlined processes mean you get results faster.",
-    },
-    {
-      icon: Palette,
-      title: "Design Excellence",
-      description: "Every pixel matters. I create visually stunning websites that capture your brand essence and impress visitors.",
-    },
-    {
-      icon: Code,
-      title: "Clean Code",
-      description: "Built with best practices and modern technology. Your site will be fast, secure, and easy to maintain.",
-    },
-    {
-      icon: Heart,
-      title: "Client-Focused",
-      description: "Your success is my priority. I listen, adapt, and deliver websites that truly serve your business goals.",
-    },
-  ];
+  const reduce = useReducedMotion();
+  const reveal = (delay = 0) => ({
+    initial: { opacity: 0, y: reduce ? 0 : 22 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, amount: 0.3 },
+    transition: { duration: 0.6, delay, ease },
+  });
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
+    <div className="min-h-screen bg-[#080A0F] font-satoshi text-[#E8E4D9]">
+      <AuroraNav />
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-16 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-glow opacity-30" />
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto">
-            <div className="flex flex-col md:flex-row items-center gap-12 animate-fade-in">
-              <div className="flex-shrink-0">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-hero rounded-full blur-2xl opacity-30" />
-                  <img
-                    src={logo}
-                    alt="EchoWebs Logo"
-                    className="w-48 h-48 md:w-64 md:h-64 object-contain relative z-10"
-                  />
-                </div>
-              </div>
-              
-              <div className="text-center md:text-left">
-                <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-hero bg-clip-text text-transparent">
-                  About EchoWebs
-                </h1>
-                <p className="text-xl text-muted-foreground leading-relaxed">
-                  I'm a passionate web developer dedicated to helping small businesses 
-                  establish a powerful online presence. EchoWebs was founded with a simple 
-                  mission: to make professional, high-performance websites accessible and 
-                  affordable for everyone.
-                </p>
-              </div>
-            </div>
+      {/* Hero */}
+      <section className="relative overflow-hidden px-5 pb-16 pt-36 md:px-12 md:pt-44">
+        <AuroraShader intensity={0.5} className="opacity-70" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#080A0F]" />
+        <div className="relative mx-auto flex max-w-5xl flex-col items-center gap-12 md:flex-row md:items-center md:gap-16">
+          <motion.div {...reveal(0)} className="relative shrink-0">
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#1A6FD4] to-[#00CFFF] opacity-25 blur-3xl" />
+            <img
+              src={logo}
+              alt="EchoWebs logo"
+              className="relative z-10 h-40 w-40 object-contain md:h-56 md:w-56"
+            />
+          </motion.div>
+          <div className="text-center md:text-left">
+            <motion.p {...reveal(0.05)} className="mb-4 font-satoshi text-xs font-medium uppercase tracking-[0.3em] text-[#00CFFF]">
+              About EchoWebs
+            </motion.p>
+            <motion.h1 {...reveal(0.1)} className="font-clash text-4xl font-semibold tracking-tight text-[#E8E4D9] md:text-6xl">
+              Premium sites, without the agency price tag.
+            </motion.h1>
+            <motion.p {...reveal(0.15)} className="mt-6 max-w-xl font-satoshi text-lg leading-relaxed text-[#E8E4D9]/60">
+              I'm a web developer helping small businesses build a powerful online
+              presence — professional, high-performance websites made accessible
+              and affordable.
+            </motion.p>
           </div>
         </div>
       </section>
 
-      {/* Story Section */}
-      <section className="py-24 bg-secondary/30">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto animate-fade-in-up">
-            <h2 className="text-4xl font-bold mb-8 text-center text-foreground">
-              The Story
-            </h2>
-            <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
-              <p>
-                After years of working with various businesses, I noticed a gap in the market. 
-                Small businesses often had to choose between expensive agency work or generic 
-                template sites that didn't capture their unique identity.
-              </p>
-              <p>
-                EchoWebs was born to bridge that gap. I combine modern technology with 
-                personalized service to deliver websites that look like they cost thousands 
-                but are priced for small business budgets.
-              </p>
-              <p>
-                Every project starts with understanding your business, your customers, and 
-                your goals. From there, I craft a digital experience that not only looks 
-                beautiful but actually drives results.
-              </p>
-            </div>
+      {/* Story */}
+      <section className="border-t border-[#E8E4D9]/[0.06] px-5 py-24 md:px-12 md:py-32">
+        <div className="mx-auto max-w-3xl">
+          <motion.h2 {...reveal(0)} className="mb-10 font-clash text-3xl font-semibold tracking-tight text-[#E8E4D9] md:text-5xl">
+            The story.
+          </motion.h2>
+          <div className="space-y-6 font-satoshi text-lg leading-relaxed text-[#E8E4D9]/65">
+            {[
+              "After years working with all kinds of businesses, I kept seeing the same gap. Small businesses had to choose between expensive agency work or generic template sites that didn't capture who they are.",
+              "EchoWebs exists to bridge that gap — modern technology paired with personal service, delivering sites that look like they cost thousands but are priced for real budgets.",
+              "Every project starts by understanding your business, your customers, and your goals. From there I craft a digital experience that doesn't just look beautiful — it drives results.",
+            ].map((para, i) => (
+              <motion.p key={i} {...reveal(i * 0.06)}>
+                {para}
+              </motion.p>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Values Section */}
-      <section className="py-24">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
-              My Values
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              The principles that guide every project
-            </p>
-          </div>
+      {/* Values */}
+      <section className="px-5 pb-24 md:px-12 md:pb-32">
+        <div className="mx-auto max-w-6xl">
+          <motion.p {...reveal(0)} className="mb-3 font-satoshi text-xs font-medium uppercase tracking-[0.3em] text-[#00CFFF]">
+            What I value
+          </motion.p>
+          <motion.h2 {...reveal(0.05)} className="mb-12 font-clash text-3xl font-semibold tracking-tight text-[#E8E4D9] md:text-5xl">
+            The principles behind every build.
+          </motion.h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {values.map((value, index) => (
-              <div 
+          <div className="grid gap-4 sm:grid-cols-2">
+            {values.map((value, i) => (
+              <motion.div
                 key={value.title}
-                className="flex gap-6 p-6 rounded-2xl bg-card border border-primary/20 hover:border-primary/40 transition-all duration-300 animate-fade-in-up"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                {...reveal(i * 0.07)}
+                className="group flex gap-5 rounded-3xl border border-[#E8E4D9]/10 bg-[#E8E4D9]/[0.02] p-7 transition-all duration-300 hover:border-[#00CFFF]/40 md:p-8"
               >
-                <div className="flex-shrink-0">
-                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center">
-                    <value.icon className="w-7 h-7 text-primary" />
-                  </div>
-                </div>
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-[#E8E4D9]/10 bg-[#080A0F]/60 text-[#00CFFF] transition-colors duration-300 group-hover:border-[#00CFFF]/40">
+                  <value.icon className="h-6 w-6" strokeWidth={1.5} />
+                </span>
                 <div>
-                  <h3 className="text-xl font-bold text-foreground mb-2">{value.title}</h3>
-                  <p className="text-muted-foreground">{value.description}</p>
+                  <h3 className="font-clash text-xl font-semibold tracking-tight text-[#E8E4D9]">
+                    {value.title}
+                  </h3>
+                  <p className="mt-2 font-satoshi text-sm leading-relaxed text-[#E8E4D9]/55">
+                    {value.description}
+                  </p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Skills Section */}
-      <section className="py-24 bg-secondary/30">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
-              Skills & Tools
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Modern technologies for modern websites
-            </p>
-          </div>
-
-          <div className="flex flex-wrap justify-center gap-4 max-w-4xl mx-auto">
-            {skills.map((skill, index) => (
-              <div 
+      {/* Skills */}
+      <section className="border-t border-[#E8E4D9]/[0.06] px-5 py-24 md:px-12 md:py-28">
+        <div className="mx-auto max-w-4xl text-center">
+          <motion.p {...reveal(0)} className="mb-3 font-satoshi text-xs font-medium uppercase tracking-[0.3em] text-[#00CFFF]">
+            Skills &amp; tools
+          </motion.p>
+          <motion.h2 {...reveal(0.05)} className="mb-10 font-clash text-3xl font-semibold tracking-tight text-[#E8E4D9] md:text-5xl">
+            Modern tech for modern websites.
+          </motion.h2>
+          <div className="flex flex-wrap justify-center gap-3">
+            {skills.map((skill, i) => (
+              <motion.span
                 key={skill}
-                className="flex items-center gap-2 px-5 py-3 rounded-full bg-card border border-primary/20 hover:border-primary hover:shadow-glow transition-all duration-300 animate-scale-in"
-                style={{ animationDelay: `${index * 0.05}s` }}
+                {...reveal(i * 0.04)}
+                className="flex items-center gap-2 rounded-full border border-[#E8E4D9]/[0.12] bg-[#E8E4D9]/[0.02] px-4 py-2.5 font-satoshi text-sm font-medium text-[#E8E4D9]/80 transition-colors duration-300 hover:border-[#00CFFF]/50 hover:text-[#E8E4D9]"
               >
-                <CheckCircle className="w-5 h-5 text-primary" />
-                <span className="font-medium text-foreground">{skill}</span>
-              </div>
+                <Check className="h-4 w-4 text-[#00CFFF]" strokeWidth={2.4} />
+                {skill}
+              </motion.span>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Client reviews (moved here from the homepage). */}
+      {/* Client reviews (shared component, Aurora-styled) */}
       <Testimonials />
 
-      {/* CTA Section */}
-      <section className="py-24">
-        <div className="container mx-auto px-4 text-center animate-fade-in">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-hero bg-clip-text text-transparent">
-            Let's Work Together
+      {/* CTA */}
+      <section className="relative overflow-hidden border-t border-[#E8E4D9]/[0.06] px-5 py-28 md:px-12">
+        <AuroraShader intensity={0.42} className="opacity-60" />
+        <div className="pointer-events-none absolute inset-0 bg-[#080A0F]/40" />
+        <motion.div {...reveal(0)} className="relative mx-auto max-w-2xl text-center">
+          <h2 className="font-clash text-4xl font-semibold tracking-tight text-[#E8E4D9] md:text-6xl">
+            Let's work together.
           </h2>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Ready to take your business to the next level with a stunning website?
+          <p className="mx-auto mt-5 max-w-lg font-satoshi text-lg text-[#E8E4D9]/60">
+            Ready to take your business to the next level with a website worth
+            staring at?
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" variant="brand" className="shadow-glow hover:shadow-intense transition-all duration-300">
-              <Link to="/contact" className="flex items-center gap-2">
-                Get In Touch
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="border-primary/30 hover:border-primary">
-              <Link to="/portfolio">View My Work</Link>
-            </Button>
+          <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 rounded-full bg-[#E8E4D9] px-7 py-3.5 font-satoshi text-[15px] font-medium text-[#080A0F] transition-all duration-300 hover:bg-[#00CFFF]"
+            >
+              Get in touch
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              to="/portfolio"
+              className="inline-flex items-center gap-2 rounded-full border border-[#E8E4D9]/15 px-7 py-3.5 font-satoshi text-[15px] font-medium text-[#E8E4D9] transition-all duration-300 hover:border-[#00CFFF]/50 hover:text-[#00CFFF]"
+            >
+              View my work
+            </Link>
           </div>
-        </div>
+        </motion.div>
       </section>
 
-      <Footer />
+      <AuroraFooter />
     </div>
   );
 };

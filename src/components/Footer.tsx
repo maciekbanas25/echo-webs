@@ -88,9 +88,6 @@ const Footer = () => {
             <Link to="/privacy" className={linkCls}>
               Privacy Policy
             </Link>
-            <Link to="/terms" className={linkCls}>
-              Terms of Service
-            </Link>
           </div>
         </div>
       </div>

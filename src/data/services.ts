@@ -8,6 +8,8 @@ export interface ServicePlan {
   description: string;
   features: string[];
   popular?: boolean;
+  /** "main" = full pricing column, "addon" = bolt-on strip below. */
+  tier: "main" | "addon";
   icon: typeof Zap;
 }
 
@@ -19,6 +21,7 @@ export const servicePlans: ServicePlan[] = [
     originalPrice: "£499",
     description: "Perfect for new businesses needing a professional online presence",
     icon: Zap,
+    tier: "main",
     features: [
       "Single-page responsive website",
       "Mobile-first design",
@@ -37,6 +40,7 @@ export const servicePlans: ServicePlan[] = [
     description: "Full-featured website for established businesses ready to grow",
     icon: Rocket,
     popular: true,
+    tier: "main",
     features: [
       "Up to 5 custom pages",
       "Advanced responsive design",
@@ -49,12 +53,29 @@ export const servicePlans: ServicePlan[] = [
     ],
   },
   {
+    id: "maintenance",
+    name: "Monthly Maintenance",
+    price: "£49",
+    description: "Keep your website secure, fast, and up-to-date",
+    icon: Wrench,
+    tier: "main",
+    features: [
+      "Regular security updates",
+      "Weekly backups",
+      "Performance monitoring",
+      "Content updates (2hrs/mo)",
+      "Priority email support",
+      "Monthly health report",
+    ],
+  },
+  {
     id: "ecommerce",
-    name: "E-Commerce Add-on",
+    name: "E-Commerce",
     price: "from £399",
     originalPrice: "£599",
     description: "Add online selling capabilities to any website package",
     icon: ShoppingCart,
+    tier: "addon",
     features: [
       "Product catalog setup",
       "Shopping cart integration",
@@ -71,6 +92,7 @@ export const servicePlans: ServicePlan[] = [
     originalPrice: "£299",
     description: "Let customers book appointments or tables directly on your site",
     icon: CalendarCheck,
+    tier: "addon",
     features: [
       "Online booking calendar",
       "Automated email confirmations",
@@ -80,19 +102,9 @@ export const servicePlans: ServicePlan[] = [
       "Works on mobile",
     ],
   },
-  {
-    id: "maintenance",
-    name: "Monthly Maintenance",
-    price: "£49/mo",
-    description: "Keep your website secure, fast, and up-to-date",
-    icon: Wrench,
-    features: [
-      "Regular security updates",
-      "Weekly backups",
-      "Performance monitoring",
-      "Content updates (2hrs/mo)",
-      "Priority email support",
-      "Monthly health report",
-    ],
-  },
 ];
+
+/** The three full pricing columns — Premium sits in the middle. */
+export const mainTiers = servicePlans.filter((p) => p.tier === "main");
+/** Bolt-on services shown as a strip beneath the main tiers. */
+export const addOns = servicePlans.filter((p) => p.tier === "addon");

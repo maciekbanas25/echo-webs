@@ -1,6 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Bebas+Neue&family=Barlow+Condensed:wght@700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap');
-/* "Midnight Observatory" homepage revamp: Syne display + DM Sans body. */
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap');
 /* Aurora homepage remake: Clash Display (tall, sleek) + Satoshi body — Fontshare. */
 @import url('https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=satoshi@400,500,700&display=swap');
 
@@ -187,11 +185,9 @@ All colors MUST be HSL.
   .font-jakarta { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
 
   /* ============================================================
-     "Midnight Observatory" homepage revamp (local preview).
+     Aurora brand utilities.
      Brand: #080A0F canvas · #E8E4D9 text · #1A6FD4→#00CFFF DNA.
      ============================================================ */
-  .font-syne { font-family: 'Syne', 'Plus Jakarta Sans', system-ui, sans-serif; }
-  .font-dm { font-family: 'DM Sans', 'Plus Jakarta Sans', system-ui, sans-serif; }
   .font-clash { font-family: 'Clash Display', 'Plus Jakarta Sans', system-ui, sans-serif; }
   .font-satoshi { font-family: 'Satoshi', 'Plus Jakarta Sans', system-ui, sans-serif; }
 
@@ -205,62 +201,6 @@ All colors MUST be HSL.
     display: inline-block;
     padding-bottom: 0.12em;
   }
-
-  /* Thin full-width gradient hairline (ticker borders, footer divider). */
-  .obs-grad-line {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #1A6FD4 30%, #00CFFF 70%, transparent);
-  }
-
-  /* Surface card with a 1px blue→cyan stroked border that follows the
-     radius. Hover brightens the stroke and breathes a cyan glow. */
-  .obs-card {
-    border: 1px solid transparent;
-    background:
-      linear-gradient(#0D1F3C, #0D1F3C) padding-box,
-      linear-gradient(135deg, rgba(26, 111, 212, 0.45), rgba(0, 207, 255, 0.45)) border-box;
-    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
-  }
-  .obs-card:hover {
-    background:
-      linear-gradient(#0D1F3C, #0D1F3C) padding-box,
-      linear-gradient(135deg, rgba(26, 111, 212, 0.95), rgba(0, 207, 255, 0.95)) border-box;
-    box-shadow: 0 0 36px rgba(0, 207, 255, 0.14);
-  }
-
-  /* Hero / portfolio CTA — gradient border, transparent fill, cyan text. */
-  .obs-cta {
-    border: 1px solid transparent;
-    background:
-      linear-gradient(#080A0F, #080A0F) padding-box,
-      linear-gradient(120deg, #1A6FD4, #00CFFF) border-box;
-    color: #00CFFF;
-    transition: box-shadow 0.3s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .obs-cta:hover {
-    box-shadow: 0 0 40px rgba(0, 207, 255, 0.25);
-    transform: translateY(-2px);
-  }
-
-  /* Faint starfield — static pinpricks of warm white, observatory sky. */
-  .obs-stars {
-    background-image:
-      radial-gradient(1px 1px at 12% 24%, rgba(232, 228, 217, 0.5), transparent 100%),
-      radial-gradient(1px 1px at 28% 68%, rgba(232, 228, 217, 0.3), transparent 100%),
-      radial-gradient(1.5px 1.5px at 43% 15%, rgba(232, 228, 217, 0.4), transparent 100%),
-      radial-gradient(1px 1px at 57% 51%, rgba(0, 207, 255, 0.35), transparent 100%),
-      radial-gradient(1px 1px at 71% 33%, rgba(232, 228, 217, 0.45), transparent 100%),
-      radial-gradient(1.5px 1.5px at 84% 72%, rgba(232, 228, 217, 0.3), transparent 100%),
-      radial-gradient(1px 1px at 93% 12%, rgba(0, 207, 255, 0.3), transparent 100%);
-  }
-
-  /* Slow drifting aurora layers behind the hero. Atmosphere, not show. */
-  @keyframes obs-drift {
-    from { transform: translate3d(-4%, -2%, 0) scale(1); }
-    to { transform: translate3d(4%, 3%, 0) scale(1.12); }
-  }
-  .obs-drift-a { animation: obs-drift 38s ease-in-out infinite alternate; }
-  .obs-drift-b { animation: obs-drift 47s ease-in-out infinite alternate-reverse; }
 
   /* Scroll cue bounce. */
   @keyframes obs-bounce {
@@ -281,8 +221,6 @@ All colors MUST be HSL.
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .obs-drift-a,
-    .obs-drift-b,
     .obs-bounce,
     .obs-ticker-track {
       animation: none;

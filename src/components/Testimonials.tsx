@@ -107,7 +107,7 @@ const Testimonials = () => {
     <section className="py-24">
       <div className="container mx-auto px-4">
         <Reveal className="text-center mb-16">
-          <h2 className="mb-4 text-4xl md:text-5xl font-bold text-foreground">
+          <h2 className="mb-4 font-clash text-4xl md:text-5xl font-semibold tracking-tight text-foreground">
             Client Feedback
           </h2>
           <p className="mx-auto mb-4 max-w-2xl text-xl text-muted-foreground">

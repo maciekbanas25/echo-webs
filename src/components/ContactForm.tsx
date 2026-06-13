@@ -144,14 +144,14 @@ const ContactForm = ({
   };
 
   return (
-    <Card className={`border-primary/20 ${className}`}>
+    <Card className={`rounded-3xl border-[#E8E4D9]/10 bg-[#E8E4D9]/[0.02] ${className}`}>
       {isSubmitted ? (
         // Success state after form submission
         <CardContent className="p-8 md:p-12 text-center">
           <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
             <CheckCircle2 className="w-10 h-10 text-primary" />
           </div>
-          <h2 className="text-3xl font-bold text-foreground mb-4">Thank You!</h2>
+          <h2 className="font-clash text-3xl font-bold tracking-tight text-foreground mb-4">Thank You!</h2>
           <p className="text-xl text-muted-foreground mb-6">
             Your request has been submitted successfully.
           </p>
@@ -179,7 +179,7 @@ const ContactForm = ({
         // Form state
         <>
           <CardHeader>
-            <h2 className="text-2xl font-bold text-foreground">Send a Message</h2>
+            <h2 className="font-clash text-2xl font-bold tracking-tight text-foreground">Send a Message</h2>
             <p className="text-muted-foreground">
               Tell me about your project and I'll provide a free quote.
             </p>
@@ -250,8 +250,8 @@ const ContactForm = ({
                         aria-pressed={active}
                         className={`rounded-full border px-4 py-2 text-sm font-medium transition-all ${
                           active
-                            ? "border-primary bg-primary/10 text-primary shadow-glow"
-                            : "border-border bg-card/40 text-muted-foreground hover:border-primary/40"
+                            ? "border-[#00CFFF] bg-[#00CFFF]/10 text-[#00CFFF]"
+                            : "border-border bg-card/40 text-muted-foreground hover:border-[#00CFFF]/40"
                         }`}
                       >
                         {s.label}
