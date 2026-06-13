@@ -12,7 +12,7 @@ const AuroraCloser = () => {
   return (
     <section
       id="start"
-      className="relative flex min-h-[80vh] scroll-mt-20 items-center justify-center overflow-hidden bg-[#080A0F] px-5 py-28"
+      className="relative flex min-h-[80vh] scroll-mt-20 items-center justify-center overflow-hidden px-5 py-28"
     >
       {/* Faint static brand glow so the dark panel isn't dead-flat. */}
       <div

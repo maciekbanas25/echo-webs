@@ -1,4 +1,5 @@
 import AuroraNav from "@/components/aurora/AuroraNav";
+import ScrollSnake from "@/components/aurora/ScrollSnake";
 import AuroraHero from "@/components/aurora/AuroraHero";
 import AuroraTicker from "@/components/aurora/AuroraTicker";
 import AuroraWork from "@/components/aurora/AuroraWork";
@@ -14,7 +15,8 @@ import AuroraFooter from "@/components/aurora/AuroraFooter";
  * invitation. The quote builder lives on /services and reviews on /about.
  */
 const Index = () => (
-  <div className="min-h-screen bg-[#080A0F] font-satoshi text-[#E8E4D9]">
+  <div className="relative isolate min-h-screen bg-[#080A0F] font-satoshi text-[#E8E4D9]">
+    <ScrollSnake />
     <AuroraNav />
     <main>
       <AuroraHero />
