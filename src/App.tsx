@@ -7,7 +7,6 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import RouteMeta from "./components/RouteMeta";
 import ScrollProgress from "./components/ScrollProgress";
-import Preloader from "./components/Preloader";
 import SmoothScroll from "./components/SmoothScroll";
 import { isEmbedded } from "./lib/embed";
 import Index from "./pages/Index";
@@ -65,7 +64,6 @@ const App = () => (
       <Sonner />
       {!isEmbedded && (
         <>
-          <Preloader />
           <SmoothScroll />
           <ScrollProgress />
         </>

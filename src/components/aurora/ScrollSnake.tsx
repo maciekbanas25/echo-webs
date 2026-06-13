@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion, useScroll, useSpring } from "motion/react";
+import { motion, useMotionValue, useReducedMotion } from "motion/react";
 
 type Pt = { x: number; y: number };
 
@@ -31,9 +31,9 @@ function smooth(pts: Pt[]): string {
  * scrubbed by scroll. The path is generated from the live positions of any
  * element marked `data-snake-anchor`, so it always weaves behind those boxes
  * on every breakpoint. Gentle sine sways fill the gaps between anchors so the
- * line is never dead-straight. `pathLength` is bound to whole-document scroll
- * progress (lightly sprung) — it draws on scroll-down, retracts on scroll-up,
- * stops when you stop, and tracks scroll speed.
+ * line is never dead-straight. The drawn tip tracks the middle of the viewport
+ * (eased via rAF) — it draws on scroll-down, retracts on scroll-up, stops when
+ * you stop, and on load springs quickly from the top to the screen middle.
  */
 const ScrollSnake = () => {
   const reduce = useReducedMotion();
@@ -41,23 +41,64 @@ const ScrollSnake = () => {
   const [d, setD] = useState("");
   const [dim, setDim] = useState({ w: 0, h: 0 });
 
-  const { scrollYProgress } = useScroll();
-  const drawn = useSpring(scrollYProgress, {
-    stiffness: 90,
-    damping: 22,
-    mass: 0.4,
-  });
+  // The drawn fraction of the path (0..1). Eased toward its target via rAF.
+  const drawn = useMotionValue(0);
+  const pathRef = useRef<SVGPathElement>(null);
 
   useEffect(() => {
     const root = svgRef.current?.parentElement;
     if (!root) return;
+
+    // Reduced motion: show the whole line, no scrubbing.
+    if (reduce) {
+      drawn.set(1);
+      return;
+    }
+
+    let target = 0;
+    let lastY = -1;
+    let lastH = -1;
+    let raf = 0;
+    let running = true;
+
+    // Each frame: find the path length whose point sits at the viewport
+    // middle (binary search — exact regardless of how bendy the path is),
+    // then ease the drawn tip toward it. Quick, but not instant.
+    const frame = () => {
+      if (!running) return;
+      const path = pathRef.current;
+      const H = root.scrollHeight;
+      if (path && H) {
+        const y = window.scrollY;
+        if (y !== lastY || H !== lastH) {
+          lastY = y;
+          lastH = H;
+          const total = path.getTotalLength();
+          if (total) {
+            const midY = y + window.innerHeight / 2;
+            let lo = 0;
+            let hi = total;
+            for (let i = 0; i < 16; i++) {
+              const m = (lo + hi) / 2;
+              if (path.getPointAtLength(m).y < midY) lo = m;
+              else hi = m;
+            }
+            target = Math.min(1, Math.max(0, (lo + hi) / 2 / total));
+          }
+        }
+        const cur = drawn.get();
+        const diff = target - cur;
+        if (Math.abs(diff) > 0.0002) drawn.set(cur + diff * 0.12);
+      }
+      raf = requestAnimationFrame(frame);
+    };
 
     const build = () => {
       const w = root.clientWidth;
       const h = root.scrollHeight;
       if (!w || !h) return;
       const cx = w / 2;
-      const amp = Math.min(w * 0.16, 150);
+      const amp = Math.min(w * 0.2, 220);
       const rootTop = root.getBoundingClientRect().top + window.scrollY;
 
       const anchors: Pt[] = Array.from(
@@ -81,7 +122,7 @@ const ScrollSnake = () => {
         const b = key[i + 1];
         pts.push(a);
         const gap = b.y - a.y;
-        const segs = Math.floor(gap / 480);
+        const segs = Math.floor(gap / 320);
         for (let s = 1; s < segs; s++) {
           const t = s / segs;
           pts.push({
@@ -95,9 +136,11 @@ const ScrollSnake = () => {
 
       setDim({ w, h });
       setD(smooth(pts));
+      lastY = -1; // force the frame loop to recompute the target
     };
 
     build();
+    raf = requestAnimationFrame(frame);
     const ro = new ResizeObserver(() => requestAnimationFrame(build));
     ro.observe(root);
     window.addEventListener("resize", build);
@@ -106,12 +149,14 @@ const ScrollSnake = () => {
     const t = window.setTimeout(build, 600);
 
     return () => {
+      running = false;
+      cancelAnimationFrame(raf);
       ro.disconnect();
       window.removeEventListener("resize", build);
       window.removeEventListener("load", build);
       window.clearTimeout(t);
     };
-  }, []);
+  }, [reduce, drawn]);
 
   // First paint: empty svg so the ref mounts and we can measure the parent.
   if (!d) {
@@ -152,17 +197,9 @@ const ScrollSnake = () => {
         </linearGradient>
       </defs>
 
-      {/* Faint full-length track — hints the route before you scroll. */}
-      <path
-        d={d}
-        stroke="#E8E4D9"
-        strokeOpacity="0.1"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-
       {/* Bright gradient line that draws in on scroll. */}
       <motion.path
+        ref={pathRef}
         d={d}
         stroke="url(#snake-grad)"
         strokeWidth="3"
