@@ -61,12 +61,15 @@ const AuroraNav = () => {
               {link.label}
             </Link>
           ))}
-          <Link
-            to="/contact"
+          <button
+            type="button"
+            onClick={() =>
+              document.getElementById("start")?.scrollIntoView({ behavior: "smooth" })
+            }
             className="rounded-full bg-[#E8E4D9] px-5 py-2 font-satoshi text-[15px] font-medium text-[#080A0F] transition-all duration-300 hover:bg-[#00CFFF]"
           >
-            Start a project
-          </Link>
+            Get a quote
+          </button>
         </div>
 
         <button

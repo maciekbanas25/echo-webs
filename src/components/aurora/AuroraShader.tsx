@@ -1,9 +1,10 @@
 import { useEffect, useRef } from "react";
 
 /**
- * Raw WebGL shaders — zero dependencies. Two moods from one component:
- * "aurora" (the hero): domain-warped fbm ribbons of brand blue and cyan.
- * "horizon" (the closer): a calm glowing horizon line, dawn after the storm.
+ * Raw WebGL shader — zero dependencies. ONE system everywhere: domain-warped
+ * fbm ribbons of brand blue (#1A6FD4) and cyan (#00CFFF). The only thing that
+ * changes per section is `intensity` (0–1): the hero runs hot at 1, the closer
+ * calm at ~0.5. Same gradient, same wave maths, just dialled up or down.
  * Renders one static frame under prefers-reduced-motion; pauses offscreen.
  */
 
@@ -17,6 +18,7 @@ precision highp float;
 uniform vec2 u_res;
 uniform float u_time;
 uniform vec2 u_mouse;
+uniform float u_int;
 
 float hash(vec2 p) {
   return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
@@ -47,7 +49,8 @@ void main() {
   vec2 p = uv;
   p.x *= u_res.x / u_res.y;
 
-  float t = u_time * 0.045;
+  // Lower intensity also slows the drift, so the closer breathes rather than storms.
+  float t = u_time * 0.045 * (0.65 + 0.35 * u_int);
   vec2 m = (u_mouse - 0.5) * 0.25;
 
   // Domain-warped flow: one field feeds the next for silky movement.
@@ -65,11 +68,11 @@ void main() {
     * smoothstep(-0.12, 0.30, uv.y);
 
   vec3 col = base;
-  col += blue * ribbon * 0.50;
-  col += cyan * pow(ribbon, 2.4) * 0.85;
+  col += blue * ribbon * 0.50 * u_int;
+  col += cyan * pow(ribbon, 2.4) * 0.85 * u_int;
 
   // Soft pool of blue light rising from the bottom edge.
-  col += blue * smoothstep(0.55, 0.0, uv.y) * 0.10 * (0.6 + 0.4 * f2);
+  col += blue * smoothstep(0.55, 0.0, uv.y) * 0.10 * (0.6 + 0.4 * f2) * u_int;
 
   // Vignette keeps the corners quiet so type stays readable.
   float vig = smoothstep(1.25, 0.35, length(uv - vec2(0.5, 0.45)));
@@ -82,81 +85,13 @@ void main() {
 }
 `;
 
-// Calm closer: a breathing horizon line in the lower third.
-const FRAG_HORIZON = `
-precision highp float;
-uniform vec2 u_res;
-uniform float u_time;
-uniform vec2 u_mouse;
-
-float hash(vec2 p) {
-  return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
-}
-float noise(vec2 p) {
-  vec2 i = floor(p);
-  vec2 f = fract(p);
-  vec2 u = f * f * (3.0 - 2.0 * f);
-  return mix(
-    mix(hash(i), hash(i + vec2(1.0, 0.0)), u.x),
-    mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x),
-    u.y
-  );
-}
-float fbm(vec2 p) {
-  float v = 0.0;
-  float a = 0.5;
-  for (int i = 0; i < 4; i++) {
-    v += a * noise(p);
-    p *= 2.04;
-    a *= 0.5;
-  }
-  return v;
-}
-
-void main() {
-  vec2 uv = gl_FragCoord.xy / u_res;
-  vec2 p = uv;
-  p.x *= u_res.x / u_res.y;
-
-  float t = u_time * 0.03;
-  float m = (u_mouse.x - 0.5) * 0.08;
-
-  vec3 base = vec3(0.031, 0.039, 0.059);  /* #080A0F */
-  vec3 blue = vec3(0.102, 0.435, 0.831);  /* #1A6FD4 */
-  vec3 cyan = vec3(0.0, 0.812, 1.0);      /* #00CFFF */
-
-  // The horizon undulates very slowly under fbm.
-  float wave = fbm(vec2(p.x * 1.6 + t + m, t * 0.7));
-  float hY = 0.27 + wave * 0.045;
-  float d = uv.y - hY;
-
-  vec3 col = base;
-  // Wide blue bloom hanging above the line.
-  col += blue * exp(-max(d, 0.0) * 5.0) * exp(-max(-d, 0.0) * 14.0) * 0.40;
-  // Tight cyan core, shimmering gently along its length.
-  float shimmer = 0.6 + 0.4 * fbm(vec2(p.x * 3.2 - t * 1.4, t));
-  col += cyan * exp(-abs(d) * 34.0) * shimmer * 0.85;
-  // Ground below the horizon falls into darkness.
-  col *= mix(1.0, 0.6, smoothstep(0.0, -0.3, d));
-  // Faint high atmosphere so the top half is not flat.
-  col += blue * smoothstep(0.4, 1.0, uv.y) * 0.05 * fbm(p * 1.2 + t);
-
-  float vig = smoothstep(1.3, 0.4, length(uv - vec2(0.5, 0.4)));
-  col *= mix(0.8, 1.0, vig);
-  col += (hash(gl_FragCoord.xy + mod(u_time, 100.0)) - 0.5) * 0.014;
-
-  gl_FragColor = vec4(col, 1.0);
-}
-`;
-
-type Variant = "aurora" | "horizon";
-
 const AuroraShader = ({
   className = "",
-  variant = "aurora",
+  intensity = 1,
 }: {
   className?: string;
-  variant?: Variant;
+  /** 0–1 strength of the ribbons. 1 = hero storm, ~0.5 = calm closer. */
+  intensity?: number;
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -174,10 +109,7 @@ const AuroraShader = ({
     };
     const program = gl.createProgram()!;
     gl.attachShader(program, compile(gl.VERTEX_SHADER, VERT));
-    gl.attachShader(
-      program,
-      compile(gl.FRAGMENT_SHADER, variant === "horizon" ? FRAG_HORIZON : FRAG)
-    );
+    gl.attachShader(program, compile(gl.FRAGMENT_SHADER, FRAG));
     gl.linkProgram(program);
     if (!gl.getProgramParameter(program, gl.LINK_STATUS)) return;
     gl.useProgram(program);
@@ -193,6 +125,7 @@ const AuroraShader = ({
     const uRes = gl.getUniformLocation(program, "u_res");
     const uTime = gl.getUniformLocation(program, "u_time");
     const uMouse = gl.getUniformLocation(program, "u_mouse");
+    const uInt = gl.getUniformLocation(program, "u_int");
 
     const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     const resize = () => {
@@ -222,6 +155,7 @@ const AuroraShader = ({
       gl.uniform2f(uRes, canvas.width, canvas.height);
       gl.uniform1f(uTime, time);
       gl.uniform2f(uMouse, mouse.x, mouse.y);
+      gl.uniform1f(uInt, intensity);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     };
 
@@ -252,7 +186,7 @@ const AuroraShader = ({
       io.disconnect();
       gl.getExtension("WEBGL_lose_context")?.loseContext();
     };
-  }, [variant]);
+  }, [intensity]);
 
   return (
     <canvas

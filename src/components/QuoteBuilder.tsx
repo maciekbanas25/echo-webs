@@ -15,7 +15,7 @@ const PACKAGES: Record<
     now: 299,
     was: 499,
     blurb: "Perfect for getting found and looking professional.",
-    features: ["Up to 3 pages", "Mobile-first design", "Contact form", "Basic SEO setup"],
+    features: ["Single-page site", "Mobile-first design", "Contact form", "Basic SEO setup"],
   },
   premium: {
     label: "Premium Website",
@@ -35,7 +35,18 @@ const ECOMMERCE = { now: 399, was: 599 };
 const BOOKING = { now: 199, was: 299 };
 const MAINTENANCE = 49;
 
-const QuoteBuilder = () => {
+interface QuoteBuilderProps {
+  /**
+   * When provided, "Get this quote" calls this instead of navigating to
+   * /contact — used by the homepage expandable panel to swap to the contact
+   * form in place. Receives the chosen services + a ready-made summary.
+   */
+  onGetQuote?: (services: string[], summary: string) => void;
+  /** Trims the outer section spacing when rendered inside the panel. */
+  embedded?: boolean;
+}
+
+const QuoteBuilder = ({ onGetQuote, embedded = false }: QuoteBuilderProps) => {
   const [pkg, setPkg] = useState<PackageId>("premium");
   const [ecommerce, setEcommerce] = useState(false);
   const [booking, setBooking] = useState(false);
@@ -61,8 +72,8 @@ const QuoteBuilder = () => {
     `Estimated total: £${now}${maintenance ? ` + £${MAINTENANCE}/mo maintenance` : ""} (launch pricing).`;
 
   return (
-    <section id="quote" className="py-24 scroll-mt-20">
-      <div className="container mx-auto px-4">
+    <section id="quote" className={embedded ? "py-8" : "py-24 scroll-mt-20"}>
+      <div className={embedded ? "px-6 md:px-8" : "container mx-auto px-4"}>
         <Reveal className="text-center mb-12">
           <h2 className="mb-4 text-4xl md:text-5xl font-bold text-foreground">
             Build Your Quote
@@ -76,7 +87,13 @@ const QuoteBuilder = () => {
           </span>
         </Reveal>
 
-        <Reveal className="grid lg:grid-cols-[1fr_360px] gap-6 max-w-5xl mx-auto">
+        <Reveal
+          className={
+            embedded
+              ? "grid gap-6 lg:grid-cols-[1fr_340px]"
+              : "grid lg:grid-cols-[1fr_360px] gap-6 max-w-5xl mx-auto"
+          }
+        >
           {/* Options */}
           <div className="space-y-6">
             {/* Package choice */}
@@ -184,15 +201,72 @@ const QuoteBuilder = () => {
               One-off price. You own the site. Free mock-up before you pay a penny.
             </p>
 
-            <Button asChild size="lg" variant="brand" className="w-full shadow-glow hover:shadow-intense">
-              <Link
-                to="/contact"
-                state={{ services, projectDetails: quoteSummary }}
-                className="flex items-center justify-center gap-2"
+            {onGetQuote ? (
+              <Button
+                size="lg"
+                variant="brand"
+                onClick={() => onGetQuote(services, quoteSummary)}
+                className="flex w-full items-center justify-center gap-2 shadow-glow hover:shadow-intense"
               >
                 Get this quote <ArrowRight className="h-5 w-5" />
-              </Link>
-            </Button>
+              </Button>
+            ) : (
+              <Button asChild size="lg" variant="brand" className="w-full shadow-glow hover:shadow-intense">
+                <Link
+                  to="/contact"
+                  state={{ services, projectDetails: quoteSummary }}
+                  className="flex items-center justify-center gap-2"
+                >
+                  Get this quote <ArrowRight className="h-5 w-5" />
+                </Link>
+              </Button>
+            )}
+          </div>
+        </Reveal>
+
+        {/* Bespoke escape hatch — for anything the packages don't cover. */}
+        <Reveal className="mx-auto mt-6 max-w-5xl">
+          <div className="flex flex-col items-start justify-between gap-4 rounded-2xl border border-border bg-card/40 p-6 sm:flex-row sm:items-center">
+            <div>
+              <p className="font-semibold text-foreground">
+                Something more specific in mind?
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Tell us what you need and we'll build a custom quote around it.
+              </p>
+            </div>
+            {onGetQuote ? (
+              <Button
+                variant="outline"
+                onClick={() =>
+                  onGetQuote(
+                    ["other"],
+                    "I'd like a custom quote tailored to my business — happy to talk through the details."
+                  )
+                }
+                className="shrink-0 border-primary/30 hover:border-primary"
+              >
+                Get a custom quote <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            ) : (
+              <Button
+                asChild
+                variant="outline"
+                className="shrink-0 border-primary/30 hover:border-primary"
+              >
+                <Link
+                  to="/contact"
+                  state={{
+                    services: ["other"],
+                    projectDetails:
+                      "I'd like a custom quote tailored to my business — happy to talk through the details.",
+                  }}
+                  className="flex items-center"
+                >
+                  Get a custom quote <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            )}
           </div>
         </Reveal>
       </div>

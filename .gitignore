@@ -39,3 +39,8 @@ FULL_SETUP.sql
 
 # Design reference files (Refero DESIGN.md, etc) — reference-only, not deployed
 design-refs/
+
+# Obsidian vault symlinks (knowledge base, machine-local)
+# No trailing slash: these are symlinks (git treats them as files, not dirs)
+notes
+notes-shared

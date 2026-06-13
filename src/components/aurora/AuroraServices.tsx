@@ -1,29 +1,33 @@
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "motion/react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, PenTool, ShoppingBag, Gauge, CalendarCheck } from "lucide-react";
 
 const services = [
   {
     title: "Web Design",
-    note: "Custom-designed, never a template",
+    note: "Custom-designed, never a template.",
+    Icon: PenTool,
   },
   {
     title: "E-Commerce",
-    note: "Shops that make buying effortless",
+    note: "Shops that make buying effortless.",
+    Icon: ShoppingBag,
   },
   {
     title: "SEO & Speed",
-    note: "Found on Google, loads instantly",
+    note: "Found on Google, loads instantly.",
+    Icon: Gauge,
   },
   {
     title: "Bookings & Forms",
-    note: "Enquiries straight to your inbox",
+    note: "Enquiries straight to your inbox.",
+    Icon: CalendarCheck,
   },
 ];
 
 /**
- * Services as a sleek editorial index — four huge rows, no card clutter.
- * Each row links to the pricing page.
+ * Services as a 2×2 card grid — each tile bordered and icon-led so the four
+ * offerings read as distinct things, not a stack of identical rows.
  */
 const AuroraServices = () => {
   const reduce = useReducedMotion();
@@ -39,32 +43,52 @@ const AuroraServices = () => {
       >
         What we do
       </motion.p>
-      <div className="mx-auto max-w-none">
+      <motion.h2
+        initial={{ opacity: 0, y: reduce ? 0 : 22 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.05, ease: [0.19, 1, 0.22, 1] }}
+        className="mb-12 font-clash text-4xl font-semibold tracking-tight text-[#E8E4D9] md:text-6xl"
+      >
+        Everything your business needs online.
+      </motion.h2>
+
+      <div className="grid gap-4 sm:grid-cols-2">
         {services.map((service, i) => (
           <motion.div
             key={service.title}
             initial={{ opacity: 0, y: reduce ? 0 : 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.6, delay: i * 0.06, ease: [0.19, 1, 0.22, 1] }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, delay: i * 0.07, ease: [0.19, 1, 0.22, 1] }}
           >
             <Link
               to="/services"
-              className="group flex items-center justify-between gap-6 border-b border-[#E8E4D9]/10 py-7 transition-colors first:border-t hover:border-[#00CFFF]/40 md:py-9"
+              className="group relative flex h-full flex-col justify-between gap-10 overflow-hidden rounded-3xl border border-[#E8E4D9]/10 bg-[#E8E4D9]/[0.02] p-8 transition-all duration-300 hover:border-[#00CFFF]/40 hover:bg-[#E8E4D9]/[0.04] md:p-10"
             >
-              <h3 className="font-clash text-4xl font-semibold tracking-tight text-[#E8E4D9]/90 transition-colors duration-300 group-hover:text-transparent md:text-7xl [&]:group-hover:bg-gradient-to-r [&]:group-hover:from-[#1A6FD4] [&]:group-hover:to-[#00CFFF] [&]:group-hover:bg-clip-text">
-                {service.title}
-              </h3>
-              <div className="flex shrink-0 items-center gap-5">
-                <span className="hidden font-satoshi text-sm text-[#E8E4D9]/50 sm:inline">
-                  {service.note}
+              {/* Brand glow that wakes up on hover. */}
+              <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-[#00CFFF]/0 blur-3xl transition-all duration-500 group-hover:bg-[#1A6FD4]/20" />
+
+              <div className="relative flex items-start justify-between">
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[#E8E4D9]/10 bg-[#080A0F]/60 text-[#00CFFF] transition-colors duration-300 group-hover:border-[#00CFFF]/40">
+                  <service.Icon className="h-6 w-6" strokeWidth={1.5} />
                 </span>
-                <ArrowUpRight className="h-6 w-6 text-[#E8E4D9]/35 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-[#00CFFF] md:h-8 md:w-8" />
+                <ArrowUpRight className="h-6 w-6 text-[#E8E4D9]/30 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-[#00CFFF]" />
+              </div>
+
+              <div className="relative">
+                <h3 className="font-clash text-2xl font-semibold tracking-tight text-[#E8E4D9] md:text-3xl">
+                  {service.title}
+                </h3>
+                <p className="mt-2 font-satoshi text-base text-[#E8E4D9]/55">
+                  {service.note}
+                </p>
               </div>
             </Link>
           </motion.div>
         ))}
       </div>
+
       <motion.p
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
