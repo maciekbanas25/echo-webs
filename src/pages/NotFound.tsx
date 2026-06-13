@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { ArrowRight } from "lucide-react";
-import AuroraShader from "@/components/aurora/AuroraShader";
+import AuroraBackdrop from "@/components/aurora/AuroraBackdrop";
 
 const NotFound = () => {
   const location = useLocation();
@@ -12,8 +12,7 @@ const NotFound = () => {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#080A0F] px-6 font-satoshi text-[#E8E4D9]">
-      <AuroraShader intensity={0.6} className="opacity-70" />
-      <div className="pointer-events-none absolute inset-0 bg-[#080A0F]/30" />
+      <AuroraBackdrop variant="glow" />
 
       <div className="relative text-center">
         <p className="font-clash text-[7rem] font-semibold leading-none obs-grad-text md:text-[11rem]">

@@ -3,7 +3,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { Check, ArrowRight, ArrowUpRight, Plus } from "lucide-react";
 import AuroraNav from "@/components/aurora/AuroraNav";
 import AuroraFooter from "@/components/aurora/AuroraFooter";
-import AuroraShader from "@/components/aurora/AuroraShader";
+import AuroraBackdrop from "@/components/aurora/AuroraBackdrop";
 import { mainTiers, addOns, type ServicePlan } from "@/data/services";
 
 const ease = [0.19, 1, 0.22, 1] as const;
@@ -117,8 +117,7 @@ const Services = () => {
 
       {/* Hero */}
       <section className="relative overflow-hidden px-5 pb-16 pt-36 md:px-12 md:pt-44">
-        <AuroraShader intensity={0.5} className="opacity-70" />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#080A0F]" />
+        <AuroraBackdrop variant="grid" />
         <div className="relative mx-auto max-w-3xl text-center">
           <motion.p {...reveal(0)} className="mb-4 font-satoshi text-xs font-medium uppercase tracking-[0.3em] text-[#00CFFF]">
             Services &amp; Pricing
@@ -258,8 +257,7 @@ const Services = () => {
 
       {/* CTA */}
       <section className="relative overflow-hidden border-t border-[#E8E4D9]/[0.06] px-5 py-28 md:px-12">
-        <AuroraShader intensity={0.42} className="opacity-60" />
-        <div className="pointer-events-none absolute inset-0 bg-[#080A0F]/40" />
+        <AuroraBackdrop variant="glow" />
         <motion.div {...reveal(0)} className="relative mx-auto max-w-2xl text-center">
           <h2 className="font-clash text-4xl font-semibold tracking-tight text-[#E8E4D9] md:text-6xl">
             Ready to get started?

@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/ew-logo.png";
 
 const links = [
+  { to: "/", label: "Home" },
   { to: "/portfolio", label: "Work" },
   { to: "/services", label: "Pricing" },
   { to: "/about", label: "About" },
@@ -15,6 +16,7 @@ const AuroraNav = () => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const reduce = useReducedMotion();
 
   useEffect(() => {
@@ -30,6 +32,35 @@ const AuroraNav = () => {
       document.body.style.overflow = "";
     };
   }, [open]);
+
+  // "Get a quote" → the homepage quote builder (#start), from any page.
+  const goToQuote = useCallback(() => {
+    setOpen(false);
+    const scrollToStart = () =>
+      document.getElementById("start")?.scrollIntoView({ behavior: "smooth" });
+    if (location.pathname === "/") {
+      scrollToStart();
+    } else {
+      navigate("/", { state: { scrollTo: "start" } });
+    }
+  }, [location.pathname, navigate]);
+
+  // Honour a cross-page "scroll to #start" request once the homepage mounts.
+  useEffect(() => {
+    if (location.pathname !== "/") return;
+    const state = location.state as { scrollTo?: string } | null;
+    if (state?.scrollTo !== "start") return;
+    let tries = 0;
+    const tick = () => {
+      const el = document.getElementById("start");
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+      else if (tries++ < 20) setTimeout(tick, 80);
+    };
+    const id = setTimeout(tick, 80);
+    // Clear the state so a later refresh/back doesn't re-trigger the scroll.
+    window.history.replaceState({}, "");
+    return () => clearTimeout(id);
+  }, [location.pathname, location.state]);
 
   return (
     <nav
@@ -63,9 +94,7 @@ const AuroraNav = () => {
           ))}
           <button
             type="button"
-            onClick={() =>
-              document.getElementById("start")?.scrollIntoView({ behavior: "smooth" })
-            }
+            onClick={goToQuote}
             className="rounded-full bg-[#E8E4D9] px-5 py-2 font-satoshi text-[15px] font-medium text-[#080A0F] transition-all duration-300 hover:bg-[#00CFFF]"
           >
             Get a quote
@@ -92,24 +121,32 @@ const AuroraNav = () => {
             transition={{ duration: 0.25 }}
             className="fixed inset-0 z-50 flex flex-col justify-center bg-[#080A0F]/95 px-8 backdrop-blur-2xl md:hidden"
           >
-            {[{ to: "/", label: "Home" }, ...links, { to: "/contact", label: "Contact" }].map(
-              (link, i) => (
-                <motion.div
-                  key={link.to}
-                  initial={{ opacity: 0, y: reduce ? 0 : 14 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.35, delay: 0.06 + i * 0.06 }}
+            {[...links, { to: "/contact", label: "Contact" }].map((link, i) => (
+              <motion.div
+                key={link.to}
+                initial={{ opacity: 0, y: reduce ? 0 : 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.35, delay: 0.06 + i * 0.06 }}
+              >
+                <Link
+                  to={link.to}
+                  onClick={() => setOpen(false)}
+                  className="block py-3.5 font-clash text-4xl font-semibold tracking-tight text-[#E8E4D9] transition-colors hover:text-[#00CFFF]"
                 >
-                  <Link
-                    to={link.to}
-                    onClick={() => setOpen(false)}
-                    className="block py-3.5 font-clash text-4xl font-semibold tracking-tight text-[#E8E4D9] transition-colors hover:text-[#00CFFF]"
-                  >
-                    {link.label}
-                  </Link>
-                </motion.div>
-              )
-            )}
+                  {link.label}
+                </Link>
+              </motion.div>
+            ))}
+            <motion.button
+              type="button"
+              onClick={goToQuote}
+              initial={{ opacity: 0, y: reduce ? 0 : 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, delay: 0.06 + (links.length + 1) * 0.06 }}
+              className="mt-8 w-fit rounded-full bg-[#E8E4D9] px-7 py-3.5 font-satoshi text-base font-medium text-[#080A0F] transition-all duration-300 hover:bg-[#00CFFF]"
+            >
+              Get a quote
+            </motion.button>
           </motion.div>
         )}
       </AnimatePresence>

@@ -3,7 +3,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { Code, Palette, Zap, Heart, ArrowRight, Check } from "lucide-react";
 import AuroraNav from "@/components/aurora/AuroraNav";
 import AuroraFooter from "@/components/aurora/AuroraFooter";
-import AuroraShader from "@/components/aurora/AuroraShader";
+import AuroraBackdrop from "@/components/aurora/AuroraBackdrop";
 import Testimonials from "@/components/Testimonials";
 import logo from "@/assets/ew-logo.png";
 
@@ -58,8 +58,7 @@ const AboutPage = () => {
 
       {/* Hero */}
       <section className="relative overflow-hidden px-5 pb-16 pt-36 md:px-12 md:pt-44">
-        <AuroraShader intensity={0.5} className="opacity-70" />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#080A0F]" />
+        <AuroraBackdrop variant="glow" />
         <div className="relative mx-auto flex max-w-5xl flex-col items-center gap-12 md:flex-row md:items-center md:gap-16">
           <motion.div {...reveal(0)} className="relative shrink-0">
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#1A6FD4] to-[#00CFFF] opacity-25 blur-3xl" />
@@ -168,8 +167,7 @@ const AboutPage = () => {
 
       {/* CTA */}
       <section className="relative overflow-hidden border-t border-[#E8E4D9]/[0.06] px-5 py-28 md:px-12">
-        <AuroraShader intensity={0.42} className="opacity-60" />
-        <div className="pointer-events-none absolute inset-0 bg-[#080A0F]/40" />
+        <AuroraBackdrop variant="grid" />
         <motion.div {...reveal(0)} className="relative mx-auto max-w-2xl text-center">
           <h2 className="font-clash text-4xl font-semibold tracking-tight text-[#E8E4D9] md:text-6xl">
             Let's work together.

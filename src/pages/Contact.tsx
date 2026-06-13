@@ -3,7 +3,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { Mail, Clock, ArrowUpRight } from "lucide-react";
 import AuroraNav from "@/components/aurora/AuroraNav";
 import AuroraFooter from "@/components/aurora/AuroraFooter";
-import AuroraShader from "@/components/aurora/AuroraShader";
+import AuroraBackdrop from "@/components/aurora/AuroraBackdrop";
 import ContactForm from "@/components/ContactForm";
 
 const ease = [0.19, 1, 0.22, 1] as const;
@@ -29,8 +29,7 @@ const ContactPage = () => {
 
       {/* Hero */}
       <section className="relative overflow-hidden px-5 pb-12 pt-36 md:px-12 md:pt-44">
-        <AuroraShader intensity={0.5} className="opacity-70" />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#080A0F]" />
+        <AuroraBackdrop variant="beams" />
         <div className="relative mx-auto max-w-3xl text-center">
           <motion.p {...reveal(0)} className="mb-4 font-satoshi text-xs font-medium uppercase tracking-[0.3em] text-[#00CFFF]">
             Get in touch
