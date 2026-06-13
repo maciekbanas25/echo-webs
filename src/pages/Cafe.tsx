@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { Coffee, Clock, MapPin, Star, ArrowUpRight } from "lucide-react";
+import { Coffee, MapPin, ArrowUpRight, ArrowDown } from "lucide-react";
 import {
   DemoBar,
   DemoNav,
@@ -15,23 +15,18 @@ const img = (id: string, w = 900) =>
 
 const isOpenNow = () => {
   const now = new Date();
-  const hour = now.getHours();
-  const day = now.getDay(); // 0=Sun
-  if (day >= 1 && day <= 5) return hour >= 7 && hour < 19;
-  if (day === 6) return hour >= 8 && hour < 20;
-  return hour >= 8 && hour < 18;
+  const h = now.getHours();
+  const d = now.getDay();
+  if (d >= 1 && d <= 5) return h >= 7 && h < 19;
+  if (d === 6) return h >= 8 && h < 20;
+  return h >= 8 && h < 18;
 };
 
-type MenuItem = {
-  name: string;
-  price: string;
-  category: "Coffee" | "Pastry" | "Kitchen";
-  description: string;
-  fav?: boolean;
-};
+type Cat = "Coffee" | "Pastry" | "Kitchen";
+type MenuItem = { name: string; price: string; category: Cat; description: string; fav?: boolean };
 
 const menu: MenuItem[] = [
-  { name: "Flat White", price: "3.50", category: "Coffee", description: "Velvety microfoam, our house espresso blend.", fav: true },
+  { name: "Flat White", price: "3.50", category: "Coffee", description: "Velvety microfoam, house espresso blend.", fav: true },
   { name: "Filter / Pour Over", price: "4.00", category: "Coffee", description: "This week's single origin, brewed to order." },
   { name: "Oat Latte", price: "4.20", category: "Coffee", description: "Minor Figures oat, no upcharge." },
   { name: "Cortado", price: "3.20", category: "Coffee", description: "Equal espresso and steamed milk." },
@@ -41,27 +36,28 @@ const menu: MenuItem[] = [
   { name: "Pain au Chocolat", price: "3.20", category: "Pastry", description: "Two batons of dark chocolate, all butter." },
   { name: "Cinnamon Roll", price: "4.00", category: "Pastry", description: "Cream cheese glaze, served warm." },
   { name: "Banana Bread", price: "3.50", category: "Pastry", description: "Toasted, with salted butter." },
-  { name: "Smashed Avo on Sourdough", price: "9.50", category: "Kitchen", description: "Chilli, lemon, poached egg.", fav: true },
+  { name: "Smashed Avo, Sourdough", price: "9.50", category: "Kitchen", description: "Chilli, lemon, poached egg.", fav: true },
   { name: "Shakshuka", price: "11.00", category: "Kitchen", description: "Baked eggs, spiced tomato, feta, toast." },
   { name: "Granola Bowl", price: "8.50", category: "Kitchen", description: "House granola, seasonal fruit, honey." },
 ];
 
 const tabs = ["All", "Coffee", "Pastry", "Kitchen"] as const;
+const marquee = ["Single origin", "Baked at dawn", "Oat on the house", "No queue by 9", "Roasted in Shoreditch", "Dog friendly", "Est. 2019"];
 
 const gallery = [
-  { src: img("1442512595331-e89e73853f31", 800), alt: "Flat white on a cafe table" },
-  { src: img("1554118811-1e0d58224f24", 800), alt: "Light cafe interior with stools" },
-  { src: img("1509440159596-0249088772ff", 800), alt: "Fresh-baked croissants" },
+  { src: img("1442512595331-e89e73853f31", 800), cap: "Fig. 01 — The counter", span: "md:col-span-7", h: "h-[280px] md:h-[420px]", rot: "md:-rotate-2" },
+  { src: img("1509440159596-0249088772ff", 800), cap: "Fig. 02 — 6am bake", span: "md:col-span-5", h: "h-[280px] md:h-[300px]", rot: "md:rotate-2 md:translate-y-8" },
+  { src: img("1554118811-1e0d58224f24", 800), cap: "Fig. 03 — Window seats", span: "md:col-span-6 md:col-start-4", h: "h-[280px] md:h-[340px]", rot: "md:-rotate-1 md:-translate-y-4" },
 ];
 
 const Cafe = () => {
   const reduce = useReducedMotion();
   const [tab, setTab] = useState<(typeof tabs)[number]>("All");
   const open = isOpenNow();
-  const filtered = tab === "All" ? menu : menu.filter((m) => m.category === tab);
+  const cats: Cat[] = tab === "All" ? ["Coffee", "Pastry", "Kitchen"] : [tab];
 
   const reveal = (delay = 0) => ({
-    initial: { opacity: 0, y: reduce ? 0 : 24 },
+    initial: { opacity: 0, y: reduce ? 0 : 26 },
     whileInView: { opacity: 1, y: 0 },
     viewport: { once: true, amount: 0.25 },
     transition: { duration: 0.7, delay, ease: [0.19, 1, 0.22, 1] as const },
@@ -69,151 +65,177 @@ const Cafe = () => {
 
   const navLinks: DemoNavLink[] = [
     { label: "Menu", href: "#menu" },
-    { label: "Our story", href: "#story" },
+    { label: "Story", href: "#story" },
     { label: "Gallery", href: "#gallery" },
     { label: "Visit", href: "#visit" },
   ];
 
-  const OpenBadge = ({ dark = false }: { dark?: boolean }) => (
-    <span
-      className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-satoshi text-xs font-semibold ${
-        open
-          ? "bg-emerald-500/15 text-emerald-700"
-          : dark
-            ? "bg-white/10 text-white/70"
-            : "bg-[hsl(var(--cafe-dark))]/10 text-[hsl(var(--cafe-dark))]/70"
-      }`}
-    >
-      <span className={`h-1.5 w-1.5 rounded-full ${open ? "bg-emerald-500" : "bg-current opacity-60"}`} />
-      {open ? "Open now" : "Closed"}
-    </span>
-  );
+  const scroll = (id: string) => document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
 
   return (
     <div
       id="top"
-      className="min-h-screen bg-[hsl(var(--cafe-bg))] text-[hsl(var(--cafe-dark))]"
+      className="relative min-h-screen overflow-x-hidden bg-[hsl(var(--cafe-bg))] text-[hsl(var(--cafe-dark))]"
       style={{ fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif" }}
     >
+      {/* page-wide film grain */}
+      <div className="grain-overlay fixed z-[20] opacity-[0.05]" aria-hidden />
+
       <DemoBar />
       <DemoNav
         name="The Daily Grind"
         icon={<Coffee className="h-5 w-5 text-[hsl(var(--cafe-primary))]" />}
         links={navLinks}
         cta={{ label: "See the menu", href: "#menu" }}
-        rightSlot={<OpenBadge />}
-        brandClass="font-playfair font-bold italic"
-        overlayClass="text-white"
-        scrolledClass="bg-[hsl(var(--cafe-bg))]/95 text-[hsl(var(--cafe-dark))] backdrop-blur-md border-b border-[hsl(var(--cafe-dark))]/10 shadow-sm"
-        ctaClass="rounded-full bg-[hsl(var(--cafe-primary))] px-5 py-2 font-satoshi text-sm font-semibold text-white transition hover:brightness-110"
+        brandClass="font-fraunces font-semibold italic"
+        linkClass="font-monojb text-[12px] uppercase tracking-[0.18em]"
+        overlayClass="text-[hsl(var(--cafe-bg))]"
+        scrolledClass="bg-[hsl(var(--cafe-bg))]/95 text-[hsl(var(--cafe-dark))] backdrop-blur-md border-b border-[hsl(var(--cafe-dark))]/10"
+        ctaClass="rounded-full bg-[hsl(var(--cafe-primary))] px-5 py-2 font-monojb text-[12px] uppercase tracking-[0.14em] text-white transition hover:brightness-110"
       />
 
-      {/* Hero */}
-      <section className="relative -mt-[72px] flex min-h-[92vh] items-end overflow-hidden">
-        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${heroImg})` }} />
-        <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--cafe-dark))] via-[hsl(var(--cafe-dark))]/45 to-[hsl(var(--cafe-dark))]/25" />
+      {/* ───────────────────────── Hero ───────────────────────── */}
+      <section className="relative -mt-[68px] flex min-h-[100svh] items-end overflow-hidden">
+        <div className="absolute inset-0 scale-105 bg-cover bg-center" style={{ backgroundImage: `url(${heroImg})` }} />
+        <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--cafe-dark))] via-[hsl(var(--cafe-dark))]/55 to-[hsl(var(--cafe-dark))]/30" />
+        <div className="grain-overlay opacity-[0.12]" aria-hidden />
 
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-16 pt-32 md:px-10 md:pb-24">
-          <motion.div
-            initial={{ opacity: 0, y: reduce ? 0 : 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.19, 1, 0.22, 1] }}
-            className="max-w-2xl text-white"
-          >
-            <p className="mb-4 flex items-center gap-3 font-satoshi text-sm font-medium uppercase tracking-[0.28em] text-white/75">
-              Shoreditch · Specialty coffee
-            </p>
-            <h1 className="font-playfair text-[clamp(3rem,8vw,6.5rem)] font-bold italic leading-[0.95]">
-              Coffee worth
-              <br />
-              the walk.
-            </h1>
-            <p className="mt-6 max-w-md font-satoshi text-lg leading-relaxed text-white/85">
-              Single-origin espresso, milk steamed the way it should be, and pastries
-              baked out back before sunrise. Pull up a stool.
-            </p>
-            <div className="mt-9 flex flex-wrap items-center gap-4">
-              <button
-                onClick={() => document.querySelector("#menu")?.scrollIntoView({ behavior: "smooth" })}
-                className="rounded-full bg-[hsl(var(--cafe-primary))] px-7 py-3.5 font-satoshi text-base font-semibold text-white transition hover:brightness-110"
-              >
-                See the menu
-              </button>
-              <button
-                onClick={() => document.querySelector("#visit")?.scrollIntoView({ behavior: "smooth" })}
-                className="rounded-full border border-white/35 px-7 py-3.5 font-satoshi text-base font-medium text-white backdrop-blur-sm transition hover:bg-white/10"
-              >
-                Find us
-              </button>
-              <span className="font-satoshi text-sm text-white/70">
-                Mon–Fri 7–7 · 14 Redchurch St
-              </span>
+        {/* vertical edge label */}
+        <div className="absolute left-6 top-1/2 hidden -translate-y-1/2 md:block" style={{ writingMode: "vertical-rl" }}>
+          <span className="font-monojb text-[11px] uppercase tracking-[0.4em] text-[hsl(var(--cafe-bg))]/55">
+            N°01 — Shoreditch, London
+          </span>
+        </div>
+
+        {/* wax stamp */}
+        <motion.div
+          initial={{ opacity: 0, scale: reduce ? 1 : 0.6, rotate: -18 }}
+          animate={{ opacity: 1, scale: 1, rotate: -8 }}
+          transition={{ duration: 0.8, delay: 0.5, ease: [0.19, 1, 0.22, 1] }}
+          className="absolute right-6 top-24 hidden md:right-12 md:top-28 md:block"
+        >
+          <div className="flex h-28 w-28 items-center justify-center rounded-full border-2 border-dashed border-[hsl(var(--cafe-bg))]/60 text-center text-[hsl(var(--cafe-bg))]">
+            <div>
+              <div className="font-monojb text-[10px] tracking-[0.25em]">{open ? "OPEN" : "CLOSED"}</div>
+              <div className="font-fraunces text-xl font-semibold italic leading-none">{open ? "till 7" : "back 7"}</div>
+              <div className="mt-1 font-monojb text-[8px] tracking-[0.2em] opacity-70">EST. 2019</div>
             </div>
+          </div>
+        </motion.div>
+
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-16 pt-36 md:px-12 md:pb-24">
+          <motion.p
+            initial={{ opacity: 0, y: reduce ? 0 : 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.15 }}
+            className="mb-5 font-monojb text-xs uppercase tracking-[0.32em] text-[hsl(var(--cafe-bg))]/70"
+          >
+            Specialty coffee · Redchurch Street
+          </motion.p>
+          <motion.h1
+            initial={{ opacity: 0, y: reduce ? 0 : 34 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.95, delay: 0.25, ease: [0.19, 1, 0.22, 1] }}
+            className="font-fraunces text-[hsl(var(--cafe-bg))]"
+          >
+            <span className="block text-[clamp(3.2rem,11vw,9rem)] font-semibold leading-[0.86]">Coffee worth</span>
+            <span className="block text-[clamp(3.2rem,11vw,9rem)] font-light italic leading-[0.86]">the walk.</span>
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: reduce ? 0 : 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.45 }}
+            className="mt-7 max-w-md font-jakarta text-lg leading-relaxed text-[hsl(var(--cafe-bg))]/85"
+          >
+            Single-origin espresso, milk steamed the way it should be, and pastries baked out back before sunrise.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: reduce ? 0 : 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.55 }}
+            className="mt-9 flex flex-wrap items-center gap-4"
+          >
+            <button onClick={() => scroll("#menu")} className="group inline-flex items-center gap-2 rounded-full bg-[hsl(var(--cafe-primary))] px-7 py-3.5 font-monojb text-[13px] uppercase tracking-[0.14em] text-white transition hover:brightness-110">
+              See the menu
+              <ArrowDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
+            </button>
+            <button onClick={() => scroll("#visit")} className="rounded-full border border-[hsl(var(--cafe-bg))]/35 px-7 py-3.5 font-monojb text-[13px] uppercase tracking-[0.14em] text-[hsl(var(--cafe-bg))] backdrop-blur-sm transition hover:bg-[hsl(var(--cafe-bg))]/10">
+              Find us
+            </button>
           </motion.div>
         </div>
       </section>
 
-      {/* Story */}
-      <section id="story" className="scroll-mt-20 px-5 py-24 md:px-10 md:py-32">
-        <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
-          <div>
-            <motion.p {...reveal(0)} className="mb-3 font-satoshi text-xs font-semibold uppercase tracking-[0.28em] text-[hsl(var(--cafe-primary))]">
-              Our story
-            </motion.p>
-            <motion.h2 {...reveal(0.05)} className="font-playfair text-4xl font-bold italic leading-tight md:text-6xl">
-              Not a chain. Never will be.
+      {/* ───────────────────────── Marquee ───────────────────────── */}
+      <div className="overflow-hidden border-y border-[hsl(var(--cafe-dark))]/15 bg-[hsl(var(--cafe-dark))] py-4 text-[hsl(var(--cafe-bg))]">
+        <div className="flex w-max animate-marquee gap-8 whitespace-nowrap">
+          {[...marquee, ...marquee, ...marquee, ...marquee].map((m, i) => (
+            <span key={i} className="flex items-center gap-8 font-fraunces text-2xl italic">
+              {m}
+              <span className="text-[hsl(var(--cafe-primary))]">✦</span>
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* ───────────────────────── Story ───────────────────────── */}
+      <section id="story" className="scroll-mt-24 px-5 py-24 md:px-12 md:py-36">
+        <div className="mx-auto max-w-7xl">
+          <motion.div {...reveal(0)} className="mb-3 font-monojb text-xs uppercase tracking-[0.3em] text-[hsl(var(--cafe-primary))]">
+            01 — Our story
+          </motion.div>
+          <div className="grid items-end gap-12 lg:grid-cols-[1.3fr_0.7fr]">
+            <motion.h2 {...reveal(0.05)} className="font-fraunces text-[clamp(2.4rem,6vw,5rem)] font-semibold leading-[0.95]">
+              Not a chain.
+              <br />
+              <span className="italic font-light">Never will be.</span>
             </motion.h2>
-            <motion.p {...reveal(0.1)} className="mt-6 max-w-lg font-satoshi text-lg leading-relaxed text-[hsl(var(--cafe-dark))]/75">
-              We opened on Redchurch Street in 2019 with one espresso machine and a
-              stubborn idea: that a neighbourhood deserves coffee roasted by people who
-              know its name. We pour a new single origin every week and bake everything
-              in the kitchen behind you.
-            </motion.p>
-            <motion.p {...reveal(0.15)} className="mt-4 max-w-lg font-satoshi text-lg leading-relaxed text-[hsl(var(--cafe-dark))]/75">
-              No syrups pretending to be flavour. No queue that outlasts your lunch break.
-            </motion.p>
+            <motion.div {...reveal(0.12)} className="space-y-4 font-jakarta text-base leading-relaxed text-[hsl(var(--cafe-dark))]/75">
+              <p>
+                We opened on Redchurch Street in 2019 with one espresso machine and a stubborn idea: a
+                neighbourhood deserves coffee roasted by people who know its name.
+              </p>
+              <p>We pour a new single origin every week and bake everything in the kitchen behind you. No syrups pretending to be flavour.</p>
+            </motion.div>
           </div>
 
-          <motion.div {...reveal(0.1)} className="grid grid-cols-2 gap-4">
+          <motion.div {...reveal(0.15)} className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-[hsl(var(--cafe-dark))]/12 bg-[hsl(var(--cafe-dark))]/12 md:grid-cols-4">
             {[
-              { big: "2019", small: "Roasting on Redchurch St since" },
+              { big: "2019", small: "On Redchurch St since" },
               { big: "4.9★", small: "320+ Google reviews" },
-              { big: "60 sec", small: "Average flat white" },
-              { big: "1 / wk", small: "New single origin on rotation" },
+              { big: "60s", small: "Average flat white" },
+              { big: "1/wk", small: "New single origin" },
             ].map((s) => (
-              <div key={s.small} className="rounded-2xl border border-[hsl(var(--cafe-dark))]/10 bg-white/60 p-6">
-                <div className="font-playfair text-4xl font-bold italic text-[hsl(var(--cafe-primary))]">{s.big}</div>
-                <div className="mt-2 font-satoshi text-sm leading-snug text-[hsl(var(--cafe-dark))]/65">{s.small}</div>
+              <div key={s.small} className="bg-[hsl(var(--cafe-bg))] p-6 md:p-8">
+                <div className="font-fraunces text-4xl font-semibold text-[hsl(var(--cafe-primary))] md:text-5xl">{s.big}</div>
+                <div className="mt-2 font-monojb text-[11px] uppercase tracking-[0.12em] leading-snug text-[hsl(var(--cafe-dark))]/55">{s.small}</div>
               </div>
             ))}
           </motion.div>
         </div>
       </section>
 
-      {/* Menu */}
-      <section id="menu" className="scroll-mt-20 bg-[hsl(var(--cafe-dark))] px-5 py-24 text-[hsl(var(--cafe-bg))] md:px-10 md:py-32">
-        <div className="mx-auto max-w-5xl">
-          <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+      {/* ───────────────────────── Menu ───────────────────────── */}
+      <section id="menu" className="relative scroll-mt-24 overflow-hidden bg-[hsl(var(--cafe-dark))] px-5 py-24 text-[hsl(var(--cafe-bg))] md:px-12 md:py-36">
+        <div className="grain-overlay opacity-[0.08]" aria-hidden />
+        <div className="relative mx-auto max-w-5xl">
+          <div className="flex flex-col items-start justify-between gap-6 border-b border-[hsl(var(--cafe-bg))]/15 pb-8 md:flex-row md:items-end">
             <div>
-              <motion.p {...reveal(0)} className="mb-3 font-satoshi text-xs font-semibold uppercase tracking-[0.28em] text-[hsl(var(--cafe-primary))]">
-                The menu
-              </motion.p>
-              <motion.h2 {...reveal(0.05)} className="font-playfair text-4xl font-bold italic md:text-6xl">
-                Made fresh, priced fair.
+              <motion.div {...reveal(0)} className="mb-3 font-monojb text-xs uppercase tracking-[0.3em] text-[hsl(var(--cafe-primary))]">
+                02 — The menu
+              </motion.div>
+              <motion.h2 {...reveal(0.05)} className="font-fraunces text-[clamp(2.4rem,6vw,4.5rem)] font-semibold leading-none">
+                Made fresh,
+                <span className="italic font-light"> priced fair.</span>
               </motion.h2>
-              <motion.p {...reveal(0.1)} className="mt-3 font-satoshi text-sm text-[hsl(var(--cafe-bg))]/55">
-                Oat, almond and soy on the house. Prices in £.
-              </motion.p>
             </div>
-            <motion.div {...reveal(0.1)} className="inline-flex gap-1 rounded-full border border-[hsl(var(--cafe-bg))]/15 p-1">
+            <motion.div {...reveal(0.1)} className="flex flex-wrap gap-x-6 gap-y-2">
               {tabs.map((t) => (
                 <button
                   key={t}
                   onClick={() => setTab(t)}
-                  className={`rounded-full px-4 py-2 font-satoshi text-sm font-medium transition ${
-                    tab === t
-                      ? "bg-[hsl(var(--cafe-primary))] text-white"
-                      : "text-[hsl(var(--cafe-bg))]/70 hover:text-[hsl(var(--cafe-bg))]"
+                  className={`font-monojb text-[12px] uppercase tracking-[0.14em] transition ${
+                    tab === t ? "text-[hsl(var(--cafe-primary))] underline underline-offset-8" : "text-[hsl(var(--cafe-bg))]/55 hover:text-[hsl(var(--cafe-bg))]"
                   }`}
                 >
                   {t}
@@ -222,102 +244,109 @@ const Cafe = () => {
             </motion.div>
           </div>
 
-          <div className="mt-12 grid gap-x-14 gap-y-1 md:grid-cols-2">
-            {filtered.map((item, i) => (
-              <motion.div
-                key={item.name}
-                {...reveal(Math.min(i * 0.03, 0.2))}
-                className="flex items-baseline gap-3 border-b border-[hsl(var(--cafe-bg))]/10 py-4"
-              >
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-baseline gap-2">
-                    <h3 className="font-satoshi text-lg font-semibold text-[hsl(var(--cafe-bg))]">{item.name}</h3>
-                    {item.fav && (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-[hsl(var(--cafe-primary))]/20 px-2 py-0.5 font-satoshi text-[10px] font-semibold uppercase tracking-wide text-[hsl(var(--cafe-primary))]">
-                        <Star className="h-2.5 w-2.5 fill-current" /> Favourite
-                      </span>
-                    )}
-                  </div>
-                  <p className="mt-0.5 font-satoshi text-sm text-[hsl(var(--cafe-bg))]/55">{item.description}</p>
-                </div>
-                <div className="font-playfair text-xl font-bold italic text-[hsl(var(--cafe-primary))]">{item.price}</div>
+          {cats.map((cat) => (
+            <div key={cat} className="mt-12">
+              <motion.div {...reveal(0)} className="mb-5 font-monojb text-[11px] uppercase tracking-[0.3em] text-[hsl(var(--cafe-bg))]/45">
+                — {cat}
               </motion.div>
-            ))}
-          </div>
+              <div className="grid gap-x-14 gap-y-6 md:grid-cols-2">
+                {menu.filter((m) => m.category === cat).map((item, i) => (
+                  <motion.div key={item.name} {...reveal(Math.min(i * 0.03, 0.18))} className="group flex items-baseline gap-3">
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-baseline gap-2">
+                        <h3 className="font-fraunces text-xl font-medium text-[hsl(var(--cafe-bg))]">{item.name}</h3>
+                        {item.fav && <span className="font-monojb text-[9px] uppercase tracking-[0.15em] text-[hsl(var(--cafe-primary))]">★ fav</span>}
+                      </div>
+                      <p className="mt-1 font-jakarta text-sm text-[hsl(var(--cafe-bg))]/50">{item.description}</p>
+                    </div>
+                    <span className="hidden flex-1 translate-y-[-3px] border-b border-dotted border-[hsl(var(--cafe-bg))]/25 sm:block" />
+                    <div className="font-monojb text-base text-[hsl(var(--cafe-primary))]">£{item.price}</div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          ))}
+          <p className="mt-12 font-monojb text-[11px] uppercase tracking-[0.18em] text-[hsl(var(--cafe-bg))]/45">
+            Oat · almond · soy on the house
+          </p>
         </div>
       </section>
 
-      {/* Gallery */}
-      <section id="gallery" className="scroll-mt-20 px-5 py-24 md:px-10 md:py-32">
+      {/* ───────────────────────── Gallery ───────────────────────── */}
+      <section id="gallery" className="scroll-mt-24 px-5 py-24 md:px-12 md:py-36">
         <div className="mx-auto max-w-7xl">
-          <motion.h2 {...reveal(0)} className="mb-10 max-w-xl font-playfair text-4xl font-bold italic leading-tight md:text-5xl">
-            A room you won't want to leave.
+          <motion.div {...reveal(0)} className="mb-3 font-monojb text-xs uppercase tracking-[0.3em] text-[hsl(var(--cafe-primary))]">
+            03 — The room
+          </motion.div>
+          <motion.h2 {...reveal(0.05)} className="mb-14 max-w-2xl font-fraunces text-[clamp(2.2rem,5.5vw,4.5rem)] font-semibold leading-[0.95]">
+            A room you won't want <span className="italic font-light">to leave.</span>
           </motion.h2>
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-12">
             {gallery.map((g, i) => (
-              <motion.div
-                key={g.src}
-                {...reveal(i * 0.08)}
-                className={`overflow-hidden rounded-2xl ${i === 0 ? "md:row-span-2 md:h-full" : ""}`}
-              >
-                <img
-                  src={g.src}
-                  alt={g.alt}
-                  loading="lazy"
-                  className="h-full min-h-[240px] w-full object-cover transition-transform duration-700 hover:scale-105"
-                />
-              </motion.div>
+              <motion.figure key={g.src} {...reveal(i * 0.1)} className={`${g.span} ${g.rot} group`}>
+                <div className={`overflow-hidden rounded-xl ${g.h}`}>
+                  <img src={g.src} alt={g.cap} loading="lazy" className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105" />
+                </div>
+                <figcaption className="mt-3 font-monojb text-[11px] uppercase tracking-[0.18em] text-[hsl(var(--cafe-dark))]/45">{g.cap}</figcaption>
+              </motion.figure>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Visit */}
-      <section id="visit" className="scroll-mt-20 bg-[hsl(var(--cafe-primary))] px-5 py-24 text-white md:px-10 md:py-32">
-        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:gap-16">
+      {/* ───────────────────────── Visit ───────────────────────── */}
+      <section id="visit" className="scroll-mt-24 bg-[hsl(var(--cafe-primary))] px-5 py-24 text-[hsl(var(--cafe-bg))] md:px-12 md:py-36">
+        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:gap-20">
           <div>
-            <motion.div {...reveal(0)} className="mb-6 flex items-center gap-3">
-              <Clock className="h-7 w-7" />
-              <h2 className="font-playfair text-3xl font-bold italic md:text-4xl">Opening hours</h2>
-              <OpenBadge dark />
+            <motion.div {...reveal(0)} className="mb-3 font-monojb text-xs uppercase tracking-[0.3em] text-[hsl(var(--cafe-bg))]/70">
+              04 — Visit
             </motion.div>
-            <motion.div {...reveal(0.05)} className="space-y-3 font-satoshi text-lg">
+            <motion.h2 {...reveal(0.05)} className="font-fraunces text-[clamp(2.4rem,6vw,4.5rem)] font-semibold leading-none">
+              Pull up <span className="italic font-light">a stool.</span>
+            </motion.h2>
+
+            <motion.div {...reveal(0.1)} className="mt-10 space-y-3 font-monojb text-sm">
               {[
-                ["Monday – Friday", "7:00am – 7:00pm"],
-                ["Saturday", "8:00am – 8:00pm"],
-                ["Sunday", "8:00am – 6:00pm"],
+                ["MON – FRI", "07:00 — 19:00"],
+                ["SATURDAY", "08:00 — 20:00"],
+                ["SUNDAY", "08:00 — 18:00"],
               ].map(([d, h]) => (
-                <div key={d} className="flex items-center justify-between border-b border-white/15 pb-3">
-                  <span className="font-semibold">{d}</span>
-                  <span className="text-white/85">{h}</span>
+                <div key={d} className="flex items-center justify-between border-b border-[hsl(var(--cafe-bg))]/25 pb-3 tracking-[0.1em]">
+                  <span>{d}</span>
+                  <span className="tabular-nums opacity-90">{h}</span>
                 </div>
               ))}
             </motion.div>
 
-            <motion.div {...reveal(0.1)} className="mt-8">
-              <div className="flex items-center gap-2 font-satoshi font-semibold">
-                <MapPin className="h-5 w-5" /> 14 Redchurch Street, Shoreditch, London E2 7DJ
+            <motion.div {...reveal(0.15)} className="mt-8">
+              <div className="flex items-start gap-2 font-jakarta">
+                <MapPin className="mt-0.5 h-5 w-5 shrink-0" />
+                <span>14 Redchurch Street, Shoreditch, London E2 7DJ<br /><span className="opacity-75">3 minutes from Shoreditch High Street station.</span></span>
               </div>
-              <p className="mt-2 font-satoshi text-white/80">3 minutes from Shoreditch High Street station.</p>
               <a
                 href="https://maps.google.com/?q=14+Redchurch+Street+London+E2+7DJ"
                 target="_blank"
                 rel="noreferrer"
-                className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-white px-6 py-3 font-satoshi text-sm font-semibold text-[hsl(var(--cafe-dark))] transition hover:bg-white/90"
+                className="mt-6 inline-flex items-center gap-1.5 rounded-full bg-[hsl(var(--cafe-bg))] px-6 py-3 font-monojb text-[12px] uppercase tracking-[0.14em] text-[hsl(var(--cafe-dark))] transition hover:bg-white"
               >
                 Get directions <ArrowUpRight className="h-4 w-4" />
               </a>
             </motion.div>
           </div>
 
-          <motion.div {...reveal(0.1)} className="overflow-hidden rounded-2xl border border-white/20 shadow-2xl">
-            <iframe
-              title="The Daily Grind, Shoreditch"
-              src="https://maps.google.com/maps?q=14%20Redchurch%20Street%20London%20E2%207DJ&t=&z=15&ie=UTF8&iwloc=&output=embed"
-              className="h-full min-h-[360px] w-full"
-              style={{ border: 0, filter: "saturate(0.9) contrast(1.05)" }}
-              loading="lazy"
-            />
+          <motion.div {...reveal(0.1)} className="relative">
+            <div className="absolute -top-3 left-6 z-10 rotate-[-3deg] bg-[hsl(var(--cafe-dark))] px-3 py-1 font-monojb text-[10px] uppercase tracking-[0.2em] text-[hsl(var(--cafe-bg))]">
+              You are here
+            </div>
+            <div className="overflow-hidden rounded-xl border-4 border-[hsl(var(--cafe-bg))] shadow-2xl">
+              <iframe
+                title="The Daily Grind, Shoreditch"
+                src="https://maps.google.com/maps?q=14%20Redchurch%20Street%20London%20E2%207DJ&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                className="h-full min-h-[380px] w-full"
+                style={{ border: 0, filter: "saturate(0.85) sepia(0.15) contrast(1.05)" }}
+                loading="lazy"
+              />
+            </div>
           </motion.div>
         </div>
       </section>
@@ -326,25 +355,16 @@ const Cafe = () => {
         name="The Daily Grind"
         blurb="Neighbourhood specialty coffee on Redchurch Street, Shoreditch. Roasted with care, served without the fuss."
         className="bg-[hsl(var(--cafe-dark))] text-[hsl(var(--cafe-bg))]"
-        brandClass="font-playfair font-bold italic"
+        brandClass="font-fraunces font-semibold italic"
         accentClass="text-[hsl(var(--cafe-primary))]"
         columns={[
-          {
-            title: "Menu",
-            items: [
-              <button key="c" onClick={() => document.querySelector("#menu")?.scrollIntoView({ behavior: "smooth" })}>Coffee</button>,
-              <button key="p" onClick={() => document.querySelector("#menu")?.scrollIntoView({ behavior: "smooth" })}>Pastry</button>,
-              <button key="k" onClick={() => document.querySelector("#menu")?.scrollIntoView({ behavior: "smooth" })}>Kitchen</button>,
-            ],
-          },
-          {
-            title: "Visit",
-            items: ["14 Redchurch Street", "Shoreditch, London", "E2 7DJ"],
-          },
-          {
-            title: "Follow",
-            items: ["Instagram", "Hello@dailygrind.test", "Mon–Sun, 7am"],
-          },
+          { title: "Menu", items: [
+            <button key="c" onClick={() => scroll("#menu")}>Coffee</button>,
+            <button key="p" onClick={() => scroll("#menu")}>Pastry</button>,
+            <button key="k" onClick={() => scroll("#menu")}>Kitchen</button>,
+          ] },
+          { title: "Visit", items: ["14 Redchurch Street", "Shoreditch, London E2 7DJ", "Mon–Sun from 7am"] },
+          { title: "Follow", items: ["Instagram", "hello@dailygrind.test", "+44 20 7946 0100"] },
         ]}
       />
 

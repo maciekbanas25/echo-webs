@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Bebas+Neue&family=Barlow+Condensed:wght@700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Bebas+Neue&family=Barlow+Condensed:wght@700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Oswald:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,600&family=JetBrains+Mono:wght@400;500;700&display=swap');
 /* Aurora homepage remake: Clash Display (tall, sleek) + Satoshi body — Fontshare. */
 @import url('https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=satoshi@400,500,700&display=swap');
 
@@ -183,6 +183,29 @@ All colors MUST be HSL.
   .font-playfair { font-family: 'Playfair Display', Georgia, serif; }
   .font-oswald { font-family: 'Oswald', sans-serif; }
   .font-jakarta { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+  .font-fraunces { font-family: 'Fraunces', Georgia, serif; }
+  .font-monojb { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+  /* Film-grain overlay for tactile, non-flat surfaces (decorative). */
+  .grain-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 160px 160px;
+  }
+
+  /* Horizontal marquee (editorial ticker). */
+  @keyframes cafe-marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .animate-marquee {
+    animation: cafe-marquee 30s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .animate-marquee { animation: none; }
+  }
 
   /* ============================================================
      Aurora brand utilities.

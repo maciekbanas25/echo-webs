@@ -54,6 +54,8 @@ type DemoNavProps = {
   scrolledClass: string;
   /** Tailwind class for the CTA button. */
   ctaClass?: string;
+  /** Classes for the nav links. */
+  linkClass?: string;
 };
 
 /**
@@ -70,6 +72,7 @@ export const DemoNav = ({
   overlayClass = "text-white",
   scrolledClass,
   ctaClass,
+  linkClass = "font-satoshi text-sm font-medium",
 }: DemoNavProps) => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -115,7 +118,7 @@ export const DemoNav = ({
             <button
               key={l.href}
               onClick={() => handle(l.href)}
-              className="font-satoshi text-sm font-medium opacity-80 transition-opacity hover:opacity-100"
+              className={`${linkClass} opacity-80 transition-opacity hover:opacity-100`}
             >
               {l.label}
             </button>
