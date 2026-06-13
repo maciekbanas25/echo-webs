@@ -82,8 +82,6 @@ const AuroraHero = () => {
 
         {/* Right: a browser mock-up the snake line weaves behind. */}
         <motion.div
-          data-snake-anchor
-          data-snake-side="right"
           className="relative mx-auto w-full max-w-lg lg:mx-0"
           initial={{ opacity: 0, y: reduce ? 0 : 40 }}
           animate={{ opacity: 1, y: 0 }}

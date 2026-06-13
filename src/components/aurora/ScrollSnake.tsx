@@ -27,10 +27,10 @@ function smooth(pts: Pt[]): string {
 }
 
 /**
- * One continuous neon line that runs the full height of the homepage and is
+ * One continuous neon line that threads the how-it-works section and is
  * scrubbed by scroll. The path is generated from the live positions of any
- * element marked `data-snake-anchor`, so it always weaves behind those boxes
- * on every breakpoint. Gentle sine sways fill the gaps between anchors so the
+ * element marked `data-snake-anchor` (the mock-up + each step), so it weaves
+ * behind those boxes on every breakpoint. Gentle sine sways fill the gaps so the
  * line is never dead-straight. The drawn tip tracks the middle of the viewport
  * (eased via rAF) — it draws on scroll-down, retracts on scroll-up, stops when
  * you stop, and on load springs quickly from the top to the screen middle.
@@ -113,8 +113,9 @@ const ScrollSnake = () => {
         })
         .sort((a, b) => a.y - b.y);
 
-      // Top-centre → each anchor → bottom-centre, with sways between.
-      const key: Pt[] = [{ x: cx, y: 0 }, ...anchors, { x: cx, y: h }];
+      // The line lives only across the how-it-works anchors: from behind the
+      // mock-up, through each step, ending at the last one. Sways between.
+      const key: Pt[] = anchors;
       const pts: Pt[] = [];
       let dir = 1;
       for (let i = 0; i < key.length - 1; i++) {
@@ -184,14 +185,7 @@ const ScrollSnake = () => {
       }}
     >
       <defs>
-        <linearGradient
-          id="snake-grad"
-          x1="0"
-          y1="0"
-          x2="0"
-          y2={dim.h}
-          gradientUnits="userSpaceOnUse"
-        >
+        <linearGradient id="snake-grad" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="#1A6FD4" />
           <stop offset="100%" stopColor="#00CFFF" />
         </linearGradient>
