@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { motion, useReducedMotion } from "motion/react";
 import { Check, ArrowRight, ArrowUpRight, Plus } from "lucide-react";
 import AuroraNav from "@/components/aurora/AuroraNav";
@@ -104,6 +105,25 @@ const TierCard = ({ plan, featured }: { plan: ServicePlan; featured: boolean }) 
 
 const Services = () => {
   const reduce = useReducedMotion();
+  const location = useLocation();
+
+  // Honour a cross-page "scroll to <section>" request (e.g. the homepage
+  // "See how it works in detail" link → the How it works section here).
+  useEffect(() => {
+    const state = location.state as { scrollTo?: string } | null;
+    const id = state?.scrollTo;
+    if (!id) return;
+    let tries = 0;
+    const tick = () => {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+      else if (tries++ < 20) setTimeout(tick, 80);
+    };
+    const t = setTimeout(tick, 120);
+    window.history.replaceState({}, "");
+    return () => clearTimeout(t);
+  }, [location.state]);
+
   const reveal = (delay = 0) => ({
     initial: { opacity: 0, y: reduce ? 0 : 22 },
     whileInView: { opacity: 1, y: 0 },
@@ -203,7 +223,7 @@ const Services = () => {
       </section>
 
       {/* Process */}
-      <section className="border-t border-[#E8E4D9]/[0.06] px-5 py-24 md:px-12 md:py-32">
+      <section id="how-it-works" className="scroll-mt-24 border-t border-[#E8E4D9]/[0.06] px-5 py-24 md:px-12 md:py-32">
         <div className="mx-auto max-w-6xl">
           <motion.p {...reveal(0)} className="mb-3 font-satoshi text-xs font-medium uppercase tracking-[0.3em] text-[#00CFFF]">
             How it works

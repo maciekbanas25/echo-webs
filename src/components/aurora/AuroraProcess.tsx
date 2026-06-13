@@ -113,6 +113,7 @@ const AuroraProcess = () => {
       <motion.div {...reveal(0.05)} className="mx-auto mt-16 max-w-4xl">
         <Link
           to="/services"
+          state={{ scrollTo: "how-it-works" }}
           className="font-satoshi text-sm text-[#E8E4D9]/70 underline-offset-4 transition-colors hover:text-[#00CFFF]"
         >
           See how it works in detail →
