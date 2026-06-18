@@ -9,7 +9,7 @@
     
     <!-- 🔹 SEO -->
     <title>EchoWebs | Professional Web Design for Small Businesses</title>
-    <meta name="description" content="EchoWebs builds stunning, high-performance websites for small businesses — starting at £299. Cafés, barbers, gyms, restaurants & more. Free mock-up included. Ready in 7 days." />
+    <meta name="description" content="Professional web design for small businesses from £299. Fast, stunning websites for cafés, barbers, gyms & restaurants — free mock-up, ready in 7 days." />
     <meta name="keywords" content="web design UK, small business website, affordable web design, professional website, mobile website, EchoWebs" />
     <meta name="author" content="EchoWebs" />
 
@@ -18,7 +18,7 @@
 
     <!-- 🔹 Open Graph (for social sharing) -->
     <meta property="og:title" content="EchoWebs | Professional Web Design for Small Businesses" />
-    <meta property="og:description" content="Stunning, high-performance websites for small businesses starting at £299. Free mock-up included. Ready in 7 days." />
+    <meta property="og:description" content="Professional web design for small businesses from £299. Fast, stunning websites for cafés, barbers, gyms & restaurants — free mock-up, ready in 7 days." />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="EchoWebs" />
     <meta property="og:url" content="https://echowebs.co.uk/" />
@@ -30,12 +30,77 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@echowebs" />
     <meta name="twitter:title" content="EchoWebs | Professional Web Design for Small Businesses" />
-    <meta name="twitter:description" content="Stunning, high-performance websites for small businesses starting at £299. Free mock-up included. Ready in 7 days." />
+    <meta name="twitter:description" content="Professional web design for small businesses from £299. Fast, stunning websites for cafés, barbers, gyms & restaurants — free mock-up, ready in 7 days." />
     <meta name="twitter:image" content="https://echowebs.co.uk/opengraph-image.jpg" />
+
+    <!-- 🔹 Structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Echo Webs",
+      "description": "Professional web design for small businesses from £299. Fast, stunning websites for cafés, barbers, gyms and restaurants — free mock-up, ready in 7 days.",
+      "url": "https://echowebs.co.uk/",
+      "image": "https://echowebs.co.uk/opengraph-image.jpg",
+      "email": "echowebs25@gmail.com",
+      "areaServed": "GB",
+      "priceRange": "£299+",
+      "serviceType": "Web design and development"
+    }
+    </script>
+
+    <!-- 🔹 Critical CSS for the static SEO / no-JS shell (removed once React mounts) -->
+    <style>
+      .seo-shell{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:#080A0F;color:#E8E4D9;min-height:100vh;margin:0;padding:2rem 1.25rem;box-sizing:border-box;text-align:center}
+      .seo-shell a{color:#3D8BFA;text-decoration:none}
+      .seo-shell a:hover{color:#00CFFF}
+      .seo-nav{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:center;margin-bottom:3rem}
+      .seo-brand{font-weight:700;font-size:1.25rem;color:#E8E4D9}
+      .seo-links{display:flex;flex-wrap:wrap;gap:1.25rem;justify-content:center}
+      .seo-hero{max-width:720px;margin:0 auto}
+      .seo-hero h1{font-size:clamp(2rem,6vw,3.25rem);line-height:1.05;margin:0 0 1rem;background:linear-gradient(120deg,#1A6FD4,#00CFFF);-webkit-background-clip:text;background-clip:text;color:transparent}
+      .seo-hero p{font-size:1.1rem;line-height:1.6;opacity:.85;margin:0 auto 1.75rem;max-width:46ch}
+      .seo-cta{display:inline-block;padding:.85rem 1.75rem;border-radius:999px;background:linear-gradient(120deg,#1A6FD4,#00CFFF);color:#080A0F!important;font-weight:600}
+      .seo-hero img{display:block;width:100%;max-width:640px;height:auto;margin:2.5rem auto 0;border-radius:14px;border:1px solid rgba(61,139,250,.25)}
+      .seo-feat{max-width:720px;margin:4rem auto 0;text-align:left}
+      .seo-feat h2{font-size:clamp(1.25rem,3.5vw,1.6rem);margin:2rem 0 .5rem;color:#E8E4D9}
+      .seo-feat p{line-height:1.6;opacity:.85;margin:0}
+    </style>
   </head>
 
   <body>
-    <div id="root"></div>
+    <!--
+      Static SEO + no-JavaScript fallback. This real, crawlable content (one H1,
+      H2s, an image with alt text, and internal links) is what non-JS crawlers and
+      social scrapers see. The React app clears #root and takes over on load.
+    -->
+    <div id="root">
+      <main class="seo-shell">
+        <header class="seo-nav">
+          <a class="seo-brand" href="/">Echo Webs</a>
+          <nav class="seo-links" aria-label="Primary">
+            <a href="/services">Services &amp; Pricing</a>
+            <a href="/portfolio">Portfolio</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+          </nav>
+        </header>
+
+        <section class="seo-hero">
+          <h1>Professional Web Design for Small Businesses</h1>
+          <p>Stunning, high-performance websites from £299 — designed, built and live in 7 days, with a free mock-up before you pay a penny.</p>
+          <a class="seo-cta" href="/contact">Get your free mock-up</a>
+          <img src="/cafe.jpg" width="640" height="400" alt="Example small-business website designed and built by Echo Webs" />
+        </section>
+
+        <section class="seo-feat">
+          <h2>Websites for cafés, barbers, gyms, restaurants &amp; more</h2>
+          <p>Every Echo Webs site is mobile-first, fast-loading and built to turn visitors into customers. <a href="/portfolio">See our recent work</a>.</p>
+          <h2>Affordable web design with no surprises</h2>
+          <p>Clear pricing from £299, a free mock-up included and your site ready in 7 days. <a href="/services">View pricing and packages</a>.</p>
+        </section>
+      </main>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
