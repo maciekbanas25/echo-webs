@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { Menu, X } from "lucide-react";
@@ -112,15 +113,26 @@ const AuroraNav = () => {
         </button>
       </div>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-50 flex flex-col justify-center bg-[#080A0F]/95 px-8 backdrop-blur-2xl md:hidden"
-          >
+      {/* Portalled to <body> so the nav's backdrop-filter doesn't trap this
+          fixed overlay inside the (short) nav bar once the page is scrolled. */}
+      {createPortal(
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="fixed inset-0 z-50 flex flex-col justify-center bg-[#080A0F]/95 px-8 backdrop-blur-2xl md:hidden"
+            >
+            <button
+              type="button"
+              aria-label="Close menu"
+              onClick={() => setOpen(false)}
+              className="absolute right-5 top-4 flex h-11 w-11 items-center justify-center text-[#E8E4D9]"
+            >
+              <X className="h-6 w-6" />
+            </button>
             {[...links, { to: "/contact", label: "Contact" }].map((link, i) => (
               <motion.div
                 key={link.to}
@@ -148,8 +160,10 @@ const AuroraNav = () => {
               Get a quote
             </motion.button>
           </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </nav>
   );
 };
