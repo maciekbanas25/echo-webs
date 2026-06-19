@@ -47,9 +47,9 @@ export const projects: Project[] = [
   },
   {
     id: "car-detailer",
-    title: "Car Detailing — Prestige Auto",
-    description: "Dark, premium aesthetic that screams quality. Service packages with clear pricing, before/after sections, and a booking flow that gets calls coming in.",
-    image: "/car-detailing.jpg",
+    title: "Car Detailing — Car Detailer",
+    description: "An editorial, gallery-grade studio site built around one idea: the flawless finish. A spinning 3D hero, paint-correction storytelling, before/after reveals, and a booking flow that turns lookers into appointments.",
+    image: "/car-detailer-cover.jpg",
     link: "/car-detailer",
     category: "automotive",
     features: ["Service Packages", "Before/After Gallery", "Online Booking", "Contact CTA"],
