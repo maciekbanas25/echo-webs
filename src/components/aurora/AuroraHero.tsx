@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "motion/react";
 import AuroraShader from "./AuroraShader";
+import HeroSitePreview from "./HeroSitePreview";
 
 const line1 = ["Big-agency", "websites,"];
 const line2 = ["without", "the", "big-agency", "price."];
@@ -80,9 +81,9 @@ const AuroraHero = () => {
           </motion.div>
         </div>
 
-        {/* Right: a browser mock-up the snake line weaves behind. */}
+        {/* Right: a live, auto-scrolling demo site the snake line weaves behind. */}
         <motion.div
-          className="relative mx-auto w-full max-w-lg lg:mx-0"
+          className="relative mx-auto w-full max-w-xl lg:mx-0"
           initial={{ opacity: 0, y: reduce ? 0 : 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.5, ease: [0.19, 1, 0.22, 1] }}
@@ -90,21 +91,7 @@ const AuroraHero = () => {
           {/* Brand glow bed. */}
           <div className="pointer-events-none absolute -inset-8 -z-10 bg-[radial-gradient(60%_60%_at_55%_45%,rgba(0,207,255,0.22),transparent_70%)] blur-2xl" />
 
-          <div className="overflow-hidden rounded-2xl border border-[#E8E4D9]/12 bg-[#0C0F16] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.85)] lg:rotate-[-1.5deg] lg:transition-transform lg:duration-500 lg:hover:rotate-0">
-            <div className="flex items-center gap-2 border-b border-[#E8E4D9]/10 px-4 py-3">
-              <span className="h-3 w-3 rounded-full bg-[#E8E4D9]/20" />
-              <span className="h-3 w-3 rounded-full bg-[#E8E4D9]/20" />
-              <span className="h-3 w-3 rounded-full bg-[#E8E4D9]/20" />
-              <span className="ml-3 flex-1 rounded-md bg-[#080A0F]/70 px-3 py-1 font-satoshi text-xs text-[#E8E4D9]/40">
-                yourbusiness.co.uk
-              </span>
-            </div>
-            <img
-              src="/car-detailing.jpg"
-              alt="Example of a custom small-business website we built"
-              className="aspect-[16/11] w-full object-cover"
-            />
-          </div>
+          <HeroSitePreview />
         </motion.div>
       </div>
 
