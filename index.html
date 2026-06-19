@@ -49,9 +49,11 @@
     }
     </script>
 
-    <!-- 🔹 Critical CSS for the static SEO / no-JS shell (removed once React mounts) -->
+    <!-- 🔹 Static SEO / no-JS shell. Visually hidden (but present in the raw HTML
+         for non-JS crawlers/scrapers) so it never paints a flash before React
+         mounts and replaces #root. -->
     <style>
-      .seo-shell{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:#080A0F;color:#E8E4D9;min-height:100vh;margin:0;padding:2rem 1.25rem;box-sizing:border-box;text-align:center}
+      .seo-shell{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
       .seo-shell a{color:#3D8BFA;text-decoration:none}
       .seo-shell a:hover{color:#00CFFF}
       .seo-nav{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:center;margin-bottom:3rem}
