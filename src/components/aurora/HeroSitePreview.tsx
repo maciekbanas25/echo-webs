@@ -13,6 +13,17 @@ const HeroSitePreview = () => {
   const frameRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
   const [scroll, setScroll] = useState(0);
+  // The auto-scroll animation of a tall full-page image is janky on phones, so
+  // on mobile we hold a static top-of-page (hero) view instead.
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   useEffect(() => {
     const measure = () => {
@@ -52,9 +63,9 @@ const HeroSitePreview = () => {
           alt="A live website we built, scrolling through the page"
           draggable={false}
           className="absolute left-0 top-0 w-full select-none"
-          animate={reduce || !scroll ? { y: 0 } : { y: [0, -scroll, -scroll, 0, 0] }}
+          animate={reduce || isMobile || !scroll ? { y: 0 } : { y: [0, -scroll, -scroll, 0, 0] }}
           transition={
-            reduce
+            reduce || isMobile
               ? { duration: 0 }
               : {
                   duration: 24,
