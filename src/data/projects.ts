@@ -31,7 +31,7 @@ export const projects: Project[] = [
     id: "gym",
     title: "Gym — FitCore",
     description: "High-energy design built to motivate and convert. Membership tiers, class schedules, and a CTA that makes people want to sign up on the spot.",
-    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&q=80&auto=format&fit=crop",
+    image: "/gym-cover.jpg",
     link: "/gym",
     category: "fitness",
     features: ["Class Schedule", "Membership Tiers", "Trainer Profiles", "Contact Forms"],
