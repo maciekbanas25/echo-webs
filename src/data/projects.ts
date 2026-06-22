@@ -39,7 +39,7 @@ export const projects: Project[] = [
   {
     id: "photographer",
     title: "Photographer — Sarah Chen",
-    description: "Clean, editorial aesthetic that lets the work speak. Real gallery, service packages, and testimonials — a site that books clients on autopilot.",
+    description: "Clean, editorial aesthetic that lets the work speak. A full gallery, service packages, and testimonials — a site that books clients on autopilot.",
     image: "/photographer-cover.jpg",
     link: "/photographer",
     category: "creative",

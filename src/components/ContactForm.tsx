@@ -291,6 +291,18 @@ const ContactForm = ({
                 <Send className="w-5 h-5 mr-2" />
                 {isSubmitting ? "Sending..." : "Send Message"}
               </Button>
+
+              <p className="text-xs text-muted-foreground text-center">
+                By submitting, you agree to our{" "}
+                <a href="/privacy" className="underline underline-offset-4 hover:text-[#00CFFF]">
+                  Privacy Policy
+                </a>{" "}
+                and{" "}
+                <a href="/terms" className="underline underline-offset-4 hover:text-[#00CFFF]">
+                  Terms
+                </a>
+                .
+              </p>
             </form>
           </CardContent>
         </>

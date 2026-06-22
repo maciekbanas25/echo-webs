@@ -47,6 +47,37 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
+    // Validate email format — the confirmation email is sent to this address,
+    // so reject anything that isn't a plausible address to avoid sending
+    // EchoWebs-branded mail to garbage/spoofed recipients.
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (typeof email !== "string" || email.length > 150 || !emailRe.test(email)) {
+      return new Response(
+        JSON.stringify({ error: "Please enter a valid email address" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    // Bound field lengths (defence-in-depth alongside the DB CHECK constraints)
+    // so oversized payloads can't pollute the database.
+    if (
+      name.length > 100 ||
+      (business && business.length > 150) ||
+      serviceType.length > 60 ||
+      projectDetails.length > 5000
+    ) {
+      return new Response(
+        JSON.stringify({ error: "One or more fields exceed the allowed length" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
     // Create Supabase client
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;

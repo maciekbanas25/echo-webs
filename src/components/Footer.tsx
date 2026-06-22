@@ -51,6 +51,9 @@ const Footer = () => {
               <Mail className="h-4 w-4" />
               contact@echowebs.co.uk
             </a>
+            <p className="mt-4 max-w-md font-satoshi text-xs leading-relaxed text-[#E8E4D9]/55">
+              EchoWebs · [ADD POSTAL/CORRESPONDENCE ADDRESS] · United Kingdom
+            </p>
           </div>
 
           <div>
@@ -81,12 +84,15 @@ const Footer = () => {
         </div>
 
         <div className="mt-12 flex flex-col items-start justify-between gap-3 border-t border-[#E8E4D9]/[0.06] pt-8 sm:flex-row sm:items-center">
-          <p className="font-satoshi text-xs text-[#E8E4D9]/35">
+          <p className="font-satoshi text-xs text-[#E8E4D9]/55">
             © {new Date().getFullYear()} EchoWebs. All rights reserved.
           </p>
           <div className="flex gap-6">
             <Link to="/privacy" className={linkCls}>
               Privacy Policy
+            </Link>
+            <Link to="/terms" className={linkCls}>
+              Terms
             </Link>
           </div>
         </div>

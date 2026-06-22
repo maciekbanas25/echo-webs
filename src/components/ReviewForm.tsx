@@ -66,7 +66,7 @@ const ReviewForm = ({ onReviewSubmitted }: { onReviewSubmitted: () => void }) =>
 
       toast({
         title: "Review submitted!",
-        description: "Thank you for your feedback!",
+        description: "Thank you! Your review will appear once it's been approved.",
       });
 
       setRating(0);
@@ -113,8 +113,12 @@ const ReviewForm = ({ onReviewSubmitted }: { onReviewSubmitted: () => void }) =>
       </div>
 
       <div>
+        <label htmlFor="review-name" className="block text-sm font-medium mb-2">
+          Your name (optional)
+        </label>
         <Input
-          placeholder="Your Name (optional)"
+          id="review-name"
+          placeholder="Your name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           maxLength={100}
@@ -122,8 +126,12 @@ const ReviewForm = ({ onReviewSubmitted }: { onReviewSubmitted: () => void }) =>
       </div>
 
       <div>
+        <label htmlFor="review-company" className="block text-sm font-medium mb-2">
+          Your company (optional)
+        </label>
         <Input
-          placeholder="Your Company (optional)"
+          id="review-company"
+          placeholder="Your company"
           value={company}
           onChange={(e) => setCompany(e.target.value)}
           maxLength={100}
@@ -131,8 +139,12 @@ const ReviewForm = ({ onReviewSubmitted }: { onReviewSubmitted: () => void }) =>
       </div>
 
       <div>
+        <label htmlFor="review-text" className="block text-sm font-medium mb-2">
+          Your review (optional)
+        </label>
         <Textarea
-          placeholder="Your Review (optional)"
+          id="review-text"
+          placeholder="Tell us about your experience"
           value={text}
           onChange={(e) => setText(e.target.value)}
           rows={4}

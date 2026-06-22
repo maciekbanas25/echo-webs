@@ -24,6 +24,32 @@ const sections = [
     ),
   },
   {
+    h: "Our lawful basis",
+    body: (
+      <>
+        <p>Under UK GDPR, we rely on the following lawful bases:</p>
+        <ul className="mt-3 space-y-1.5 list-disc pl-5">
+          <li><strong className="text-[#E8E4D9]">Taking steps at your request prior to a contract</strong> — to respond to your enquiry and prepare a quote.</li>
+          <li><strong className="text-[#E8E4D9]">Legitimate interests</strong> — to keep basic records, and to capture your IP address for spam prevention and rate limiting.</li>
+          <li><strong className="text-[#E8E4D9]">Consent</strong> — where you voluntarily submit a public review, and for any optional marketing (which we only send if you ask).</li>
+        </ul>
+      </>
+    ),
+  },
+  {
+    h: "Reviews & testimonials",
+    body: (
+      <p>
+        If you submit a review, we collect your rating, your review text, and
+        optionally your name and company — which, once approved by us, are
+        published publicly on this website. We also store your IP address and a
+        session identifier to prevent spam and to let you delete your own review.
+        Reviews are processed on the basis of your consent; you can remove your
+        review at any time, or email us to have it deleted.
+      </p>
+    ),
+  },
+  {
     h: "Where it's stored & who processes it",
     body: (
       <>
@@ -40,8 +66,10 @@ const sections = [
     h: "Data retention",
     body: (
       <p>
-        We keep enquiry information only as long as needed to handle your request
-        and for our reasonable business records. You can ask us to delete it at
+        We keep enquiry information for up to 24 months after our last contact
+        with you, unless we need it longer for a live project or to meet legal/
+        accounting obligations — after which it is deleted. Published reviews are
+        kept until you or we remove them. You can ask us to delete your data at
         any time.
       </p>
     ),
@@ -49,24 +77,38 @@ const sections = [
   {
     h: "Your rights",
     body: (
-      <p>
-        Under UK GDPR you have the right to access, correct, or request deletion
-        of your personal data, and to object to its processing. To exercise any of
-        these rights, email us at{" "}
-        <a href="mailto:contact@echowebs.co.uk" className="text-[#00CFFF] underline-offset-4 hover:underline">
-          contact@echowebs.co.uk
-        </a>
-        .
-      </p>
+      <>
+        <p>
+          Under UK GDPR you have the right to access, correct, or request deletion
+          of your personal data, to object to or restrict its processing, and to
+          data portability. To exercise any of these rights, email us at{" "}
+          <a href="mailto:contact@echowebs.co.uk" className="text-[#00CFFF] underline-offset-4 hover:underline">
+            contact@echowebs.co.uk
+          </a>
+          .
+        </p>
+        <p className="mt-3">
+          If you're unhappy with how we've handled your data, you have the right
+          to complain to the UK's supervisory authority, the Information
+          Commissioner's Office (ICO), at{" "}
+          <a href="https://ico.org.uk/make-a-complaint/" target="_blank" rel="noopener noreferrer" className="text-[#00CFFF] underline-offset-4 hover:underline">
+            ico.org.uk
+          </a>
+          .
+        </p>
+      </>
     ),
   },
   {
     h: "Cookies & analytics",
     body: (
       <p>
-        We use privacy-friendly, aggregated analytics to understand how visitors
-        use the site (such as page views). This data is anonymised and is not used
-        to identify you personally.
+        We use privacy-friendly, aggregated analytics (Vercel Analytics) to
+        understand how visitors use the site, such as page views. It is
+        <strong className="text-[#E8E4D9]"> cookieless</strong> and does not store
+        cookies on your device or identify you personally, so no cookie-consent
+        banner is required. If we ever introduce cookies that need consent, we
+        will ask you first.
       </p>
     ),
   },
@@ -96,7 +138,7 @@ const Privacy = () => (
         <h1 className="font-clash text-4xl font-semibold tracking-tight text-[#E8E4D9] md:text-6xl">
           Privacy Policy
         </h1>
-        <p className="mt-4 font-satoshi text-sm text-[#E8E4D9]/45">
+        <p className="mt-4 font-satoshi text-sm text-[#E8E4D9]/55">
           Last updated: June 2026
         </p>
 
@@ -106,6 +148,16 @@ const Privacy = () => (
             <strong className="text-[#E8E4D9]">EchoWebs</strong> ("we", "us")
             collects, uses, and protects your personal information when you use this
             website and our quote/contact forms.
+          </p>
+          <p>
+            <strong className="text-[#E8E4D9]">Data controller:</strong> EchoWebs,
+            a business based in the United Kingdom. Postal address:{" "}
+            <strong className="text-[#E8E4D9]">[ADD POSTAL/CORRESPONDENCE ADDRESS]</strong>.
+            For any data-protection query, contact us at{" "}
+            <a href="mailto:contact@echowebs.co.uk" className="text-[#00CFFF] underline-offset-4 hover:underline">
+              contact@echowebs.co.uk
+            </a>
+            .
           </p>
 
           {sections.map((s) => (

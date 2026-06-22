@@ -40,8 +40,9 @@ const PortfolioPage = () => {
             Live demos, built to convert.
           </motion.h1>
           <motion.p {...reveal(0.1)} className="mx-auto mt-6 max-w-xl font-satoshi text-lg text-[#E8E4D9]/60">
-            Real, clickable sites across eight industries — each one designed for
-            speed, beauty, and turning visitors into customers.
+            Clickable concept demos across eight industries, built for example
+            businesses — each one designed for speed, beauty, and turning visitors
+            into customers.
           </motion.p>
         </div>
       </section>

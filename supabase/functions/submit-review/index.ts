@@ -122,7 +122,9 @@ serve(async (req) => {
 
     console.log('Rate limit check passed, inserting review');
 
-    // Insert review with approved status (direct posting)
+    // Insert review as PENDING — new reviews require admin approval in the
+    // Admin moderation UI before they appear publicly. This stops the
+    // testimonial wall from being spammed/defaced via the public endpoint.
     const { data: insertData, error: insertError } = await supabaseClient
       .from('reviews')
       .insert({
@@ -131,7 +133,7 @@ serve(async (req) => {
         reviewer_name: sanitizedName,
         company: sanitizedCompany,
         reviewer_ip: clientIp,
-        status: 'approved',
+        status: 'pending',
         session_id: sessionId
       })
       .select()
@@ -148,7 +150,7 @@ serve(async (req) => {
     return new Response(
       JSON.stringify({ 
         success: true,
-        message: 'Review submitted successfully!',
+        message: 'Thanks! Your review has been submitted and will appear once approved.',
         reviewId: insertData?.id,
         sessionId: sessionId // Return session ID to client for deletion capability
       }),
