@@ -56,12 +56,12 @@ export const projects: Project[] = [
   },
   {
     id: "tradesman",
-    title: "Landscaping — GreenMark",
-    description: "Clean, trustworthy design for trade businesses. Service breakdowns, social proof, and a quote form that turns local searches into paying customers.",
-    image: "https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1200&q=80&auto=format&fit=crop",
+    title: "Landscaping — Maple & Moss",
+    description: "Quiet-luxury estate design with a cinematic drone-footage hero, a live quote builder that prices the job as you tap, and a real project gallery. Built to turn local searches into booked site visits.",
+    image: "/tradesman-cover.jpg",
     link: "/tradesman",
     category: "trades",
-    features: ["Service List", "Quote Form", "Project Gallery", "Seasonal Care Plans"],
+    features: ["Drone-Video Hero", "Live Quote Builder", "Project Gallery", "Seasonal Care Plans"],
   },
   {
     id: "restaurant",
