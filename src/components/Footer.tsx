@@ -52,7 +52,7 @@ const Footer = () => {
               contact@echowebs.co.uk
             </a>
             <p className="mt-4 max-w-md font-satoshi text-xs leading-relaxed text-[#E8E4D9]/55">
-              EchoWebs · [ADD POSTAL/CORRESPONDENCE ADDRESS] · United Kingdom
+              EchoWebs · United Kingdom · contact@echowebs.co.uk
             </p>
           </div>
 

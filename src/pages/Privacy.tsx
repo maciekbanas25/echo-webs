@@ -151,9 +151,8 @@ const Privacy = () => (
           </p>
           <p>
             <strong className="text-[#E8E4D9]">Data controller:</strong> EchoWebs,
-            a business based in the United Kingdom. Postal address:{" "}
-            <strong className="text-[#E8E4D9]">[ADD POSTAL/CORRESPONDENCE ADDRESS]</strong>.
-            For any data-protection query, contact us at{" "}
+            a business based in the United Kingdom. For any data-protection query,
+            or to request a postal correspondence address, contact us at{" "}
             <a href="mailto:contact@echowebs.co.uk" className="text-[#00CFFF] underline-offset-4 hover:underline">
               contact@echowebs.co.uk
             </a>
