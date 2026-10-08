@@ -26,7 +26,7 @@ export const servicePlans: ServicePlan[] = [
       "Single-page responsive website",
       "Mobile-first design",
       "Contact form integration",
-      "Basic SEO optimization",
+      "Basic SEO optimisation",
       "Social media links",
       "1 round of revisions",
       "Hosting setup guidance",
@@ -49,7 +49,7 @@ export const servicePlans: ServicePlan[] = [
       "Booking/contact forms",
       "3 rounds of revisions",
       "CMS for easy updates",
-      "Speed optimization",
+      "Speed optimisation",
     ],
   },
   {
@@ -77,7 +77,7 @@ export const servicePlans: ServicePlan[] = [
     icon: ShoppingCart,
     tier: "addon",
     features: [
-      "Product catalog setup",
+      "Product catalogue setup",
       "Shopping cart integration",
       "Secure payment gateway",
       "Order management",

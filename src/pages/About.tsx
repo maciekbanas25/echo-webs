@@ -15,7 +15,7 @@ const skills = [
   "Tailwind CSS",
   "Node.js",
   "PostgreSQL",
-  "SEO Optimization",
+  "SEO Optimisation",
   "UI/UX Design",
   "Responsive Design",
 ];

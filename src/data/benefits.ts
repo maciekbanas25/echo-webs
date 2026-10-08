@@ -20,7 +20,7 @@ export const benefits: Benefit[] = [
   {
     icon: Search,
     title: "SEO-Friendly",
-    description: "Built with search engines in mind. Optimized code, fast loading, and proper structure for better rankings.",
+    description: "Built with search engines in mind. Optimised code, fast loading, and proper structure for better rankings.",
   },
   {
     icon: Calendar,

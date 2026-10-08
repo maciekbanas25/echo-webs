@@ -22,7 +22,7 @@ const About = () => {
 
             <div className="flex-1 text-center md:text-left">
               <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-                At EchoWebs, I build high-performance websites for small businesses with sleek, modern design. Every site is fast, mobile-ready, and optimized for growth. Whether you're a café, salon, gym, or creative professional, I craft digital experiences that elevate your brand and drive results.
+                At EchoWebs, I build high-performance websites for small businesses with sleek, modern design. Every site is fast, mobile-ready, and optimised for growth. Whether you're a café, salon, gym, or creative professional, I craft digital experiences that elevate your brand and drive results.
               </p>
             </div>
           </div>
