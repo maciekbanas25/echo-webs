@@ -82,10 +82,10 @@ const ContactForm = ({
     setErrors({});
 
     try {
-      // Combine the chosen services into one readable string for storage/email.
-      const serviceType = selectedServices
-        .map((id) => SERVICES.find((s) => s.id === id)?.label ?? id)
-        .join(", ");
+      // Send the short service ids (the edge function + DB cap service_type at
+      // 60 chars; full labels overflow once 3+ services are picked). The edge
+      // function maps ids back to readable labels for the emails.
+      const serviceType = selectedServices.join(", ");
 
       // Validate form data
       const validated = contactSchema.parse({ ...formData, serviceType });
@@ -102,7 +102,17 @@ const ContactForm = ({
       });
 
       if (error) {
-        throw new Error(error.message || "Failed to submit quote request");
+        // Non-2xx responses carry the edge function's own message (rate limit,
+        // validation) on error.context — surface it instead of a generic toast.
+        let message = "";
+        try {
+          message = (await error.context?.json())?.error ?? "";
+        } catch {
+          /* body wasn't JSON */
+        }
+        const err = new Error(message || "Failed to submit quote request");
+        if (message) err.name = "ServerMessage";
+        throw err;
       }
 
       // Success - show confirmation
@@ -125,8 +135,11 @@ const ContactForm = ({
       } else {
         console.error("Submission error:", error);
         toast({
-          title: "Something went wrong",
-          description: "Please try again or email me directly.",
+          title: "Couldn't send your request",
+          description:
+            error instanceof Error && error.name === "ServerMessage"
+              ? error.message
+              : "Please try again or email contact@echowebs.co.uk directly.",
           variant: "destructive",
         });
       }

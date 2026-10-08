@@ -161,6 +161,11 @@ const handler = async (req: Request): Promise<Response> => {
       redesign: "Website Redesign",
       other: "Other / Not Sure",
     };
+    // serviceType arrives as comma-separated ids, e.g. "premium, booking".
+    const servicesLabel = serviceType
+      .split(",")
+      .map((id) => serviceTypeDisplay[id.trim()] || id.trim())
+      .join(", ");
 
     // Send notification email to you (the business owner) — best-effort only.
     // The lead is already saved above; a failed/unconfigured email must NOT
@@ -209,7 +214,7 @@ const handler = async (req: Request): Promise<Response> => {
                 </tr>
                 <tr style="border-bottom:1px solid #e5e7eb;">
                   <td style="padding:12px 0;color:#94a3b8;">Service</td>
-                  <td style="padding:12px 0;color:#0f172a;">${esc(serviceTypeDisplay[serviceType] || serviceType)}</td>
+                  <td style="padding:12px 0;color:#0f172a;">${esc(servicesLabel)}</td>
                 </tr>
               </table>
               <div style="margin-top:20px;padding:16px;background-color:#eff6ff;border-radius:8px;">
@@ -258,7 +263,7 @@ const handler = async (req: Request): Promise<Response> => {
               <p style="color:#334155;line-height:1.6;margin:0 0 14px 0;">I've received your request and I'll personally get back to you within 24 hours.</p>
               <p style="color:#64748b;font-size:14px;margin:0 0 20px 0;">Your reference number is <strong style="color:#3B82F6;">${ticketRef}</strong> &mdash; quote it if you need to follow up.</p>
               <div style="padding:16px;background-color:#eff6ff;border-radius:8px;">
-                <p style="color:#334155;line-height:1.6;margin:0;"><strong>What you asked about:</strong><br/>${esc(serviceTypeDisplay[serviceType] || serviceType)}</p>
+                <p style="color:#334155;line-height:1.6;margin:0;"><strong>What you asked about:</strong><br/>${esc(servicesLabel)}</p>
               </div>
               <p style="color:#94a3b8;font-size:12px;margin:28px 0 0 0;">
                 EchoWebs &middot; Professional web design for small businesses<br/>
