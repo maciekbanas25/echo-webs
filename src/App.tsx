@@ -9,24 +9,32 @@ import RouteMeta from "./components/RouteMeta";
 import ScrollProgress from "./components/ScrollProgress";
 import SmoothScroll from "./components/SmoothScroll";
 import { isEmbedded } from "./lib/embed";
-import Index from "./pages/Index";
-import Portfolio from "./pages/Portfolio";
-import Services from "./pages/Services";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import Cafe from "./pages/Cafe";
-import Barber from "./pages/Barber";
-import Gym from "./pages/Gym";
-import Photographer from "./pages/Photographer";
-import CarDetailer from "./pages/CarDetailer";
-import Tradesman from "./pages/Tradesman";
-import Restaurant from "./pages/Restaurant";
-import BeautySalon from "./pages/BeautySalon";
-import Auth from "./pages/Auth";
-import Admin from "./pages/Admin";
-import Privacy from "./pages/Privacy";
-import Terms from "./pages/Terms";
-import NotFound from "./pages/NotFound";
+import { lazy, Suspense } from "react";
+// Outreach previews load with the main bundle (no extra round trip): they're the
+// first page a cold lead sees, on a phone, so they must be fast.
+import Preview from "./pages/Preview";
+const Index = lazy(() => import("./pages/Index"));
+
+// Every route is code-split, so each page only loads
+// what it needs (outreach previews must stay fast on mobile).
+const Portfolio = lazy(() => import("./pages/Portfolio"));
+const Services = lazy(() => import("./pages/Services"));
+const About = lazy(() => import("./pages/About"));
+const Contact = lazy(() => import("./pages/Contact"));
+const Cafe = lazy(() => import("./pages/Cafe"));
+const Barber = lazy(() => import("./pages/Barber"));
+const Gym = lazy(() => import("./pages/Gym"));
+const Photographer = lazy(() => import("./pages/Photographer"));
+const CarDetailer = lazy(() => import("./pages/CarDetailer"));
+const Tradesman = lazy(() => import("./pages/Tradesman"));
+const Restaurant = lazy(() => import("./pages/Restaurant"));
+const BeautySalon = lazy(() => import("./pages/BeautySalon"));
+const Auth = lazy(() => import("./pages/Auth"));
+const Admin = lazy(() => import("./pages/Admin"));
+const Privacy = lazy(() => import("./pages/Privacy"));
+const Terms = lazy(() => import("./pages/Terms"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const Unsubscribe = lazy(() => import("./pages/Unsubscribe"));
 
 const queryClient = new QueryClient();
 
@@ -35,6 +43,7 @@ const AnimatedRoutes = () => {
   const location = useLocation();
   return (
     <div key={location.pathname} className="animate-page-in">
+      <Suspense fallback={<div className="min-h-screen" />}>
       <Routes location={location}>
         <Route path="/" element={<Index />} />
         <Route path="/portfolio" element={<Portfolio />} />
@@ -53,8 +62,11 @@ const AnimatedRoutes = () => {
         <Route path="/admin" element={<Admin />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />
+        <Route path="/preview/:slug" element={<Preview />} />
+        <Route path="/unsubscribe/:token" element={<Unsubscribe />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      </Suspense>
     </div>
   );
 };
